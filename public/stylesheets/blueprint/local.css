@@ -78,7 +78,7 @@ h2 {
 	text-align: center;
 	}
 
-ol#works li {margin: 1em 0 0 1em;}
+ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 
 /* -----------------------------
  * overridden classes
