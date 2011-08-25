@@ -292,6 +292,39 @@ namespace :solr do
     puts "Finished indexing!  Total indexing time: #{time}" 
   end
   
+  desc 'Refresh and Swap Solr index'
+  task :refresh_swap_index => :environment do
+    #Always refresh core 2
+    #{ENV['CORE_N']} = 2
+    puts "\nRe-indexing our standby core"
+    puts "\nRe-indexing all BibApp Works in Solr...\n\n"
+    puts "**** Depending on the number of works, \n"
+    puts "**** this may take a long time.\n\n"
+
+    start_time = Time.now
+    puts "Start time: #{start_time.localtime}"
+    
+    #Call index_all, which re-indexes *everything* in BibApp
+    Index.index_all
+    
+    puts "Swapping cores"
+    
+    begin
+      n = Net::HTTP.new('localhost', SOLR_PORT)
+      n.request_head("/solr/admin/cores?action=SWAP&core=#{ENV['RAILS_ENV']}-core1&other=#{ENV['RAILS_ENV']}-core2").value
+    end
+    
+    end_time = Time.now
+    puts "End time: #{end_time.localtime}"
+    
+    #Caculate total indexing time
+    total = end_time.to_i - start_time.to_i
+    time = "#{total.div(60).to_s} minutes" if total >=120
+    time = "#{total.div(60).to_s} minute, #{total.remainder(60).to_s} seconds" if total >= 60 and total < 120
+    time = "#{(total).to_s} seconds" if total < 60
+    
+    puts "Finished indexing!  Total indexing time: #{time}" 
+  end  
   desc 'Refresh Solr Spelling index'
   task :refresh_spelling_suggestions => :environment do
     puts "\nRefreshing BibApp spelling suggestions in Solr...\n"
