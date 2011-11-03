@@ -165,6 +165,13 @@ module ApplicationHelper
     end
   end
 
+  #Take xml builder and a block
+  #Generate boilerplate and yield to block
+  def googlepromotions_document_on(xml_builder)
+    xml_builder.instruct!
+      yield
+  end
+  
   def current_user_role?(role, object)
     logged_in? and current_user.has_role?(role, object)
   end
