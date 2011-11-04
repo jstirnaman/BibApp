@@ -5,12 +5,6 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
     queries = []
     queries << p.last_name
     
-    if p.groups.any?
-      groups = []
-      groups << p.groups.last(1).map{|g|g.name}.to_s.gsub(/\W/,' ')
-      queries = [queries, groups].join(", ")
-    end
-    
     if p.keywords.any?
       kwords = p.keywords
       keywords_to_hide = $KEYWORDS_TO_HIDE
@@ -23,7 +17,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
     end
     
     if p.full_name
-      title = p.full_name
+      title = p.full_name + " - Research and Collaborations - Meet Our Experts"
     end
     
     url = person_url(p.id)
