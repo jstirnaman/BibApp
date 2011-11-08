@@ -16,6 +16,17 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
       queries = [queries, kw].join(", ")
     end
     
+    if p.email?
+      top_level_domain = p.email.rindex(/[.]/)
+      top_level_domain ||= p.email.size
+      pid = p.email[0,top_level_domain]
+      pid = pid.gsub(/[@.]/,'_')
+    else
+      pid = p.machine_name.gsub(/[\s]/,'_')
+      pid = pid[0,30]
+    end    
+    pid = "Experts_" + pid.downcase
+    
     if p.full_name
       title = p.full_name + " - Research and Collaborations - Meet Our Experts"
     end
@@ -26,8 +37,16 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
       image_url = $APPLICATION_URL + p.image_url
     end
     
-    description = p.research_focus
+    if p.research_focus
+      if p.research_focus.size < 195 then description = p.research_focus
+      else
+        description = p.research_focus[0,195]
+        period_or_space = description.rindex(/[.\s]/)
+        description = description[0,period_or_space]
+        description = description + '...'
+      end
+    end
     
-    xml.Promotion({'queries'=>queries, 'title'=>title, 'url'=>url, 'image_url'=>image_url, 'description'=>description})
+    xml.Promotion({'id'=>pid, 'queries'=>queries, 'title'=>title, 'url'=>url, 'image_url'=>image_url, 'description'=>description})
   end
 end
