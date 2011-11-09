@@ -44,6 +44,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
         description = p.research_focus[0,195]
         period_or_space = description.rindex(/[.\s]/)
         description = description[0,period_or_space]
+        description = description+'...'
       end
       description = h(description)
     end
