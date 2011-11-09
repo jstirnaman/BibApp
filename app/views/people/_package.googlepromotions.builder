@@ -33,7 +33,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
     
     url = person_url(p.id)
     
-    unless p.image_url = "man.jpg"
+    unless p.image_url == "man.jpg"
       image_url = $APPLICATION_URL + p.image_url
     end
     
