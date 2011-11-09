@@ -21,6 +21,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
       top_level_domain ||= p.email.size
       pid = p.email[0,top_level_domain]
       pid = pid.gsub(/[@.]/,'_')
+      pid = pid.gsub(/-/,'')
     else
       pid = p.machine_name.gsub(/[\s]/,'_')
       pid = pid[0,30]
