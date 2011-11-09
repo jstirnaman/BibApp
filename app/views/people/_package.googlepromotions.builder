@@ -12,7 +12,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
         kwords.delete_if {|kw| kw.name.match(kh)}
       end
       kw = []
-      kw << kwords.first(3).map{|k|h(k.name.to_s.gsub(/\W/,' '))}
+      kw << kwords.first(3).map{|k|h(k.name.to_s.gsub(/\W/,' ').strip)}
       queries = [queries, kw].join(", ")
     end
     
@@ -39,7 +39,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
     end
     
     if p.research_focus
-      description = p.research_focus
+      description = p.research_focus.strip
       description = description.gsub(/\s{2,}/, ' ')
       description = description.gsub(/[\r\n]/,' ')      
       if description.size > 195
