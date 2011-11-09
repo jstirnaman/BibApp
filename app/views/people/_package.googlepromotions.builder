@@ -29,7 +29,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
     pid = "Experts_" + pid.downcase
     
     if p.full_name
-      title = p.full_name + " - Research and Collaborations - Meet Our Experts"
+      title = p.full_name + " - Meet Our Experts: Research and Collaborations"
     end
     
     url = person_url(p.id)
@@ -38,11 +38,11 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
       image_url = $APPLICATION_URL + p.image_url
     end
     
-    if p.research_focus
+    if p.research_focus && p.research_focus.length > 1
       description = p.research_focus.strip
-      description = description.gsub(/\s{2,}/, ' ')
+      description = description.squeeze(" ")
       description = description.gsub(/[\r\n]/,' ')      
-      if description.size > 195
+      if description.length > 195
         description = description[0,195]
         period_or_space = description.rindex(/[.\s]/)
         description = description[0,period_or_space]
