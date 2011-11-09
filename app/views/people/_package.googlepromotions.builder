@@ -46,9 +46,10 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
         description = description[0,period_or_space]
         description = description+'...'
       end
+      description = description.gsub(/[\r\n]/,' ')
       description = h(description)
     end
     
-    xml.Promotion({'id'=>pid, 'queries'=>queries, 'title'=>title, 'url'=>url, 'image_url'=>image_url, 'description'=>description})
+    xml.Promotion({'id'=>pid, 'queries'=>queries, 'title'=>title, 'url'=>url, 'image_url'=>image_url, 'description'=>description}.delete_if{ |k,v| v == '' || v.nil? })
   end
 end
