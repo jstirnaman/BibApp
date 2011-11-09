@@ -12,7 +12,7 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
         kwords.delete_if {|kw| kw.name.match(kh)}
       end
       kw = []
-      kw << kwords.first(3).map{|k|k.name.to_s.gsub(/\W/,' ')}
+      kw << kwords.first(3).map{|k|h(k.name.to_s.gsub(/\W/,' '))}
       queries = [queries, kw].join(", ")
     end
     
@@ -43,8 +43,8 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
         description = p.research_focus[0,195]
         period_or_space = description.rindex(/[.\s]/)
         description = description[0,period_or_space]
-        description = description + '...'
       end
+      description = h(description)
     end
     
     xml.Promotion({'id'=>pid, 'queries'=>queries, 'title'=>title, 'url'=>url, 'image_url'=>image_url, 'description'=>description})
