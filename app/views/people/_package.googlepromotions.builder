@@ -39,14 +39,15 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
     end
     
     if p.research_focus
-      if p.research_focus.size < 195 then description = p.research_focus
-      else
-        description = p.research_focus[0,195]
+      description = p.research_focus
+      description = description.gsub(/\s{2,}/, ' ')
+      description = description.gsub(/[\r\n]/,' ')      
+      if description.size > 195
+        description = description[0,195]
         period_or_space = description.rindex(/[.\s]/)
         description = description[0,period_or_space]
         description = description+'...'
       end
-      description = description.gsub(/[\r\n]/,' ')
       description = h(description)
     end
     
