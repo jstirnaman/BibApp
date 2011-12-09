@@ -1,7 +1,7 @@
 en:
   personalize:
     application_name: "Meet Our Experts"
-    application_tagline: "Highlighting the research of KUMC faculty"
+    application_tagline: ""Highlighting the research of KUMC faculty""
     library_name: "A.R. Dykes Library"
     repository_name: "Archie - KUMC Digital Publications"
     search_examples:
@@ -30,8 +30,6 @@ en:
       unknown:
         name: "Unknown"
         explanation: "Could not determine from data"
-      sysadmin_name: "Dykes Library"
-      sysadmin_email: "dspace@kumc.edu"
     university_full_address: "3901 Rainbow Blvd Kansas City, KS 66160 | Phone: 913.588.716"
     university_full_name: "University of Kansas Medical Center"
     university_short_name: "KUMC"
