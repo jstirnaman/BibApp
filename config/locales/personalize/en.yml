@@ -1,0 +1,46 @@
+en:
+  personalize:
+    application_name: "Meet Our Experts"
+    application_tagline: ""Highlighting the research of KUMC faculty""
+    library_name: "A.R. Dykes Library"
+    repository_name: "Archie - KUMC Digital Publications"
+    search_examples:
+      keywords: "ex. diabetes"
+      title: "ex. hepatic lipids"
+      authors: "ex. Smirnova, Irina"
+      groups: "ex. Cancer Center"
+      issn_isbn: "0098-7484"
+      year: "ex. 2006  to  2008"
+    sherpa_colors:
+      green:
+        name: "Green"
+        explanation: "Can archive pre-print and post-print"
+      blue:
+        name: "Blue"
+        explanation: "Can archive post-print (i.e. final draft post-refereeing)"
+      gray:
+        name: "Gray"
+        explanation: "Publisher in DOAJ but not yet analyzed by RoMEO"
+      yellow:
+        name: "Yellow"
+        explanation: "Can archive pre-print (i.e. pre-refereeing)"
+      white:
+        name: "White"
+        explanation: "Archiving not formally supported"
+      unknown:
+        name: "Unknown"
+        explanation: "Could not determine from data"
+    university_full_address: "3901 Rainbow Blvd Kansas City, KS 66160 | Phone: 913.588.716"
+    university_full_name: "University of Kansas Medical Center"
+    university_short_name: "KUMC"
+    #for work_archive_status 1 = not ready, rights unknown, 2 = ready for archiving, 3 = repository record created, url known
+    work_archive_status:
+      1: "Not Ready, rights unknown"
+      2: "Ready for archiving"
+      3: "Repository record created, URL known"
+    work_link_text: "Find It @KUMC"
+    #for work_status 1 = processing, 2 = duplicate, 3 = accepted
+    work_status:
+      1: Processing
+      2: Duplicate
+      3: Accepted
