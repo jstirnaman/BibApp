@@ -11,3 +11,5 @@ SOLR_URL = "http://localhost:#{SOLR_PORT}/solr/#{[Rails.env]}-core#{SOLR_CORE}"
 
 # Solr Connection (used by /app/models/index.rb)
 SOLRCONN = Solr::Connection.new(SOLR_URL)
+
+SOLR_JAVA_OPTS = "-Xms1024M -Xmx1024M"
