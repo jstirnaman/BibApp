@@ -9,5 +9,5 @@
       %br/
     - if Bibapp::Application.config.oauth_config
       - Bibapp::Application.config.oauth_config.keys.each do |k|
-        = button_to t('.button_oauth', :name => k), "auth/#{k}"
+        = button_to t('.button_oauth', :name => k.capitalize), "auth/#{k}"
         %br/
