@@ -213,9 +213,9 @@ Bibapp::Application.routes.draw do
     resource :user_session
 
     resources :authentications
-    match 'auth/:provider/callback' => 'authentications#create'
+    match '/auth/:provider/callback' => 'authentications#create'
     match 'auth/failure' => 'user_sessions#new'
-    match 'admin/index' => "admin#index"
+    match '/admin/index' => "admin#index"
     match 'admin/duplicates' => "admin#duplicates"
     match 'admin/ready_to_archive' => "admin#ready_to_archive"
     match 'admin/update_sherpa_data' => "admin#update_sherpa_data"
@@ -227,13 +227,6 @@ Bibapp::Application.routes.draw do
     match 'roles/create' => "roles#create"
     match 'roles/new_admin' => "roles#new_admin"
     match 'roles/new_editor' => "roles#new_editor"
-  
-    #####
-  # Static Pages routes KUMC
-  #####
-  # Add Routes for FAQ, About, etc.
-    match 'pages/about'
-    match 'pages/faq'
   end
 
   if I18n.available_locales.many?
