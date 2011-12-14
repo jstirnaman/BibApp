@@ -18,7 +18,15 @@ Bibapp::Application.config.oauth_config =
 Rails.application.config.middleware.use OmniAuth::Builder do
   if Bibapp::Application.config.oauth_config
     Bibapp::Application.config.oauth_config.each do |k, v|
-      provider k, v['key'], v['secret']
+      if v['key']
+        provider k, v['key'], v['secret']
+      end
+      if k['cas']
+        STDERR.puts k          
+          @params = {:cas_server => v['cas_server']}        
+          STDERR.puts @params.to_s
+          provider k, @params
+      end
     end
   end
 end
