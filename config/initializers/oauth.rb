@@ -23,9 +23,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       end
       if k['cas']
         STDERR.puts k          
-          @params = {:cas_server => v['cas_server']}        
+          @params = {:cas_server => v['cas_server'], :cas_service_validate_url => v['cas_service_validate_url'], :cas_disable_ssl_verification => v['cas_disable_ssl_verification'], :cas_extra_attributes => v['cas_extra_attributes']}        
           STDERR.puts @params.to_s
           provider k, @params
+      end
+      if k['saml']
+        STDERR.puts k          
+          @params = {:assertion_consumer_service_url => v['assertion_consumer_service_url'], :issuer => v['issuer'], :idp_sso_target_url => v['idp_sso_target_url'], :name_identifier_format => v['name_identifier_format']}        
+          STDERR.puts @params.to_s
+          provider 'SAML', @params
       end
     end
   end
