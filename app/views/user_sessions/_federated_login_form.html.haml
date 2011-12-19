@@ -5,9 +5,9 @@
       - Bibapp::Application.config.open_id_presets.each do |preset|
         = button_to t('.button_open_id', :name => preset['name'].titleize), "auth/open_id?openid_url=#{CGI.escape(preset['id'])}"
         %br/
-      = button_to t('.button_open_id', :name => t('.generic')), 'auth/open_id'
+      = button_to t('.button_open_id', :name => t('.generic')), '/auth/open_id'
       %br/
     - if Bibapp::Application.config.oauth_config
       - Bibapp::Application.config.oauth_config.keys.each do |k|
-        = button_to t('.button_oauth', :name => k.capitalize), "auth/#{k}"
+        = button_to t('.button_oauth', :name => k.capitalize), "/auth/#{k}"
         %br/
