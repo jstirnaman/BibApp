@@ -3,11 +3,22 @@ class AuthenticationsController < ApplicationController
     omniauth = request.env['omniauth.auth']
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
 
+      # KUMC.JTS Hack to lookup and add user's email to omniauth variable to satisfy User model since I can't
+      # get the user attributes from CAS/SAML. I'm not happy with
+      # this nor how tightly the User model is woven with the email address from the oauth response.
+    if omniauth['provider'] == 'cas'
+      casuser = User.find_by_sql ["SELECT email FROM users WHERE email LIKE ? LIMIT 1", omniauth['uid']+"@kumc.edu"]
+      unless casuser.nil?
+        omniauth['user_info'] = { 'email' => casuser[0]['email'] }
+      end   
+    end
+    
     if authentication
       # User is already registered with application
       flash[:info] = t('common.authentications.flash_sign_in')
       sign_in_and_redirect(authentication.user)
     elsif user = current_user || User.find_by_email(omniauth['user_info']['email'])
+      
       # User is signed in but has not already authenticated with this social network
       # OR
       #user already has a local account - connect it properly to an authentication
