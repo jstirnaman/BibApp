@@ -213,9 +213,9 @@ Bibapp::Application.routes.draw do
     resource :user_session
 
     resources :authentications
-    match '/auth/:provider/callback' => 'authentications#create'
+    match 'auth/:provider/callback' => 'authentications#create'
     match 'auth/failure' => 'user_sessions#new'
-    match '/admin/index' => "admin#index"
+    match 'admin/index' => "admin#index"
     match 'admin/duplicates' => "admin#duplicates"
     match 'admin/ready_to_archive' => "admin#ready_to_archive"
     match 'admin/update_sherpa_data' => "admin#update_sherpa_data"
