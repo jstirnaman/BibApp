@@ -235,7 +235,7 @@ class Person < ActiveRecord::Base
   end
 
   def require_reindex?
-    self.first_name_changed? or self.last_name_changed? or self.machine_name_changed? or self.active_changed? or self.research_focus_changed?
+    self.first_name_changed? or self.last_name_changed? or self.machine_name_changed? or self.active_changed? or self.research_focus_changed? or self.image_url_changed?
   end
 
   def publication_reftypes
