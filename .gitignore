@@ -11,6 +11,7 @@ public.old/
 .svn
 log/
 vendor/bibapp-solr/data
+vendor/bibapp-solr/cores-data
 vendor/solr/logs
 doc/
 coverage/
@@ -18,8 +19,12 @@ coverage/
 public/attachments/
 public/groups/
 public/people/
+<<<<<<< HEAD
 public/tolk/
 *~
 config/solr.yml
 config/smtp.yml
 config/database.yml
+=======
+*~
+>>>>>>> b508195... Added configuration and directories for Solr multicore. This lets us easily swap from the current index to a refreshed on-deck index. Use environment variable CORE_N in the rake task to specify a core, e.g. rake solr:refresh_index RAILS_ENV=development CORE_N=2. See changes in solr.rb. Instance names are set in solr.xml
