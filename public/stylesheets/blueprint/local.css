@@ -1,23 +1,31 @@
-@import "http://www.kumc.edu/css/template2009/kupresentation.css";
+@import "bibapp.css";
+/*
+ * Choose two colors for your institution:
+ * 1. A border color: #CC9933 (UW-Madison Gold)
+ * 2. A heading color: #990000 (UW-Madison Red)
+ * Add your colors below where necessary.
+*/
 
-/* -----------------------------
- * overridden elements
- ------------------------------- */
-body {margin: 0;}
-div.screen-format {
-	padding: inherit;
+.container {
+ border-left:1px dotted #000;
+ border-right:1px dotted #000;
 }
 
+#header {
+ color: #990000; /* Red */
+ border-bottom: 3px double #990000; /* Gold */
+ background-image:url('../../images/header.png');
+}
 
+<<<<<<< HEAD
+#header a{color:#990000;} /* Red */
+#filter {color:#CC9933;} /* Gold */
+=======
 h2 { 
   margin-top: 10px;
   border: none;
 }
 
-ol li {
-	list-style-type: none;
-	margin: 0;
-}
 /* -----------------------------
  * overridden ids
  ------------------------------- */
@@ -38,6 +46,11 @@ ol li {
 
 #local-pages {margin:0 1.5em 1.5em}
 
+#local-nav, #admin-nav {
+	margin: 0;
+	padding: 0;
+}
+
 #navigation #current a {
   padding-bottom: 0.5em;
   font-weight: bold;
@@ -49,6 +62,9 @@ ol li {
 }
 
 #results ol.facet_filters li {
+	line-height:1.5em;
+	margin: 0.5em 0;
+	padding: 0;
 	list-style-type: none;	
 }
 
@@ -62,51 +78,21 @@ ol li {
 	text-align: center;
 	}
 
-ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
-
-div#content div#facets ol, div#content div#facets ol li {
-    list-style-type: none;
-  }
-
-ol#publications {
-list-style: none;
-line-height: 1.75em;
-}
-
-
+#works li {margin: 1em 0 0 1em;}
 /* -----------------------------
  * overridden classes
  ------------------------------- */
+>>>>>>> 620e121... Remove margin and padding from local-nav and admin-nav
 
-.container {background-color: transparent;}
-
-.even {background-color: #f8f8f8;}
-
-.links {font-size: 100%;
-  margin-top: 0px;
+#footer {
+	color:#A2A2A2;
+	border-top: 1px solid #990000;
+	border-bottom: 3px solid #000; /* Gold */
+	background-image:url('../../images/header.png');
 }
 
-.pagination a {
-  padding: 2px 5px 2px 5px;
-  margin: 2px;
-  border: none;
-  text-decoration: underline;
-  color: #000099;
-}
-
-.pagination a.none {
-	color: #000000;
-	text-decoration: none;
-}
-
-/* Override KU Presentation */
-#content div.right {
-  float: right;
-  text-align: left;
-}
-
-#content div.right ul, #content div.right ul li {
-	list-style-type: none;
+#footer a {
+	color:#990000;
 }
 
 /* Style for displaying Deposit License Agreement, etc. in nice scrollable div */
@@ -114,55 +100,4 @@ line-height: 1.75em;
     width: 550px;
     height: 250px;
     overflow: scroll;
-}
-
-p.metadata {font-size: 0.9em;}
-
-.person-image-metadata {visibility:hidden;}
-
-.person-last-name {line-height:1.5em;}
-
-/** Replicate the KU rightnavheading **/
-div.span-6 h3.heading, div.span-7 h3.heading, div.box_heading {
-	color: #A5AAAB;
-    background: url("https://www.kumc.edu/Images/template2009/widgets/rightnavheaderbg.gif") no-repeat scroll left top transparent;
-    border-bottom: 1px dotted #CCCCCC;
-    height: 28px;
-    padding: 7px 0 0 11px;
-	font-weight: bold;
-}
-
-div.span-6 h3.heading a, div.span-7 h3.heading a {color: #A5AAAB; font-weight: bold;}
-div.box_heading {background-color: #ffffff;}
-div.left_box {
-	background-color: #f8f8f8;
-    background-image: none;
-    border-color: #0022B4 !important;
-    float: left;
-}
-div.left_box div.box_heading {
-	background-color: #0022B4;
-    background-image: url("https://www.kumc.edu/Images/template2009/widgets/topboxoverlay.png");
-    background-repeat: repeat-x;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 8px 0;
-    text-align: center;
-    width: 100%;
-	}
-
-
-/* -----------------------------
- * KUMC-custom styles go here
- * kumc_...
- ------------------------------- */
-.kumc_hidden {visibility:hidden;}
-.kumc_nodisplay {display:none;}
-#azbox {
-	height: 35px;
-}
-#azbox ul, #azbox ul li {
-	margin: 0px;
-	padding-bottom: 0px;
 }
