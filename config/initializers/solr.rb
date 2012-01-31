@@ -37,17 +37,8 @@ SOLR_PORT = "8983" unless defined? SOLR_PORT
 SOLR_STOP_PORT = SOLR_SETTINGS['stop_port'] if SOLR_SETTINGS and SOLR_SETTINGS['stop_port']
 SOLR_STOP_PORT = "8097" unless defined? SOLR_STOP_PORT
 
-# Solr core to use. Default to core1
-SOLR_CORE = ENV['CORE_N'] || 1
-SOLR_CORE = "1" unless defined? SOLR_CORE
-
 # Build our Solr URL (used by Solr Connection below)
-<<<<<<< HEAD
-SOLR_URL = "http://127.0.0.1:#{SOLR_PORT}/solr" unless defined? SOLR_URL
-=======
-#SOLR_URL = "http://localhost:#{SOLR_PORT}/solr" unless defined? SOLR_URL
-SOLR_URL = "http://localhost:#{SOLR_PORT}/solr/#{ENV['RAILS_ENV']}-core#{SOLR_CORE}" unless defined? SOLR_URL
->>>>>>> b508195... Added configuration and directories for Solr multicore. This lets us easily swap from the current index to a refreshed on-deck index. Use environment variable CORE_N in the rake task to specify a core, e.g. rake solr:refresh_index RAILS_ENV=development CORE_N=2. See changes in solr.rb. Instance names are set in solr.xml
+SOLR_URL = "http://localhost:#{SOLR_PORT}/solr" unless defined? SOLR_URL
 
 # Solr Connection (used by /app/models/index.rb)
 SOLRCONN = Solr::Connection.new(SOLR_URL)
