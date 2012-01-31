@@ -17,8 +17,72 @@
  background-image:url('../../images/header.png');
 }
 
+<<<<<<< HEAD
 #header a{color:#990000;} /* Red */
 #filter {color:#CC9933;} /* Gold */
+=======
+h2 { 
+  margin-top: 10px;
+  border: none;
+}
+
+/* -----------------------------
+ * overridden ids
+ ------------------------------- */
+
+#alpha-nav.pagination {
+	margin-bottom:inherit;
+}
+
+.pagination li {
+	margin: 1em 0 0 0;
+}
+
+#content.container fieldset form {padding:1.5em;}
+
+
+#footer {padding-top: 0; margin-top: 0;}
+
+
+#local-pages {margin:0 1.5em 1.5em}
+
+#local-nav, #admin-nav {
+	margin: 0;
+	padding: 0;
+}
+
+#navigation #current a {
+  padding-bottom: 0.5em;
+  font-weight: bold;
+  color: #0022B4;
+}
+
+#navigation li#current {
+	background-color: #eeeeee;
+}
+
+#results ol.facet_filters li {
+	line-height:1.5em;
+	margin: 0.5em 0;
+	padding: 0;
+	list-style-type: none;	
+}
+
+#toptabnav ul li {
+	font-size: inherit;
+}
+
+#toptabnav #tagline {
+	font-size: 1em;
+	margin-left: 0px;
+	text-align: center;
+	}
+
+#works li {margin: 1em 0 0 1em;}
+/* -----------------------------
+ * overridden classes
+ ------------------------------- */
+>>>>>>> 620e121... Remove margin and padding from local-nav and admin-nav
 
 #footer {
 	color:#A2A2A2;
