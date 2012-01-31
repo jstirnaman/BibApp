@@ -3,6 +3,19 @@
   %head
     %meta{'http-equiv' => 'Content-Type', :content => 'text/html;charset=utf-8'}
     %meta{:name => 'requested-locale', :content => (I18n.locale || I18n.default_locale).to_s}
+    %meta{:name => 'keywords', :content => 'University of Kansas Medical Center'}/
+    %meta{:name => 'description', :content => $APPLICATION_TAGLINE}/
+    
+    /[if IE 6]
+      = stylesheet_link_tag "http://www.kumc.edu/css/template2009/ku_ie6.css", :media => "screen"
+    /[if IE 7]
+      = stylesheet_link_tag "http://www.kumc.edu/css/template2009/ku_ie7.css", :media => "screen"
+    /[if IE 8]
+      = stylesheet_link_tag "http://www.kumc.edu/css/template2009/ku_ie8.css", :media => "screen"
+  
+    
+    = stylesheet_link_tag "blueprint/local-ku.css", :media => "screen"
+      
     = stylesheet_link_tag "blueprint/screen", :media => "screen"
     = stylesheet_link_tag "blueprint/local",  :media => "screen"
     = stylesheet_link_tag "blueprint/print",  :media => "print"
