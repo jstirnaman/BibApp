@@ -9,4 +9,6 @@
       - unless g.hide?
         %li
           =link_to g.name, group_path(g)
-          ="(#{g.works.count})"
+          /###"(#{g.works.count})"###/
+          /### Use Solr instead. Much faster. ###/
+          = "(#{Index.fetch('*:*',["group_id:#{g.id}"],'score','desc',0,0,1).first.data['response']['numFound']})"
