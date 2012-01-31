@@ -82,14 +82,10 @@ ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 /* -----------------------------
  * overridden classes
  ------------------------------- */
->>>>>>> 620e121... Remove margin and padding from local-nav and admin-nav
 
-#footer {
-	color:#A2A2A2;
-	border-top: 1px solid #990000;
-	border-bottom: 3px solid #000; /* Gold */
-	background-image:url('../../images/header.png');
-}
+.container {background-color: transparent;}
+
+.even {background-color: #f8f8f8;}
 
 #footer a {
 	color:#990000;
@@ -120,7 +116,23 @@ div.span-6 h3.heading, div.span-7 h3.heading, div.box_heading {
 
 div.span-6 h3.heading a, div.span-7 h3.heading a {color: #A5AAAB; font-weight: bold;}
 div.box_heading {background-color: #ffffff;}
-div.left_box {background-color: #eeeeee;}
+div.left_box {
+	background-color: #f8f8f8;
+    background-image: none;
+    border-color: #0022B4 !important;
+    float: left;
+}
+div.left_box div.box_heading {
+	background-color: #0022B4;
+    background-image: url("https://www.kumc.edu/Images/template2009/widgets/topboxoverlay.png");
+    background-repeat: repeat-x;
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 0;
+    text-align: center;
+    width: 100%;
+	}
 
 
 /* -----------------------------
