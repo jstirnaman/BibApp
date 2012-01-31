@@ -17,10 +17,9 @@
  background-image:url('../../images/header.png');
 }
 
-<<<<<<< HEAD
-#header a{color:#990000;} /* Red */
+#header a {color:#990000;} /* Red */
 #filter {color:#CC9933;} /* Gold */
-=======
+
 h2 { 
   margin-top: 10px;
   border: none;
@@ -101,4 +100,36 @@ ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
     width: 550px;
     height: 250px;
     overflow: scroll;
+}
+
+p.metadata {font-size: 0.9em;}
+
+.person-image-metadata {visibility:hidden;}
+
+.person-last-name {line-height:1.5em;}
+
+/** Replicate the KU rightnavheading **/
+div.span-6 h3.heading, div.span-7 h3.heading {
+	color: #A5AAAB;
+    background: url("https://www.kumc.edu/Images/template2009/widgets/rightnavheaderbg.gif") no-repeat scroll left top transparent;
+    border-bottom: 1px dotted #CCCCCC;
+    height: 28px;
+    padding: 7px 0 0 11px;
+}
+
+div.span-6 h3.heading a, div.span-7 h3.heading a {color: #A5AAAB;}
+
+
+/* -----------------------------
+ * KUMC-custom styles go here
+ * kumc_...
+ ------------------------------- */
+.kumc_hidden {visibility:hidden;}
+.kumc_nodisplay {display:none;}
+#azbox {
+	height: 35px;
+}
+#azbox ul, #azbox ul li {
+	margin: 0px;
+	padding-bottom: 0px;
 }
