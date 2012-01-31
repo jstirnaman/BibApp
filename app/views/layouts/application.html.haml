@@ -42,14 +42,23 @@
     - if (@feeds)
       - @feeds.each do |feed|
         = auto_discovery_link_tag(feed[:format].to_sym, { :action => feed[:action], :id => feed[:id], :format => feed[:format] })
-
+        
     %title= t('personalize.application_name') + " - " + (@title || t('layouts.application.default_title'))
-  %body
-    .container
-      = render :partial => "shared/header"
-      = yield :admin_bar
-      #flash-messages.span-22.prepend-1
-        = render :partial => "shared/flash_messages"
-      = yield
+  %body 
+    -# KUMC accessibility
+    #kumc_accessibilty_skip
+      %a{:href => '#maincontent', :accesskey => '2'}
+        %img{:src => 'http://www.kumc.edu/Images/template2009/widgets/spacer.gif', :alt => 'Skip redundant pieces', :width => '1', :height => '1', :border => '0'}
+    -# End KUMC accessibility
+    %a{:name => "top"}
+    #kutemplate
+      #kubackground.backgroundblue
+        = render :partial => "shared/header"
+        #content.container
+          = yield :admin_bar
+          #flash-messages.span-22.prepend-1
+            = render :partial => "shared/flash_messages"
+          = yield
+
       = render :partial => "shared/footer"
   = yield :javascripts
