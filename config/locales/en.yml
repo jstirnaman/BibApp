@@ -1076,14 +1076,14 @@ en:
       upload: "Upload File"
   user_sessions:
     federated_login_form:
-      button_oauth: "Sign in With %{name}"
+      button_oauth: "Sign in With KUMC %{name}"
       button_open_id: "Sign in With %{name} OpenID"
       generic: Generic
-      header: "Login using external credentials"
+      header: "Login using KUMC credentials"
     local_login_form:
       cookies: "(requires browser cookies be enabled)"
       forgot_password: "Forgot Password"
-      header: "Login using local (%{app_name}) credentials"
+      header: "Login using local %{app_name} credentials"
       remember: "Remember Me"
       sign_up: "Sign Up"
       submit: "Log in"
