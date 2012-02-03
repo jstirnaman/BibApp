@@ -1,15 +1,61 @@
-- bibapp_cache(:controller => 'shared', :action => 'partial', :action_suffix => 'footer') do
-  #footer.span-24
-    .span-23.prepend-1
-      %p
-        %strong
-          %a{:href => $UNIVERSITY_URL}= t('personalize.university_full_name')
-          |
-          %a{:href => $LIBRARY_URL}= t('personalize.library_name')
-        %br/
-        = t('personalize.university_full_address').html_safe
-        %br/
-        #{t 'shared.footer.powered_by'}
-        %strong
-          =link_to "BibApp", "http://bibapp.org/"
-
+bibapp_cache(:controller => 'shared', :action => 'partial', :action_suffix => 'footer') do
+  #footer
+    #concave.container
+      #myfooter.container
+        #footercontact.span-10
+          %strong
+            = link_to("Contact KUMC", "http://www.kumc.edu/Pulse/howtocontact.html")
+            %br/
+            The University of Kansas
+            %br/
+            Medical Center
+            %br/
+            3901 Rainbow Boulevard
+            %br/
+            Kansas City, KS 66160
+            %br/
+            913-588-5000&nbsp;&nbsp;|&nbsp;&nbsp;913-588-7963 TDD
+        #footerjayhawk.span-4
+          %a{:href => "#top"}
+            %img{:src => "http://www.kumc.edu/Images/icons/uparrow.gif", :alt => "Go to the top of the page", :border => "0"}/
+            &nbsp;top
+        #footertagline.span-10.last{:style => "margin-top: 15px;"}
+          %img{:alt => "Educating Healthcare Professionals Since 1905", :src => "http://www.kumc.edu/Images/icons/tagline.png"}/
+    #breadcrumbarea
+      #breadcrumb.container
+        %ul
+          %li{:style => "display: none;"}
+    #bottomarea
+      #bottom.container
+        %ul.links
+          %li
+            %a{:accesskey => "1", :href => "http://www.kumc.edu/"} KUMC Home
+          %li
+            %a{:href => "http://www.kumc.edu/Pulse/aboutkumc.html"} About KUMC
+          %li
+            %a{:href => "http://www2.kumc.edu/webevent/scripts/webevent.plx?cmd=listday&amp;calID=960"} Calendar
+          %li
+            %a{:href => "http://www.kumc.edu/evc/"} EVC
+          %li
+            %a{:href => "http://www.kumc.edu/guides/jobguide.html"} Jobs 
+          %li
+            %a{:href => "http://library.kumc.edu/"} Library
+          %li
+            %a{:href => "http://www.kumc.edu/Pulse/howtocontact.html"} Maps &amp; Directions
+          %li
+            %a{:href => "http://www.kumc.edu/news/publish/index.shtml"} News
+          %li
+            %a{:href => "http://www.kumc.edu/research.html"} Research
+          %li
+            %a{:href => "http://www.kumc.edu/studentcenter/index.html"} Student Services
+          %li
+            %a{:href => "http://www2.kumc.edu/ir/"} Technology        
+        %ul.links
+          %li
+            %a{:title => "The University of Kansas Medical Center's Equal Opportunity Statement", :href => "http://www.kumc.edu/Pulse/eo_statement.html"} An EO&#47;AA&#47;Title IX Institution
+          %li  
+            %a{:title => "The University of Kansas Medical Center's Privacy Statement", :href => "http://www.kumc.edu/Pulse/privacy.html"} Privacy Statement
+          %li
+            %a{:title => "Help using this web site and general KUMC campus assistance", :href => "http://www.kumc.edu/Pulse/help.html"} Help
+        %ul.links
+          %li &copy;2009 The University of Kansas Medical Center
