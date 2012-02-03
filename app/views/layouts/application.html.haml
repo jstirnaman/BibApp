@@ -11,19 +11,21 @@
     /[if IE 7]
       = stylesheet_link_tag "http://www.kumc.edu/css/template2009/ku_ie7.css", :media => "screen"
     /[if IE 8]
-      = stylesheet_link_tag "http://www.kumc.edu/css/template2009/ku_ie8.css", :media => "screen" 
-    
+      = stylesheet_link_tag "http://www.kumc.edu/css/template2009/ku_ie8.css", :media => "screen"    
+
     = stylesheet_link_tag "blueprint/local-ku.css", :media => "screen"      
-    = stylesheet_link_tag "blueprint/screen", :media => "screen"
-    = stylesheet_link_tag "blueprint/local",  :media => "screen"
+    = stylesheet_link_tag "blueprint/screen", :media => "screen"    
     = stylesheet_link_tag "blueprint/print",  :media => "print"
     = stylesheet_link_tag "specific/shared/_header", :media => "screen"
     = stylesheet_link_tag "ui-lightness/jquery-ui-1.8.16.custom"
+    = yield :stylesheets 
+    = stylesheet_link_tag "blueprint/bibapp.css", :media => "screen"    
     -# KUMC Print CSS
     = stylesheet_link_tag "http://www.kumc.edu/css/template2009/kuprint.css", :media => "print"
+    -# KUMC Custom CSS
+    = stylesheet_link_tag "blueprint/local",  :media => "screen"    
     /[if IE 7]
     = stylesheet_link_tag "blueprint/local-ie",  :media => "screen"   
-    = yield :stylesheets
            
     -# KUMC favicon
     %link{:rel => "shortcut icon", :href => "http://www.ku.edu/favicon.ico"}/
