@@ -1,24 +1,12 @@
-@import "bibapp.css";
-/*
- * Choose two colors for your institution:
- * 1. A border color: #CC9933 (UW-Madison Gold)
- * 2. A heading color: #990000 (UW-Madison Red)
- * Add your colors below where necessary.
-*/
-
-.container {
- border-left:1px dotted #000;
- border-right:1px dotted #000;
+@import "http://www.kumc.edu/css/template2009/kupresentation.css";
+/* -----------------------------
+ * overridden elements
+ ------------------------------- */
+body {margin: 0;}
+div.screen-format {
+	padding: inherit;
 }
 
-#header {
- color: #990000; /* Red */
- border-bottom: 3px double #990000; /* Gold */
- background-image:url('../../images/header.png');
-}
-
-#header a {color:#990000;} /* Red */
-#filter {color:#CC9933;} /* Gold */
 
 h2 { 
   margin-top: 10px;
@@ -87,8 +75,21 @@ ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 
 .even {background-color: #f8f8f8;}
 
-#footer a {
-	color:#990000;
+.links {font-size: 100%;
+  margin-top: 0px;
+}
+
+.pagination a {
+  padding: 2px 5px 2px 5px;
+  margin: 2px;
+  border: none;
+  text-decoration: underline;
+  color: #000099;
+}
+
+.pagination a.none {
+	color: #000000;
+	text-decoration: none;
 }
 
 /* Style for displaying Deposit License Agreement, etc. in nice scrollable div */
