@@ -22,7 +22,7 @@ namespace :solr do
 
     rescue NoMethodError, Errno::ECONNREFUSED, Errno::EBADF, Errno::ENETUNREACH #not responding
 
-      SOLR_STARTUP_OPTS = "-Dsolr.solr.home=\"#{SOLR_HOME_PATH}\" -Djetty.port=#{SOLR_PORT} #{SOLR_JAVA_OPTS}"
+      SOLR_STARTUP_OPTS = "-Dsolr.solr.home=\"#{SOLR_HOME_PATH}\" -Dsolr.data.dir=\"#{SOLR_HOME_PATH}/cores-data/#{Rails.env}/#{SOLR_CORE}\" -Djetty.port=#{SOLR_PORT} #{SOLR_JAVA_OPTS}"
 
       #If Windows
       if RbConfig::CONFIG['host_os'] =~ /mswin|mingw/
