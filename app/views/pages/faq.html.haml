@@ -34,23 +34,32 @@
             (for the library’s journal subscriptions) or through 
             %a{:href => "#{$REPOSITORY_BASE_URL}"} #{$REPOSITORY_NAME}, 
             the KUMC digital repository (for open access works, gray literature, etc.)
-          %li
-            Develop curation policies for faculty departures.
-
-    %dt  What now?
-    %dd  
-      <a href="#liaisons">Librarians</a> and staff at the Dykes Library will be updating 
-      publication data two times per year. We will gather publication data from 
-      additional databases and sources as needed.
-      If you need updated publication data sooner (for reports, accreditation, etc.), 
-      or profiles created for new hires, 
-      please contact your <a href="#liaisons">liaison</a> for assistance.
+          %li Develop curation policies for faculty departures.
+      %ul
+        %strong  What now?
+        %li  
+          <a href="#liaisons">Librarians</a> and staff at Dykes Library will be updating 
+          publication data a minimum of twice per year.
+        %li We manage profiles for new hires and departures on a regular basis.
+        %li We will gather publication data from additional databases and sources as needed.
+        %li 
+          We will work with a faculty advisory group to establish guidelines for 
+          additional content to be featured in Meet Our Experts, 
+          such as gray literature, grant information, teaching, and service activities.
+        %li
+          We are providing data to KUMC's Enterprise Analytics team so that it may be
+          reused in other line of business applications.
+        %li 
+          Improve integration with the KUMC web site and with
+          %a{:href => "http://archie.kumc.edu"} Archie
+          , our institutional repository.
+        %li
+          Add new features such as support for author identifiers.    
       %p 
-        We will be working with an advisory group to establish guidelines for 
-        additional content that can be featured in Meet Our Experts, 
-        such as grant information and teaching and service activities.   
-        Content under consideration includes grey literature and grant information.  
-        We welcome your suggestions for other content or enhancements to the site.    
+        We welcome your suggestions for other content or enhancements to the site.
+        If you need updated publication data sooner (for reports, accreditation, etc.), 
+        or profiles created for new hires, 
+        please contact your <a href="#liaisons">liaison</a> for assistance.  
     %dt  Who can be included in Meet Our Experts?
     %dd  
       Full-time faculty. Whether or not to include part-time or adjunct faculty is up to
@@ -66,7 +75,7 @@
       A new batch of photos are displayed each time the page is refreshed.  
       Another reason may be that there are no works (publications) attached to your profile - 
       to appear in a photo scramble, you must have at least one work attached to your profile.  
-      Contact your library liaison if you want to add works to your profile.
+      Contact your library <a href="#liaisons">liaison</a> if you want to add works to your profile.
     %dt  Can Meet Our Experts help me compile annual reports, or update my CV or biosketch?
     %dd  
       Yes!  Under the Works category for each group (department) you can view a complete 
@@ -82,6 +91,13 @@
     %dd  
       We are working to provide this option in the near future.
       We want to make the process safe, straightforward, and convenient for you and your staff.
+    %dt#liaisons Who should I contact with questions about my profile? 
+    %dd 
+      We have expanded our effort to collect and curate data. Please address questions about the data in your profile
+      to your department or school's 
+      %a{:href=>"http://library.kumc.edu/contactus.html#liaison"} Library Liaison
+      or 
+      %a{:href=> "mailto:#{$SYSADMIN_EMAIL}?subject=#{$APPLICATION_NAME} FAQ Inquiry"} email our Research Team.      
     %dt  What technology does Meet Our Experts use? Are there other features you're not telling me about?
     %dd
       %p
@@ -104,12 +120,12 @@
         your department or faculty site.
       %p
         Most objects (groups, people, works) as well as search results in Experts 
-        have multiple representations including JSON, XML, YAML. RDF output is available
-        for people, works, and search results.  The RDF representation is much richer and more 
-        verbose than the XML and JSON.
+        have standard Semantic Web representations. See examples below.
+        People, works, and search results are available as RDF. 
+        Individual works are available as RDF and METS.
       %p 
         Some examples:
-        %em Raw XML and JSON output are no longer supported. Place use RSS, RDF, or METS.
+        %em Raw XML and JSON output are no longer supported for people and individual works. Use RSS, RDF, or METS.
         %li
           RDF data for a person:
           =link_to person_url(199)+".rdf", person_url(199)+".rdf"
@@ -128,401 +144,3 @@
         %li
           RDF representation of search results:
           %a{:href=>"#{$APPLICATION_URL}/search?q=carcinogenesis&commit=Search&format=rdf"} #{$APPLICATION_URL}/search?q=carcinogenesis&commit=Search&format=rdf
-  %dl#liaisons
-    %dt We have expanded our effort to collect and curate data. Please address questions about the data in your profile
-        to your department's contact below or contact the 
-        a%{:href=>"http://library.kumc.edu/contactus.html#liaison"} Liaison
-        to your school.
-    %dd
-    :plain
-      <table cellspacing="0" cellpadding="1" style="width: 800px; border: 1px solid #000;">
-
-      <tbody>
-      <tr height="24">
-      <td width="60" height="24" >School</td>
-      <td width="290" > Department</td>
-      <td width="290">Library Liaison</td>
-
-      </tr>
-      <tr >
-      <td >SAH</td>
-      <td width="207" >Clinical Laboratory Sciences</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Deborah%20Carman">Deborah Carman</a></td>
-      
-      </tr>
-      <tr >
-      <td >SAH</td>
-      <td width="207" >Cytotechnology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Deborah%20Carman">Deborah Carman</a></td>
-      
-      </tr>
-      <tr >
-      <td >SAH</td>
-      <td width="207" >Diet &amp; Nutrition</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Deborah%20Carman">Deborah Carman</a></td>
-      
-      </tr>
-      <tr  >
-      <td >SAH</td>
-      <td width="207" >Health Information Management</td>
-      <td ><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Deborah%20Carman">Deborah Carman</a></td>
-      <td >&nbsp;</td>
-      </tr>
-      <tr >
-      <td width="53"  >SAH</td>
-      <td width="207" >Hearing &amp; Speech</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SAH</td>
-      <td width="207" >Nurse Anesthesia</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Kristin%20Whitehair">Kristin Whitehair</a></td>
-      
-      </tr>
-      <tr >
-      <td width="53"  >SAH</td>
-      <td width="207" >Occupational Therapy</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Deborah%20Carman">Deborah Carman</a></td>
-      
-      </tr>
-      <tr >
-      <td width="53"  >SAH</td>
-      <td width="207" >Physical Therapy &amp; Rehab Sci</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td width="53"  >SAH</td>
-      <td width="207" >Respiratory Care</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Allergy, Clinical Immunology, Rheum</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Anatomy &amp; Cell Biology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal
-      Cameron-Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Anesthesiology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Biochemistry</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal
-      Cameron-Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Biostatistics</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal
-      Cameron-Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Cardio Diseases</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Clinical Pharmacology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Dermatology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Emergency Medicine</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Endocrinology, Met, Genetics</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td width="53"  >SOM</td>
-      <td width="207" >Family Medicine</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Gastro, Hep</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >General Surgery</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Geriatric</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td  >SOM</td>
-      <td width="207" >Health Policy &amp; Management</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rebecca%20Brown">Rebecca Brown</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Hematology, Oncology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >History &amp; Phil of Medicine</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Infectious Diseases</td>
-      <td ><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td width="53"  >SOM</td>
-      <td width="207" >Microbiology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Molecular Integrative Physiology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Nephrology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Neurology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal%20Cameron%u2013Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Obstetrics &amp; Gynecology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal%20Cameron%u2013Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td width="53"  >SOM</td>
-      <td width="207" >Ophthalmology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Otolaryngology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Pathology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td width="53"  >SOM</td>
-      <td width="207" >Pediatrics</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Pharmacology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal%20Cameron%u2013Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Plastic Surgery</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Preventive Medicine</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Psychiatry</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Anne%20Huffman">Anne Huffman</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Pulmonary and critical care</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Radiation Oncology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Radiology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal%20Cameron%u2013Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Rehabilitation Medicine</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Crystal%20Cameron%u2013Vedros">Crystal Cameron-Vedros</a></td>
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Surgery - Neurosurgery</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Surgery - Orthopedics</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SOM</td>
-      <td width="207" >Urology</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Bob%20Pisciotta">Bob Pisciotta</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td >SON</td>
-      <td width="207" >SON</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Heather%20Collins">Heather Collins</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td>CCHD</td>
-      <td width="207" >CCHD</td>
-      <td><a
-      href="http://www2.kumc.edu/directory/basicsearch.aspx?Unit=Rachel%20Gyore">Rachel Gyore</a></td>
-      
-      
-      </tr>
-      <tr >
-      <td>CORE</td>
-      <td width="207">CORE</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      </tr>
-      </tbody>
-      </table>
