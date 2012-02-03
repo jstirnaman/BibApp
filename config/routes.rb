@@ -227,6 +227,13 @@ Bibapp::Application.routes.draw do
     match 'roles/create' => "roles#create"
     match 'roles/new_admin' => "roles#new_admin"
     match 'roles/new_editor' => "roles#new_editor"
+  
+    #####
+  # Static Pages routes KUMC
+  #####
+  # Add Routes for FAQ, About, etc.
+    match 'pages/about'
+    match 'pages/faq'
   end
 
   if I18n.available_locales.many?
