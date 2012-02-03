@@ -15,5 +15,6 @@
         = render 'shared/sherpa_icon', :publisher => publication.publisher
 
         - publisher_name = publication.publisher.name rescue 'Unknown'
-        #{link_to name_or_unknown(publication.publisher.name rescue 'Unknown'), publisher_path(publication.publisher)}
+        #{link_to name_or_unknown(publisher_name), publisher_path(publication.publisher)}
+
       %td #{publication.works.length}
