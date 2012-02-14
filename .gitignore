@@ -10,10 +10,10 @@ public.old/
 .svn
 log/
 vendor/bibapp-solr/data
-vendor/bibapp-solr/cores-data/production/core1/index/
-vendor/bibapp-solr/cores-data/production/core2/index/
-vendor/bibapp-solr/cores-data/development/core1/index/
-vendor/bibapp-solr/cores-data/development/core2/index/
+vendor/bibapp-solr/cores-data/production/core1/data/
+vendor/bibapp-solr/cores-data/production/core2/data/
+vendor/bibapp-solr/cores-data/development/core1/data/
+vendor/bibapp-solr/cores-data/development/core2/data/
 vendor/solr/logs
 doc/
 coverage/
