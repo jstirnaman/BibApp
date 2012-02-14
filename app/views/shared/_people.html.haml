@@ -16,3 +16,9 @@
             %strong= fields[:value]
           .person-last-name.left
             %strong= link_to fields[:last_name], person_path(fields[:id])
+  -#KUMC.JTS Add link to Browse all experts on a group page and the homepage
+  #browse-all-people{:class => "span-10 prepend-3", :style => "text-align: right;"}
+    - if controller.controller_name =="groups"
+      =link_to "See all "+@group.name+" experts", group_people_path(@group.id)
+    - else
+      =link_to "See all experts", "people"
