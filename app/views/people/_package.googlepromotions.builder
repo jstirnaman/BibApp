@@ -1,20 +1,8 @@
-people = Person.includes(:contributorships).where("active")
+people = Person.includes(:contributorships)
 
-xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
+xml.Promotions() do
   people.find_each do |p|
-    queries = []
-    queries << p.last_name
-    
-    if p.keywords.any?
-      kwords = p.keywords
-      keywords_to_hide = $KEYWORDS_TO_HIDE
-      keywords_to_hide.split('|').each do |kh|
-        kwords.delete_if {|kw| kw.name.match(kh)}
-      end
-      kw = []
-      kw << kwords.first(3).map{|k|h(k.name.to_s.gsub(/\W/,' ').strip)}
-      queries = [queries, kw].join(", ")
-    end
+    promo_h = Hash.new
     
     if p.email?
       top_level_domain = p.email.rindex(/[.]/)
@@ -26,16 +14,30 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
       pid = p.machine_name.gsub(/[\s]/,'_')
       pid = pid[0,30]
     end    
-    pid = "Experts_" + pid.downcase
-    
+      promo_h.merge!('id' => pid)
+     
+    queries = []
+      queries << p.last_name
+      facets = {:keywords => p.keywords}     
+      kwords = exclude_keywords(facets[:keywords])
+      kwords = kwords.first(3)
+      if kwords.length > 0
+        kw = []   
+        kw << kwords.map{|k|h(k.name.to_s.gsub(/\W/,' ').strip)}
+        queries = [queries, kw].join(", ")
+      end
+      promo_h.merge!('queries' => queries)
+      
     if p.full_name
       title = p.full_name + " - Meet Our Experts: Research and Collaborations"
-    end
-    
+    end    
+      promo_h.merge!('title' => title)
+            
     url = person_url(p.id)
+     promo_h.merge!('url' => url)
     
     unless p.image_url == "man.jpg"
-      image_url = $APPLICATION_URL + p.image_url
+      promo_h.merge!('image_url' => $APPLICATION_URL + p.image_url)
     end
     
     if p.research_focus && p.research_focus.length > 1
@@ -49,8 +51,12 @@ xml.Promotions({'num'=>people.count, 'total'=>people.count}) do
         description = description+'...'
       end
       description = h(description)
-    end
+      promo_h.merge!('description' => description)
+    end    
     
-    xml.Promotion({'id'=>pid, 'queries'=>queries, 'title'=>title, 'url'=>url, 'image_url'=>image_url, 'description'=>description}.delete_if{ |k,v| v == '' || v.nil? })
-  end
+    enabled = p.active ? 'true' : 'false'
+      promo_h.merge!('enabled' => enabled)    
+          
+    xml.Promotion(promo_h)
+   end   
 end
