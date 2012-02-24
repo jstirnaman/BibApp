@@ -5,6 +5,9 @@ require 'redcloth'
 class PeopleController < ApplicationController
   include GoogleChartsHelper
   include KeywordCloudHelper
+  # Make set_keywords, the keyword exclusion methods, available to people templates.
+  # Had to do this specifically to make them available to Google Promotions builder template.
+  add_template_helper KeywordCloudHelper
 
   # Require a user be logged in to create / update / destroy
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :batch_csv_show, :batch_csv_create]
@@ -28,6 +31,7 @@ class PeopleController < ApplicationController
     response_for :index do |format|
       format.html
       format.rdf
+      format.googlepromotions
     end
 
     response_for :destroy do |format|
@@ -64,7 +68,6 @@ class PeopleController < ApplicationController
           @page = params[:page] || @a_to_z[0]
           @current_objects = Person.where("upper(last_name) like ?", "#{@page}%").order("upper(last_name), upper(first_name)")
         end
-
         @title = Person.model_name.human_pl
       end
     end
