@@ -18,5 +18,4 @@ class AddSortName < ActiveRecord::Migration
       remove_column klass.table_name, :sort_name
     end
   end
-
 end
