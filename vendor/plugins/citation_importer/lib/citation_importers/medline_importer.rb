@@ -68,11 +68,12 @@ class MedlineImporter < BaseImporter
     @value_translators[:ti] = lambda { |val_arr|
       remove_trailing_period(strip_line_breaks(val_arr[0].to_s))
     }
-
+    
+    #squish fields as needed
     @value_translators[:ab] = lambda { |val_arr| strip_line_breaks(val_arr[0].to_s)}
     @value_translators[:ad] = lambda { |val_arr| strip_line_breaks(val_arr[0].to_s)}
     @value_translators[:jt] = lambda { |val_arr| strip_line_breaks(val_arr[0].to_s)}
-    @value_translators[:ta] = lambda { |val_arr| strip_line_breaks(val_arr[0].to_s)}
+    @value_translators[:ta] = lambda { |val_arr| strip_line_breaks(val_arr[0].to_s)}   
 
     #Mapping of Medline Types => valid BibApp Types
     @type_mapping = {
