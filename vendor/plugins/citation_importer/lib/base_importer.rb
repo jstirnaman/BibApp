@@ -238,5 +238,12 @@ class BaseImporter < CitationImporter
     hash[target_key] = hash[matching_key] if matching_key
     source_keys.each { |key| hash.delete(key) }
   end
+  
+  #Strip line ending characters (\n) from fields like abstract
+  def strip_line_breaks(value)
+    clean = value.mb_chars.gsub(/\s+/, " ")
+    return clean
+  end
+  
 
 end
