@@ -14,6 +14,10 @@ h2 {
   border: none;
 }
 
+ol li {
+	list-style-type: none;
+	margin: 0;
+}
 /* -----------------------------
  * overridden ids
  ------------------------------- */
@@ -63,6 +67,12 @@ ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 div#content div#facets ol, div#content div#facets ol li {
     list-style-type: none;
   }
+
+ol#publications {
+list-style: none;
+line-height: 1.75em;
+}
+
 
 /* -----------------------------
  * overridden classes
