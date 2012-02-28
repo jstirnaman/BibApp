@@ -60,6 +60,10 @@ h2 {
 
 ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 
+div#content div#facets ol, div#content div#facets ol li {
+    list-style-type: none;
+  }
+
 /* -----------------------------
  * overridden classes
  ------------------------------- */
