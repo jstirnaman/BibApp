@@ -33,6 +33,7 @@ class RisImporter < BaseImporter
       :cp => :issue,
       :ct => :title_primary,
       :cy => :publication_place,
+      :doi => :links,
       :ed => :work_name_strings,
       :ep => :end_page,
       :id => :identifier,
