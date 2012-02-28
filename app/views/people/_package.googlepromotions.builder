@@ -52,7 +52,7 @@ xml.Promotions() do
         description = description+'...'
       end
       description = h(description)
-      promo_h.merge!('description' => description)d
+      promo_h.merge!('description' => description)
     end    
     
     enabled = p.active ? 'true' : 'false'
