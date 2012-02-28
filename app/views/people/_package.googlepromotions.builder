@@ -13,7 +13,8 @@ xml.Promotions() do
     else
       pid = p.machine_name.gsub(/[\s]/,'_')
       pid = pid[0,30]
-    end    
+    end
+      pid = "Experts_" + pid.downcase    
       promo_h.merge!('id' => pid)
      
     queries = []
@@ -51,7 +52,7 @@ xml.Promotions() do
         description = description+'...'
       end
       description = h(description)
-      promo_h.merge!('description' => description)
+      promo_h.merge!('description' => description)d
     end    
     
     enabled = p.active ? 'true' : 'false'
