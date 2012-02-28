@@ -239,6 +239,13 @@ class BaseImporter < CitationImporter
     hash[target_key] = hash[matching_key] if matching_key
     source_keys.each { |key| hash.delete(key) }
   end
+  
+  #Strip line ending characters (\n) from fields like abstract
+  def strip_line_breaks(value)
+    clean = value.mb_chars.gsub(/\s+/, " ")
+    return clean
+  end
+  
 
   #The work name strings are an array at :work_name_strings in the hash
   #Each entry is a hash of :role and :name. So we want to take this apart and put it back together with
