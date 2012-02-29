@@ -95,7 +95,8 @@ class ApplicationController < ActionController::Base
     # Solr filtering
     # * Start with an empty array or param filters, as appropriate
     # * If we have a nested object, filter for object's works
-    @filter = params[:fq].present? ? Array.wrap(params[:fq].clone) : []
+
+    @filter = (params[:fq] || []).clone
 
     # Are we showing an object's works?
     if @current_object
@@ -103,7 +104,7 @@ class ApplicationController < ActionController::Base
       # We want to show the citation list results page
       params[:view] = "all"
       # Append @current_object to filters
-      @filter << %Q(#{facet_field}_id:"#{@current_object.id}")
+      @filter << "#{facet_field}_id:\"#{@current_object.id}\""
       @title = @current_object.name
     elsif !params[:view].blank? && params[:sort].blank?
       # If showing all works, default sort is "year"
