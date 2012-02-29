@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
       # Append @current_object to filters
       @filter << %Q(#{facet_field}_id:"#{@current_object.id}")
       @title = @current_object.name
-    elsif !params[:view].blank? && params[:sort].blank?
+    elsif params[:view].present? && params[:sort].blank?
       # If showing all works, default sort is "year"
       @sort = "year"
     else
