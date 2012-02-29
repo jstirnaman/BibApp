@@ -95,8 +95,7 @@ class ApplicationController < ActionController::Base
     # Solr filtering
     # * Start with an empty array or param filters, as appropriate
     # * If we have a nested object, filter for object's works
-
-    @filter = (params[:fq] || []).clone
+    @filter = params[:fq].present? ? params[:fq].clone : []
 
     # Are we showing an object's works?
     if @current_object
@@ -106,7 +105,7 @@ class ApplicationController < ActionController::Base
       # Append @current_object to filters
       @filter << %Q(#{facet_field}_id:"#{@current_object.id}")
       @title = @current_object.name
-    elsif !params[:view].blank? && params[:sort].blank?
+    elsif params[:view].present? && params[:sort].blank?
       # If showing all works, default sort is "year"
       @sort = "year"
     else
