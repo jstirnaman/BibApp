@@ -38,10 +38,19 @@ class MedlineImporter < BaseImporter
        :ip    => :issue,
        :is    => :issn_isbn,
        :pl    => :publication_place,
-       :own   => :source,
+       :own   => :source, # The acronym for the organization that supplied the citation data 
+                          # is recorded in this field, .e.g. NLM, NASA.
+                          #TODO: Seems like the URI of the citation would be more useful.
        :stat  => :notes,
-       :pmid  => :external_id,
-       :aid   => :links,
+       :pmid  => :identifier, # PubMed Unique Identifier - This field is a 1- to 8-digit 
+                              # accession number with no leading zeros.
+                              
+       :aid   => :links, # Article Identifier - This field is populated by the publisher. 
+                         # It may contain an identifier that links with records in the 
+                         # publisher's system. The article identifier values may include 
+                         # the controlled publisher identifier (PII) or the digital object 
+                         # identifier (DOI).
+                         
        :la    => :language,
        :ci    => :copyright_holder
     }
@@ -243,7 +252,7 @@ class MedlineImporter < BaseImporter
       "study characteristics"  => "Generic",
       "support of research"  => "Generic",
       "tables"  => "Generic",
-      "technical report"  => "Generic",
+      "technical report"  => "Report",
       "terminology"  => "Generic",
       "textbooks"  => "Generic",
       "twin study"  => "Generic",
