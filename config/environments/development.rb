@@ -12,9 +12,7 @@ Bibapp::Application.configure do
 # Show full error reports \
   config.consider_all_requests_local = false
 
-#control caching
-  # disable caching
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   #enable caching on the file system
   #config.action_controller.perform_caching = true
