@@ -43,8 +43,7 @@ class PublishersController < ApplicationController
         @current_objects = current_objects
       else
         @page = params[:page] || @a_to_z[0]
-
-        @current_objects = Publisher.includes(:publications => :works).authorities.sort_name_like("#{@page}%").order('sort_name')
+        @current_objects = Publisher.authorities.sort_name_like("#{@page}%").order('sort_name')
       end
     end
 
@@ -93,8 +92,7 @@ class PublishersController < ApplicationController
     else
       @page = params[:page] || @a_to_z[0]
       @current_objects = Publisher.authorities.sort_name_like("#{@page}%").order(:sort_name).
-
-              includes(:publications, :publisher_source)
+              includes(:publications)
     end
 
     #Keep a list of publications in process in session[:publication_auths]
