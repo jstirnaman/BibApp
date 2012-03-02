@@ -15,6 +15,7 @@ gem 'rake'
 gem "haml"
 
 #Make resourceful - used by some controllers
+
 #backports may be needed by a 1.8 ruby to make make_resourceful work
 #TODO - presumably after we get to 1.9.3 backports will be redundant
 gem 'backports'
