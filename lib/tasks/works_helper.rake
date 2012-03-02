@@ -24,5 +24,23 @@ namespace :works_helper do
       work.destroy
     end
   end
+  
+  desc "Deletes a batch of works given a file of Work IDs, one per line. Ex: 'rake works_helper:batch_destroy_list works='dupes_list.txt'"
+  task :batch_destroy_list => :environment do
+    if ENV['works']
+      @works = IO.readlines(ENV['works'])
+      puts "Attempting to delete #{@works.length} works...."
+      @works.each {|w| w.strip!}
+      @works.each do |w| 
+        begin
+          Work.find(w).destroy
+        rescue Exception # Don't bail if the work isn't found.
+          STDERR.puts "Could not delete Work #{w}. Maybe it's already been deleted?"
+        end
+      end
+    else
+      puts "Usage example: 'rake works_helper:batch_destroy_list works='dupes_list.txt'"
+    end
+  end
 
 end
