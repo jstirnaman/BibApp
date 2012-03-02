@@ -24,6 +24,9 @@ gem 'make_resourceful'
 #TODO Can remove version requirement after 1.9 migration
 gem 'paperclip', "~>2.7.0"
 
+#Hpricot - used for various HTML parsing purposes
+gem "hpricot", "~>0.6"
+
 #HTMLEntities - used to encode UTF-8 data so that it is valid in HTML
 gem "htmlentities", "~>4.0.0"
 
