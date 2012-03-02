@@ -21,7 +21,13 @@ gem 'backports'
 gem 'make_resourceful'
 
 #file attachment - to replace attachment_fu
-gem 'paperclip', '~>2.7'
+gem 'paperclip'
+<<<<<<< HEAD
+=======
+
+#Hpricot - used for various HTML parsing purposes
+gem "hpricot", "~>0.6"
+>>>>>>> Start of attachment_fu -> paperclip conversions.
 
 #HTMLEntities - used to encode UTF-8 data so that it is valid in HTML
 gem "htmlentities", "~>4.0.0"
@@ -140,16 +146,10 @@ group :test, :development do
   gem 'ruby-debug'
   gem 'ruby-debug-ide'
   gem 'shoulda'
-  gem 'factory_girl', '~> 2.6.4'
+  gem 'factory_girl'
   gem 'rcov'
   gem 'cucumber-rails'
   gem 'database_cleaner'
-  #Adding additional Gems for faster testing
-  gem 'rb-fsevent'
-  gem 'growl'
-  gem 'guard-rspec'
-  gem 'spork-rails'
-  gem 'guard-spork'
   #I'd prefer to add metric_fu directly here, but something it pulls
   #in pulls in something else that conflicts with the Keyword class.
   #So instead I've installed the metrical gem separately to see
