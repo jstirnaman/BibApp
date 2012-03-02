@@ -195,9 +195,7 @@ class Person < ActiveRecord::Base
 
   #A person's image file
   def image_url
-    (self.image ? self.image.url : 'man.jpg')
-  rescue
-    'man.jpg'
+    self.image ? self.image.url : 'man.jpg'
   end
 
   #A person's group ids

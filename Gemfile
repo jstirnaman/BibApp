@@ -22,6 +22,12 @@ gem 'make_resourceful'
 
 #file attachment - to replace attachment_fu
 gem 'paperclip'
+<<<<<<< HEAD
+=======
+
+#Hpricot - used for various HTML parsing purposes
+gem "hpricot", "~>0.6"
+>>>>>>> Start of attachment_fu -> paperclip conversions.
 
 #HTMLEntities - used to encode UTF-8 data so that it is valid in HTML
 gem "htmlentities", "~>4.0.0"
