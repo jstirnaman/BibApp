@@ -15,7 +15,6 @@ class PublicationsSweeper < AbstractSweeper
 
   protected
 
-<<<<<<< HEAD
   #normal expiration - expire based on publication ids. The publishers may be supplied or looked up from the ids
   #(note the option - this is used when a publication is destroyed and hence can't be looked up)
   def expire_ids_and_publications(ids, publications = nil)
@@ -23,7 +22,6 @@ class PublicationsSweeper < AbstractSweeper
     ids.each { |id| expire_row(id) }
     publications ||= Publication.find(ids)
     publications.collect { |p| p.sort_name.first.upcase }.compact.uniq.each { |page| expire_page(page) }
-=======
   def expire_content(record)
     ids = get_publication_ids(record)
     publications = (record.destroyed? and record.is_a?(Publication)) ? [record] : Publication.find(ids)
@@ -38,7 +36,6 @@ class PublicationsSweeper < AbstractSweeper
     if record.is_a?(Publication) and record.name_changed?
       bibapp_expire_fragment_all_locales(:controller => 'publications', :action => 'index', :page => (record.sort_name_was.first.upcase), :action_suffix => 'index-table')
     end
->>>>>>> fix another bug - if a publication's name changes then we potentially have to expire the cache corresponding to both its new _and_ old sort_name.
   end
 
   def expire_content(record)
@@ -60,7 +57,7 @@ class PublicationsSweeper < AbstractSweeper
     publications = record.destroyed? ? [record] : Publication.find(ids)
     expire_ids_and_publications(ids, publications)
     #if the beginning letter of the name changed then we need to expire the page corresponding to the old letter as well
-    if need_to_expire_previous_page?(record)
+    if record.name_changed? and record.sort_name.first.upcase != record.sort_name_was.first.upcase
       expire_page(record.sort_name_was.first)
     end
   end
