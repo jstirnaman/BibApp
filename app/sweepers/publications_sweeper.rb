@@ -60,5 +60,4 @@ class PublicationsSweeper < AbstractSweeper
     publication.name_changed? and publication.sort_name_was.present? and
         publication.sort_name.present? and publication.sort_name.first.upcase != publication.sort_name_was.first.upcase
   end
-
 end
