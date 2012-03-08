@@ -246,4 +246,12 @@ class BaseImporter < CitationImporter
   end
   
 
+  def strip_line_breaks(value)
+    value.mb_chars.squish
+  end
+
+  def remove_trailing_period(value)
+    value.gsub(/\.(\s*)$/, "")
+  end
+
 end
