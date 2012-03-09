@@ -149,8 +149,6 @@ class Work < ActiveRecord::Base
     update_archive_state
     update_machine_name
     update_sort_name
-
-    deduplicate
   end
 
   #### Serialization ####
