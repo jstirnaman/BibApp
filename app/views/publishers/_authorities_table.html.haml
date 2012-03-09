@@ -11,5 +11,4 @@
         %td
           %span{:title => publisher.sort_name}
           #{link_to name_or_unknown(publisher.name), publisher_path(publisher)}
-        %td= name_or_unknown(publisher.publisher_source.name) if publisher.publisher_source
         %td #{publisher.publications.length}
