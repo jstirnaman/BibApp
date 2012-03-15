@@ -53,6 +53,7 @@ module ProperSharedHelper
     File.exists?(File.join(Rails.root, 'app', 'views', file_name)) ? file_name : 'shared/proper_work_subclasses/generic'
   end
 
+<<<<<<< HEAD
   def proper_prepare_pagination
     @page = params[:page] || 1
     @rows = params[:rows] || 10
@@ -76,4 +77,6 @@ module ProperSharedHelper
     return fields.join(', ')
   end
 
+=======
+>>>>>>> More work on seeing works directly from AR Works instead of solr
 end
