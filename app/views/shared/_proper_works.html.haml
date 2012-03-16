@@ -15,7 +15,6 @@
 
     %label #{t 'app.sort_by'}:
     %select{:name => "sort"}
-
       - ['year', 'sort_title', 'created'].each do |opt|
         %option{:value => opt, :selected => @sort.match(opt)}= t("app.#{opt.self_or_blank_default(:blank)}")
 
