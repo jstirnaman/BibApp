@@ -359,7 +359,6 @@ class WorksController < ApplicationController
   def shared
     @title = t('works.shared.title')
     @authors = Person.find(params[:people])
-
     #find works - not elegant, but the easiest way may be to find the ids for each author, intersect,
     #and then re-find based on the remaining ids. Since the first steps won't instantiate objects it shouldn't
     #actually be bad
