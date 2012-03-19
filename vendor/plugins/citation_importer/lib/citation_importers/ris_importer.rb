@@ -36,7 +36,10 @@ class RisImporter < BaseImporter
       :doi => :links,
       :ed => :work_name_strings,
       :ep => :end_page,
-      :id => :identifier,
+     # :id => :identifier, # RIS can come from anywhere so the id tag is meaningless 
+                           # to us as it might be coming from a user database, e.g. 
+                           # someone's Zotero library. Definitely not worth storing in the
+                           # identifier field.
       :is => :issue,
       :j1 => :publication_j1,
       :j2 => :publication_j2,
