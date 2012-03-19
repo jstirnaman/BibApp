@@ -15,12 +15,6 @@ GIT
       will_paginate (~> 3.0)
       ya2yaml (~> 0.26)
 
-GIT
-  remote: https://github.com/parasew/acts_as_tree.git
-  revision: ed52495d1671c99e1add582628403bf8104e9077
-  specs:
-    acts_as_tree (1.2.3)
-
 GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
@@ -58,6 +52,7 @@ GEM
       activesupport (= 3.0.10)
     activesupport (3.0.10)
     acts_as_list (0.1.5)
+    acts_as_tree_rails3 (0.1.0)
     addressable (2.2.7)
     arel (2.0.10)
     authlogic (3.1.0)
@@ -306,7 +301,7 @@ DEPENDENCIES
   RedCloth (~> 4.1.9)
   aasm
   acts_as_list
-  acts_as_tree (~> 1.2.3)!
+  acts_as_tree_rails3
   authlogic
   authorization
   backports
