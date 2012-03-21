@@ -1,4 +1,3 @@
----
 en:
   activerecord:
     attributes:
@@ -1076,7 +1075,7 @@ en:
       upload: "Upload File"
   user_sessions:
     federated_login_form:
-      button_oauth: "Sign in With KUMC %{name}"
+      button_oauth: "Sign in with KUMC %{name}"
       button_open_id: "Sign in With %{name} OpenID"
       generic: Generic
       header: "Login using KUMC credentials"
@@ -1087,8 +1086,11 @@ en:
       remember: "Remember Me"
       sign_up: "Sign Up"
       submit: "Log in"
+    new:
+      notice_line1: "Not a librarian? Currently, only Dykes Library Staff can make changes to data and profile information."
+      notice_line2: "to request a correction or update. Thank you."
     show_options_form:
-      send_to: "Send to"
+      send_to: "Send to" 
   users:
     edit:
       change_password: "Change Password"
