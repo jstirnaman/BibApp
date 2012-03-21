@@ -1,3 +1,6 @@
-= render :layout => '/layouts/main_body', :locals => {:header => "Login"} do
+= render :layout => '/layouts/main_body', :locals => {:header => "Library Staff Login"} do
   = render 'federated_login_form'
-  = render 'local_login_form'
+  %p
+    = t ('user_sessions.new.notice_line1')
+    = mail_to($SYSADMIN_EMAIL, name = 'Contact us')
+    = t ('user_sessions.new.notice_line2')
