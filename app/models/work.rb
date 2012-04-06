@@ -1,9 +1,11 @@
 require 'machine_name'
 require 'stop_word_name_sorter'
+require 'merge'
 
 class Work < ActiveRecord::Base
   include MachineName
   include StopWordNameSorter
+  include Merge
 
   acts_as_authorizable #some actions on Works require authorization
 
