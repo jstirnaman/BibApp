@@ -191,6 +191,7 @@ class Index
 
   #Fetch all documents matching a particular query,
   # along with the facets.
+  #A sample query: Index.fetch("*:*",[],"year","descending",0,0,10)
   def self.fetch(query_string, filter, sort, order, page, facet_count, rows)
 
     #Check array of filters to see if work 'status' specified
