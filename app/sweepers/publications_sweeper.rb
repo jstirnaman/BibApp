@@ -22,20 +22,6 @@ class PublicationsSweeper < AbstractSweeper
     ids.each { |id| expire_row(id) }
     publications ||= Publication.find(ids)
     publications.collect { |p| p.sort_name.first.upcase }.compact.uniq.each { |page| expire_page(page) }
-  def expire_content(record)
-    ids = get_publication_ids(record)
-    publications = (record.destroyed? and record.is_a?(Publication)) ? [record] : Publication.find(ids)
-    #expire individual publication rows
-    ids.each do |id|
-      bibapp_expire_fragment_all_locales(:controller => 'publications', :action => 'index', :id => id, :action_suffix => 'publication-row')
-    end
-    #expire all relevant full index tables
-    publications.collect { |p| p.sort_name.first.upcase }.compact.uniq.each do |page|
-      bibapp_expire_fragment_all_locales(:controller => 'publications', :action => 'index', :page => page, :action_suffix => 'index-table')
-    end
-    if record.is_a?(Publication) and record.name_changed?
-      bibapp_expire_fragment_all_locales(:controller => 'publications', :action => 'index', :page => (record.sort_name_was.first.upcase), :action_suffix => 'index-table')
-    end
   end
 
   def expire_content(record)
@@ -74,6 +60,4 @@ class PublicationsSweeper < AbstractSweeper
     publication.name_changed? and publication.sort_name_was.present? and
         publication.sort_name.present? and publication.sort_name.first.upcase != publication.sort_name_was.first.upcase
   end
-
 end
-
