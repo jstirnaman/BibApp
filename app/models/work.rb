@@ -394,7 +394,7 @@ class Work < ActiveRecord::Base
   end
   
   def richness
-  # A simplistic attempt to determine the canonical best
+  # An simplistic attempt to determine the canonical best
   # version of a work. Calculates richness
   # of the record for comparing it to duplicates.
     richness = self.abstract ? 10 : 0
@@ -421,64 +421,29 @@ class Work < ActiveRecord::Base
       end
   end
   
-  def merge_duplicates(status='ALL', rows=3)
-    logger.debug("\n\n===MERGE DUPLICATES===\n\n")
-    case status
-    when 'UNACCEPTED'
-      self.merge_unaccepted_duplicates(rows)
-    when 'ACCEPTED'
-      self.merge_accepted_duplicates(rows)
-    when 'ALL'
-      self.merge_unaccepted_duplicates(rows)
-      self.merge_accepted_duplicates(rows)
+  def merge_duplicates
+    dupes = Index.possible_accepted_duplicate_works(self)
+    if (dupes.size <= 1) or dupes.nil?
+      dupes = Index.possible_unaccepted_duplicate_works(self)
     end
-  end
-  
-  def merge_unaccepted_duplicates(rows)
-    logger.debug("\nMerge unaccepted duplicates \n")   
-    dupes = Index.possible_unaccepted_duplicate_works(self, rows)
-    self.sort_and_merge(dupes)
-  end
-  
-  def merge_accepted_duplicates(rows)
-    logger.debug("\nMerge accepted duplicates \n") 
-    dupes = Index.possible_accepted_duplicate_works(self, rows)
-    master = self.sort_and_merge(dupes)
-    unless master.nil? 
-      master.is_accepted
-    end
-  end
-  
-  # Method for comparing two works. Overrides Activerecord_Merge merge_equal?
-  # to use the dupe_key methods instead of comparing all attributes
-  # of the records.
-  def merge_equal?(object)
-    object.instance_of?(self.class) and
-    ( self.title_dupe_key == object.title_dupe_key || self.name_string_dupe_key == object.name_string_dupe_key )
-  end
-  
-  
-  def sort_and_merge(dupes)     
-      if dupes.size > 1 
-        logger.debug("\nSort and merge works \n")  
-         
-        dupesorted = self.sort_dupes_by_richness(dupes)  
-        master = dupesorted.slice!(0)
-        
-        #@TODO: This is the only way I can get the objects
-        # passed to merge!
-        # merge! is supposed to take a list of objects as an argument.
-        # I assume that would be more efficient than repeatedly
-        # calling merge!, but apparently I'm not building
-        # the list correctly. Surely there is a better way.
-        
-        logger.debug("\nMerging #{dupesorted.size} duplicates into work # #{master.id}\n")
-                      
-        dupesorted.each do |d|
-          master.merge!(d)
-        end
-        return master
+    
+    if dupes.size > 1    
+      dupesorted = self.sort_dupes_by_richness(dupes)  
+      master = dupesorted.slice!(0)
+      
+      # TODO: This is the only way I can get the objects correctly
+      # passed to merge!
+      # merge! is supposed to take a list of objects as an argument.
+      # I assume that would be more efficient than repeatedly
+      # calling merge!, but apparently I'm not building
+      # the list correctly. Surely there is a better way.
+      
+      dupesorted.each do |d|
+        master.merge!(d)
       end
+      
+      master.is_accepted
+    end  
   end
 
   def set_for_index_and_save
@@ -950,10 +915,6 @@ class Work < ActiveRecord::Base
       machine_name = make_machine_name(cns[:name])
       name = cns[:name].strip
       name_string = NameString.find_or_create_by_machine_name(:machine_name => machine_name, :name => name)
-      unless name_string.name == name
-        name_string.name = name
-        name_string.save!
-      end
       self.work_name_strings.create(:name_string_id => name_string.id, :role => cns[:role])
     end
   end
