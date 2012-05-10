@@ -246,6 +246,53 @@ describe Work do
       end
     end
   end
+  
+  context 'merge duplicates' do
+    before(:each) do
+      @work = Factory.create(:work, :title_primary => 'Work Title 1',
+                :abstract => 'The abstract of my work.', :volume => '1')
+      name_string = Factory.create(:name_string, :name => 'Name String Name')
+        Factory.create(:work_name_string, :work => @work, :name_string => name_string)                
+      @work2 = @work.clone
+      @work2.save    
+    end
+    
+    it 'calculates richness of a work' do
+      @work.richness.should > 10
+    end
+    
+    it 'sorts possible duplicates in order of descending richness' do
+
+      @work.is_accepted
+      @work2.is_accepted
+      @work.save
+      @work2.save
+      @work.should be_accepted
+      @work2.should be_accepted
+
+      
+      @work.sort_dupes_by_richness.should include(@work, @work2)
+      
+      @work.update_attributes(:issue => '1')
+      
+      @work.sort_dupes_by_richness.should eq([@work, @work2])
+      
+      @work2.update_attributes(:issue => '1', :links => 'http://example.com/work2')
+    
+      @work.sort_dupes_by_richness.should eq([@work2, @work])
+    end
+    
+    it 'matches works that have identical non-system attributes' do
+      @work.merge_equal?(@work2).should be true
+    end
+    
+    it 'merges duplicate works and their associations' do
+      #r = @work.richness
+      #r2 = @work2.richness
+     # @work.merge_duplicates.should
+    end        
+
+  end
 
   it "can create a unique solr id" do
     work = Factory.create(:work)
