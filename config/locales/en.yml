@@ -655,7 +655,7 @@ en:
       flash_destroy_multiple_successful: "Works were successfully deleted."
       flash_destroy_success: "Works were successfully deleted."
       flash_merge_multiple_privileges: "One or more works could not be merged, as you have insufficient privileges"
-      flash_merge_multiple_successful: "Works were successfully merge."      
+      flash_merge_multiple_successful: "Works were successfully merged."      
       flash_update: "Work was successfully updated."
       location: Location
       location_given: "Location Given"
