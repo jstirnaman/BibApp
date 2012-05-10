@@ -7,7 +7,7 @@ class WorksController < ApplicationController
   #Require a user be logged in to create / update / destroy
   before_filter :login_required,
                 :only => [:new, :create, :edit, :update, :destroy, :destroy_multiple,
-                          :orphans]
+                          :orphans, :merge_multiple_duplicates]
 
   before_filter :find_authorities, :only => [:new, :edit]
 
@@ -327,6 +327,42 @@ class WorksController < ApplicationController
     end
   end
 
+  def merge_multiple
+    #Anyone who is minimally an admin (on anything in system) can merge duplicate works
+    #(NOTE: User will actually have to be an 'admin' on all works in this batch,
+    #       otherwise he/she will not be able to merge and destroy *all* the works)
+    permit "admin"
+
+    work_ids = params[:work_id]
+    return_path = params[:return_path]
+
+    full_success = true
+
+    if work_ids.present?
+      #Destroy each work one by one, so we can be sure user has 'admin' rights on all
+      work_ids.each do |work_id|
+        work = Work.find_by_id(work_id)
+
+        #One final check...only an admin on this work can destroy it
+        if logged_in? && current_user.has_role?("admin", work)
+          work.merge_duplicates
+        else
+          full_success = false
+        end
+      end
+    end
+
+    respond_to do |format|
+      if full_success
+        flash[:notice] = t('common.works.flash_merge_multiple_successful')
+      else
+        flash[:warning] = t('common.works.flash_merge_multiple_privileges')
+      end
+      #forward back to path which was specified in params
+      format.html { redirect_to return_path }
+      format.xml { head :ok }
+    end
+  end
 
   # Load name strings list from Request params
   # and set for the current work.
