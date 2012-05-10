@@ -655,7 +655,7 @@ en:
       flash_destroy_multiple_successful: "Works were successfully deleted."
       flash_destroy_success: "Works were successfully deleted."
       flash_merge_multiple_privileges: "One or more works could not be merged, as you have insufficient privileges"
-      flash_merge_multiple_successful: "Works were successfully merged."      
+      flash_merge_multiple_successful: "Works were successfully merge."      
       flash_update: "Work was successfully updated."
       location: Location
       location_given: "Location Given"
@@ -805,8 +805,10 @@ en:
   jsperanto:
     application:
       select_item: "Please select an item to delete."
-      confirm_delete: "Are you sure you want to permanently merge or delete this item?"
-      confirm_delete_plural: "Are you sure you want to permanently merge or delete these __count__ items?"     
+      confirm_delete: "Are you sure you want to permanently delete this item?"
+      confirm_delete_plural: "Are you sure you want to permanently delete these __count__ items?"
+      confirm_merge: "Are you sure you want to permanently merge this item?"
+      confirm_merge_plural: "Are you sure you want to permanently merge these __count__ items?"      
     specific:
       contributorships:
         index:
@@ -835,7 +837,7 @@ en:
         new:
           select_group: "Please select a group to join."
           confirm: "Are you sure you want to join this group?"
-          confirm_plural: "Are you sure you want to join these __count__ groups?"        
+          confirm_plural: "Are you sure you want to join these __count__ groups?"
   keywordings:
     edit:
       header: "Editing keywording"
