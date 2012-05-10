@@ -342,7 +342,6 @@ class WorksController < ApplicationController
       #Destroy each work one by one, so we can be sure user has 'admin' rights on all
       work_ids.each do |work_id|
         work = Work.find_by_id(work_id)
-
         #One final check...only an admin on this work can destroy it
         if logged_in? && current_user.has_role?("admin", work)
           work.merge_duplicates
