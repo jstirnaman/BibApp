@@ -321,7 +321,7 @@ class Index
 
     # Find all 'accepted' works with a matching Title Dupe Key or matching NameString Dupe Key
     query_params = {
-        :query => "(title_dupe_key:\"#{work['title_dupe_key']}\" OR name_string_dupe_key:\"#{work['name_string_dupe_key']}\") AND #{Work.solr_accepted_filter}",
+        :query => "((title_dupe_key:\"#{work['title_dupe_key']}\" OR name_string_dupe_key:\"#{work['name_string_dupe_key']}\")) AND #{Work.solr_accepted_filter}",
         :rows => 3
     }
 
@@ -359,10 +359,13 @@ class Index
 
     # Find all works with a matching Title Dupe Key or matching NameString Dupe Key
     query_params = {
-        :query => "(title_dupe_key:\"#{work.title_dupe_key}\" OR name_string_dupe_key:\"#{work.name_string_dupe_key}\") AND (#{Work.solr_duplicate_filter})",
+        :query => "(title_dupe_key:\"#{work.title_dupe_key}\" 
+          OR name_string_dupe_key:\"#{work.name_string_dupe_key}\") 
+          
+          ",
         :rows => 3
     }
-
+#AND (#{Work.solr_duplicate_filter})
     #Send a "more like this" query to Solr
     r = SOLRCONN.send(Solr::Request::Standard.new(query_params))
 

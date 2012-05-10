@@ -5,7 +5,8 @@ Bibapp::Application.routes.draw do
     resources :works do
       collection do
         get :orphans
-        delete :destroy_multiple
+        #delete :destroy_multiple
+        delete :merge_multiple
         post :orphans_delete
         get :shared
       end
