@@ -151,6 +151,12 @@ group :test, :development do
   gem 'rcov'
   gem 'cucumber-rails'
   gem 'database_cleaner'
+  #Adding additional Gems for faster testing
+  gem 'rb-fsevent'
+  gem 'growl'
+  gem 'guard-rspec'
+  gem 'spork-rails'
+  gem 'guard-spork'
   #I'd prefer to add metric_fu directly here, but something it pulls
   #in pulls in something else that conflicts with the Keyword class.
   #So instead I've installed the metrical gem separately to see

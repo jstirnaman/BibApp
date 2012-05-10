@@ -392,6 +392,59 @@ class Work < ActiveRecord::Base
     # it in a better way (e.g.  we don't end up accidentally re-marking things as
     # dupes that have previously been determined to not be dupes by a human)
   end
+  
+  def richness
+  # An simplistic attempt to determine the canonical best
+  # version of a work. Calculates richness
+  # of the record for comparing it to duplicates.
+    richness = self.abstract ? 10 : 0
+    richness += self.volume ? 10 : 0
+    richness += self.issue ? 10 : 0
+    richness += self.year ? 10 : 0
+    richness += self.links ? 10 : 0
+    richness += self.publication_id ? 10 : 0
+  end
+  
+  def sort_dupes_by_richness(dupes)
+    # Returns duplicates for a work, including the work itself,
+    # as an array of work objects sorted by descending richness   
+       
+      unless dupes.size <= 1
+        # Sort by descending richness
+        dupesorted = dupes.sort {|a,b| b.richness <=> a.richness}        
+        if dupesorted.first.richness == dupesorted.last.richness
+          # Re-sort by ID to let the oldest be the master
+          dupesorted = dupesorted.sort {|a,b| a[:id] <=> b[:id]}
+        end
+        
+        return dupesorted            
+      end
+  end
+  
+  def merge_duplicates
+    dupes = Index.possible_accepted_duplicate_works(self)
+    if (dupes.size <= 1) or dupes.nil?
+      dupes = Index.possible_unaccepted_duplicate_works(self)
+    end
+    
+    if dupes.size > 1    
+      dupesorted = self.sort_dupes_by_richness(dupes)  
+      master = dupesorted.slice!(0)
+      
+      # TODO: This is the only way I can get the objects correctly
+      # passed to merge!
+      # merge! is supposed to take a list of objects as an argument.
+      # I assume that would be more efficient than repeatedly
+      # calling merge!, but apparently I'm not building
+      # the list correctly. Surely there is a better way.
+      
+      dupesorted.each do |d|
+        master.merge!(d)
+      end
+      
+      master.is_accepted
+    end  
+  end
 
   def set_for_index_and_save
     self.batch_index = TO_BE_BATCH_INDEXED
