@@ -5,8 +5,10 @@ RSpec.configure do |config|
   config.fixture_path = Rails.root + '/spec/fixtures/'
 
   config.mock_with :rspec
-
-  include Authlogic::TestCase
+   
+    # Includes
+    config.include(Authlogic::TestCase)
+    config.include(FactoryGirl::Syntax::Methods)
 
   def login_as(factory = :activated_user, opts = {})
     activate_authlogic
