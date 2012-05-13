@@ -341,19 +341,27 @@ class WorksController < ApplicationController
       #Destroy each work one by one, so we can be sure user has 'admin' rights on all
       work_ids.each do |work_id|
         work = Work.find_by_id(work_id)
+        if work
         #One final check...only an admin on this work can destroy it
         if logged_in? && current_user.has_role?("admin", work)
           work.merge_duplicates
         else
           full_success = false
         end
+        else
+          # If the work doesn't exist in the database then it shouldn't be in Solr.
+          # Just remove it, no need to bother the user.
+          #@TODO: I don't like using delete_by_query here
+          # but Index.remove_from_solr fails if work is nil.
+          SOLRCONN.delete_by_query("pk_i:#{work_id}")
+        end
       end
     end
 
-    respond_to do |format|
+    respond_to do |format|      
       if full_success
         flash[:notice] = t('common.works.flash_merge_multiple_successful')
-      else
+      else      
         flash[:warning] = t('common.works.flash_merge_multiple_privileges')
       end
       #forward back to path which was specified in params

@@ -346,7 +346,7 @@ class Index
 
     #Get the Work corresponding to each doc returned by Solr
     docs.each do |doc|
-      dupes << Work.find(doc["pk_i"]) rescue nil
+      dupes << Work.find_by_id(doc["pk_i"])
     end
     return dupes.compact
   end
@@ -361,11 +361,11 @@ class Index
     query_params = {
         :query => "(title_dupe_key:\"#{work.title_dupe_key}\" 
           OR name_string_dupe_key:\"#{work.name_string_dupe_key}\") 
-          
+          AND (#{Work.solr_duplicate_filter})         
           ",
         :rows => 3
     }
-#AND (#{Work.solr_duplicate_filter})
+
     #Send a "more like this" query to Solr
     r = SOLRCONN.send(Solr::Request::Standard.new(query_params))
 
@@ -373,7 +373,7 @@ class Index
     docs = r.data["response"]["docs"]
 
     #Get the Work corresponding to each doc returned by Solr
-    return docs.collect { |doc| Work.find(doc["pk_i"]) }
+    return docs.collect { |doc| Work.find_by_id(doc["pk_i"]) }
   end
 
   private
