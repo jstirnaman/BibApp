@@ -422,28 +422,56 @@ class Work < ActiveRecord::Base
   end
   
   def merge_duplicates
+    logger.debug("\n\n===MERGE DUPLICATES===\n\n")
+    self.merge_unaccepted_duplicates
+    self.merge_accepted_duplicates  
+  end
+  
+  def merge_unaccepted_duplicates
+    logger.debug("\nMerge unaccepted duplicates \n")   
+    dupes = Index.possible_unaccepted_duplicate_works(self)
+    self.sort_and_merge(dupes)
+  end
+  
+  def merge_accepted_duplicates
+    logger.debug("\nMerge accepted duplicates \n") 
     dupes = Index.possible_accepted_duplicate_works(self)
-    if (dupes.size <= 1) or dupes.nil?
-      dupes = Index.possible_unaccepted_duplicate_works(self)
-    end
-    
-    if dupes.size > 1    
-      dupesorted = self.sort_dupes_by_richness(dupes)  
-      master = dupesorted.slice!(0)
-      
-      # TODO: This is the only way I can get the objects correctly
-      # passed to merge!
-      # merge! is supposed to take a list of objects as an argument.
-      # I assume that would be more efficient than repeatedly
-      # calling merge!, but apparently I'm not building
-      # the list correctly. Surely there is a better way.
-      
-      dupesorted.each do |d|
-        master.merge!(d)
-      end
-      
+    master = self.sort_and_merge(dupes)
+    unless master.nil? 
       master.is_accepted
-    end  
+    end
+  end
+  
+  
+  def sort_and_merge(dupes)     
+      if dupes.size > 1 
+        logger.debug("\nSort and merge works \n")  
+         
+        dupesorted = self.sort_dupes_by_richness(dupes)  
+        master = dupesorted.slice!(0)
+        
+        #@TODO: This is the only way I can get the objects
+        # passed to merge!
+        # merge! is supposed to take a list of objects as an argument.
+        # I assume that would be more efficient than repeatedly
+        # calling merge!, but apparently I'm not building
+        # the list correctly. Surely there is a better way.
+        
+        logger.debug("\nMerging #{dupesorted.size} duplicates into work # #{master.id}\n")
+        
+        # Method for comparing two works. Overrides Activerecord_Merge merge_equal? 
+        # to use the dupe_key methods instead of comparing all attributes
+        # of the records.
+        def merge_equal?(object)
+          object.instance_of?(self.class) and
+          ( self.title_dupe_key == object.title_dupe_key || self.name_string_dupe_key == object.name_string_dupe_key )
+        end
+                      
+        dupesorted.each do |d|
+          master.merge!(d)
+        end
+        return master
+      end
   end
 
   def set_for_index_and_save
