@@ -394,7 +394,7 @@ class Work < ActiveRecord::Base
   end
   
   def richness
-  # An simplistic attempt to determine the canonical best
+  # A simplistic attempt to determine the canonical best
   # version of a work. Calculates richness
   # of the record for comparing it to duplicates.
     richness = self.abstract ? 10 : 0
@@ -421,25 +421,40 @@ class Work < ActiveRecord::Base
       end
   end
   
-  def merge_duplicates
+  def merge_duplicates(status='ALL', rows=3)
     logger.debug("\n\n===MERGE DUPLICATES===\n\n")
-    self.merge_unaccepted_duplicates
-    self.merge_accepted_duplicates  
+    case status
+    when 'UNACCEPTED'
+      self.merge_unaccepted_duplicates(rows)
+    when 'ACCEPTED'
+      self.merge_accepted_duplicates(rows)
+    when 'ALL'
+      self.merge_unaccepted_duplicates(rows)
+      self.merge_accepted_duplicates(rows)
+    end
   end
   
-  def merge_unaccepted_duplicates
+  def merge_unaccepted_duplicates(rows)
     logger.debug("\nMerge unaccepted duplicates \n")   
-    dupes = Index.possible_unaccepted_duplicate_works(self)
+    dupes = Index.possible_unaccepted_duplicate_works(self, rows)
     self.sort_and_merge(dupes)
   end
   
-  def merge_accepted_duplicates
+  def merge_accepted_duplicates(rows)
     logger.debug("\nMerge accepted duplicates \n") 
-    dupes = Index.possible_accepted_duplicate_works(self)
+    dupes = Index.possible_accepted_duplicate_works(self, rows)
     master = self.sort_and_merge(dupes)
     unless master.nil? 
       master.is_accepted
     end
+  end
+  
+  # Method for comparing two works. Overrides Activerecord_Merge merge_equal?
+  # to use the dupe_key methods instead of comparing all attributes
+  # of the records.
+  def merge_equal?(object)
+    object.instance_of?(self.class) and
+    ( self.title_dupe_key == object.title_dupe_key || self.name_string_dupe_key == object.name_string_dupe_key )
   end
   
   
@@ -458,14 +473,6 @@ class Work < ActiveRecord::Base
         # the list correctly. Surely there is a better way.
         
         logger.debug("\nMerging #{dupesorted.size} duplicates into work # #{master.id}\n")
-        
-        # Method for comparing two works. Overrides Activerecord_Merge merge_equal? 
-        # to use the dupe_key methods instead of comparing all attributes
-        # of the records.
-        def merge_equal?(object)
-          object.instance_of?(self.class) and
-          ( self.title_dupe_key == object.title_dupe_key || self.name_string_dupe_key == object.name_string_dupe_key )
-        end
                       
         dupesorted.each do |d|
           master.merge!(d)
