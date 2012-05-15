@@ -805,8 +805,8 @@ en:
   jsperanto:
     application:
       select_item: "Please select an item to delete."
-      confirm_delete: "Are you sure you want to permanently delete this item?"
-      confirm_delete_plural: "Are you sure you want to permanently delete these __count__ items?"     
+      confirm_delete: "Are you sure you want to permanently merge or delete this item?"
+      confirm_delete_plural: "Are you sure you want to permanently merge or delete these __count__ items?"     
     specific:
       contributorships:
         index:
@@ -820,10 +820,6 @@ en:
           confirm_deny_plural: "Are you sure you want to deny the __count__ selected items?"
           confirm_unverify: "Are you sure you want to unverify this item?"
           confirm_unverify_plural: "Are you sure you want to unverify the __count__ selected items?"
-      duplicates:
-        index:
-          confirm_delete: "Are you sure you want to permanently merge this item?"
-          confirm_delete_plural: "Are you sure you want to permanently merge these __count__ items?" 
       imports:
         show:
           matched_total: "__count__ work to __imported_for__"
@@ -839,7 +835,7 @@ en:
         new:
           select_group: "Please select a group to join."
           confirm: "Are you sure you want to join this group?"
-          confirm_plural: "Are you sure you want to join these __count__ groups?"
+          confirm_plural: "Are you sure you want to join these __count__ groups?"        
   keywordings:
     edit:
       header: "Editing keywording"
