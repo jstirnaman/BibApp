@@ -25,7 +25,7 @@ namespace :works_helper do
     end
   end
   
-  desc "Deletes a batch of works given a file of Work IDs, one per line. Ex: 'rake works_helper:batch_destroy_list works='dupes_list.txt'"
+  desc "Deletes a batch of works given a file of Work IDs, one per line. Ex: rake works_helper:batch_destroy_list works='dupes_list.txt'"
   task :batch_destroy_list => :environment do
     if ENV['works']
       @works = IO.readlines(ENV['works'])
@@ -40,6 +40,31 @@ namespace :works_helper do
       end
     else
       puts "Usage example: 'rake works_helper:batch_destroy_list works='dupes_list.txt'"
+    end
+  end
+  
+  desc "Merges each work in a list of works with the work's duplicate candidates.
+       Requires a +works+ file of Work IDs, one per line.
+       Takes an optional +rows+ variable specifying how many duplicate candidates will be returned by
+       Solr. Default is 3.
+       Takes an optional +status+ variable for specifying which sets of duplicate
+       candidates should be merged. Possible values are 'UNACCEPTED', 'ACCEPTED', or 'ALL' (default)
+       Ex: rake works_helper:batch_merge_duplicates_list works='dupes_list.txt' status='ALL'"
+  task :batch_merge_duplicates_list => :environment do
+    if ENV['works'] && @works = IO.readlines(ENV['works'])
+      puts "Attempting to merge #{@works.length} works with their duplicate candidates...."
+      @works.each {|w| w.strip!}
+      @works.each do |w|
+        @status = ENV['status'].strip
+        @rows = ENV['rows'].strip        
+        begin
+          Work.find(w).merge_duplicates(@status, @rows)
+        rescue Exception # Don't bail if the work isn't found.
+          STDERR.puts "Could not merge Work #{w}. Maybe it's already been deleted?"
+        end
+      end
+    else
+      puts "Missing works file. Usage example: Ex: bundle exec rake works_helper:batch_merge_duplicates_list works='dupes_list.txt' work_status='ALL'"
     end
   end
 
