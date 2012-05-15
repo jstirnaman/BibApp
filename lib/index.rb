@@ -308,7 +308,7 @@ class Index
   # Retrieve possible *accepted* duplicates from Solr, based on current Work
   #   Returns list of document hashes from Solr
   #  Note: if the work itself has been accepted, it will appear in this list
-  def self.possible_accepted_duplicates(record)
+  def self.possible_accepted_duplicates(record, rows=3)
 
     work = Hash.new
     #If this is a Work, generate dupe keys dynamically
@@ -322,7 +322,7 @@ class Index
     # Find all 'accepted' works with a matching Title Dupe Key or matching NameString Dupe Key
     query_params = {
         :query => "((title_dupe_key:\"#{work['title_dupe_key']}\" OR name_string_dupe_key:\"#{work['name_string_dupe_key']}\")) AND #{Work.solr_accepted_filter}",
-        :rows => 3
+        :rows => rows
     }
 
     #Send a "more like this" query to Solr
@@ -337,12 +337,12 @@ class Index
   # Retrieve possible *accepted* duplicates from Solr, based on current Work
   #  Returns a list of Work objects
   #  Note: if the work itself has been accepted, it will appear in this list
-  def self.possible_accepted_duplicate_works(work)
+  def self.possible_accepted_duplicate_works(work, rows=3)
     dupes = Array.new
 
     # Query Solr for all possible duplicates
     #  This returns a hash of document information from Solr
-    docs = possible_accepted_duplicates(work)
+    docs = possible_accepted_duplicates(work, rows)
 
     #Get the Work corresponding to each doc returned by Solr
     docs.each do |doc|
@@ -355,7 +355,7 @@ class Index
   # on current Work, and including the current Work itself
   #  Returns a list of Work objects
   #  Note: if the work itself has not been accepted, it will appear in this list
-  def self.possible_unaccepted_duplicate_works(work)
+  def self.possible_unaccepted_duplicate_works(work, rows=3)
 
     # Find all works with a matching Title Dupe Key or matching NameString Dupe Key
     query_params = {
@@ -363,7 +363,7 @@ class Index
           OR name_string_dupe_key:\"#{work.name_string_dupe_key}\") 
           AND (#{Work.solr_duplicate_filter})         
           ",
-        :rows => 3
+        :rows => rows
     }
 
     #Send a "more like this" query to Solr
