@@ -54,7 +54,7 @@ class PeopleController < ApplicationController
           end
           @a_to_z = @a_to_z.uniq
           @page = params[:page] || @a_to_z[0]
-          @current_objects = @group.people.order("upper(last_name), upper(first_name)")
+          @current_objects = @group.people.where(:active => true).order("upper(last_name), upper(first_name)")
           @current_objects = @current_objects.where("upper(last_name) like ?", "#{@page}%") unless @page == 'all'
         end
 
@@ -66,7 +66,7 @@ class PeopleController < ApplicationController
         else
           @a_to_z = Person.letters
           @page = params[:page] || @a_to_z[0]
-          @current_objects = Person.where("upper(last_name) like ?", "#{@page}%").order("upper(last_name), upper(first_name)")
+          @current_objects = Person.where(:active => true).where("upper(last_name) like ?", "#{@page}%").order("upper(last_name), upper(first_name)")
         end
         @title = Person.model_name.human_pl
       end
