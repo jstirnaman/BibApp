@@ -55,8 +55,8 @@ namespace :works_helper do
       puts "Attempting to merge #{@works.length} works with their duplicate candidates...."
       @works.each {|w| w.strip!}
       @works.each do |w|
-        @status = ENV['status'].strip
-        @rows = ENV['rows'].strip        
+        @status = ENV['status'].strip || 'ALL'
+        @rows = ENV['rows'].strip  || 3      
         begin
           Work.find(w).merge_duplicates(@status, @rows)
         rescue Exception # Don't bail if the work isn't found.
