@@ -57,8 +57,7 @@ namespace :works_helper do
       @works.each do |w|
         @status = ENV['status'] || 'ALL'
         @rows = ENV['rows'] || 3
-        @status.strip!
-        @rows.strip!      
+        @status.strip!     
         begin
           Work.find(w).merge_duplicates(@status, @rows)
         rescue Exception # Don't bail if the work isn't found.
