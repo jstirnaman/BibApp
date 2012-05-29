@@ -3,7 +3,7 @@
     = check_box_tag "select_works", "yes", false, :id => 'global-checkbox'
     %strong #{t('app.select_all')}
     |
-    = submit_tag t('.submit')
+    = submit_tag t('app.merge_selected')
     = hidden_field_tag "return_path", @return_path
 
   .span-14= will_paginate @works
