@@ -10,5 +10,8 @@ Mime::Type.register_alias "text/xml", :mets
 #### Register RDF as XML MIME Type, so we can provide RESTful RDF ####
 Mime::Type.register_alias "text/xml", :rdf
 
+#### Register RSS as XML MIME Type, so we can provide RESTful RSS ####
+Mime::Type.register_alias "application/rss+xml", :rss
+
 #### Register  as XML MIME Type, so we can provide RESTful Google Promotions for Google Custom Search ####
 Mime::Type.register_alias "text/xml", :googlepromotions
