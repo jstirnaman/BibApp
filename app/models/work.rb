@@ -140,7 +140,7 @@ class Work < ActiveRecord::Base
 
   def after_save_actions
     deduplicate
-    create_contributorships unless self.skip_create_contributorships
+    Work.find(self.id).create_contributorships unless self.skip_create_contributorships
   end
 
   def before_save_actions
