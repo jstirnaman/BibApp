@@ -10,6 +10,12 @@
     - @orphans.each do |orphan|
       %li.work
         #{check_box_tag "orphan_delete[orphan_id][]",  orphan.id, false, :id => "orphan_delete_orphan_id_#{orphan.id}", :class => 'orphan_checkbox'}
-        #{orphan.title_primary}
+        -#KUMC.JTS Took this from proper_work. I can't reliably render the partial
+        -# here. There seems to be a problem when publication or ISSN data is missing.
+        %strong #{link_to orphan.title_primary, work_path(orphan)}
+        %h5.work-type #{t_solr_work_type(orphan.type)}
+        - if orphan.work_state_id
+          %strong [#{t_work_status(orphan.work_state_id)}]
+        = render proper_subclass_partial_for(orphan), :work => orphan
     = f.submit t('works.orphans.submit'), :confirm => t('works.orphans.confirm')
 = will_paginate(@orphans)
