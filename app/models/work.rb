@@ -435,14 +435,16 @@ class Work < ActiveRecord::Base
   end
   
   def merge_unaccepted_duplicates(rows)
-    logger.debug("\nMerge unaccepted duplicates \n")   
+    logger.debug("\n===Merging unaccepted duplicates===\n")   
     dupes = Index.possible_unaccepted_duplicate_works(self, rows)
+    logger.debug("\n===Found #{dupes.size} unaccepted dupes===\n")
     self.sort_and_merge(dupes)
   end
   
   def merge_accepted_duplicates(rows)
-    logger.debug("\nMerge accepted duplicates \n") 
+    logger.debug("\n===Merging accepted duplicates===\n") 
     dupes = Index.possible_accepted_duplicate_works(self, rows)
+    logger.debug("\n===Found #{dupes.size} accepted dupes===\n")
     master = self.sort_and_merge(dupes)
     unless master.nil? 
       master.is_accepted
@@ -460,7 +462,7 @@ class Work < ActiveRecord::Base
   
   def sort_and_merge(dupes)     
       if dupes.size > 1 
-        logger.debug("\nSort and merge works \n")  
+        logger.debug("\n===Sort and merge works===\n")  
          
         dupesorted = self.sort_dupes_by_richness(dupes)  
         master = dupesorted.slice!(0)
@@ -472,7 +474,7 @@ class Work < ActiveRecord::Base
         # calling merge!, but apparently I'm not building
         # the list correctly. Surely there is a better way.
         
-        logger.debug("\nMerging #{dupesorted.size} duplicates into work # #{master.id}\n")
+        logger.debug("\n===Merging #{dupesorted.size} duplicates into work # #{master.id}===\n")
                       
         dupesorted.each do |d|
           master.merge!(d)
