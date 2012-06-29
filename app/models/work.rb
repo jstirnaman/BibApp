@@ -442,7 +442,7 @@ class Work < ActiveRecord::Base
     logger.debug("\n===Merging accepted duplicates===\n") 
     dupes = Index.possible_accepted_duplicate_works(self, rows)
     logger.debug("\n===Found #{dupes.size} accepted dupes===\n")
-    master = self.sort_and_merge(dupes)
+    master = self.sort_and_merge(dupes) unless dupes.size <= 1
     unless master.nil? 
       master.is_accepted
     end
@@ -458,7 +458,7 @@ class Work < ActiveRecord::Base
   
   
   def sort_and_merge(dupes)     
-      if dupes.size > 1 
+      if dupes 
         logger.debug("\n===Sort and merge works===\n")  
          
         dupesorted = self.sort_dupes_by_richness(dupes)  
