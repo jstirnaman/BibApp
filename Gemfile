@@ -112,6 +112,9 @@ gem 'loofah-activerecord'
 #For deployment, but can be ignored if not using capistrano
 gem 'capistrano'
 
+#Performance analysis without New Relic
+gem 'request-log-analyzer'
+
 #include thin webserver for development
 #to start it, do 'bundle exec thin start' - this is important, as
 #doing simply 'thin start' may pull in unbundled gems and cause
