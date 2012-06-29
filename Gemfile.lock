@@ -246,6 +246,7 @@ GEM
     rcov (1.0.0)
     rdoc (3.12)
       json (~> 1.4)
+    request-log-analyzer (1.12.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.10.0)
@@ -353,6 +354,7 @@ DEPENDENCIES
   rake
   rb-fsevent
   rcov
+  request-log-analyzer
   rspec
   rspec-rails
   ruby-debug
