@@ -30,6 +30,3 @@
 - Rabbit
 - Rat
 - United States
-- !ruby/regexp '/^Multidisciplinary Sciences$/'
-#- !ruby/regexp '/^Life Sciences Biomedicine - Other Topics$/'
-#- !ruby/regexp '/^Science Technology - Other Topics$/'
