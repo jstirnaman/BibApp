@@ -115,6 +115,7 @@ gem 'capistrano'
 #Performance analysis without New Relic
 gem 'request-log-analyzer'
 
+gem 'passenger'
 #include thin webserver for development
 #to start it, do 'bundle exec thin start' - this is important, as
 #doing simply 'thin start' may pull in unbundled gems and cause
