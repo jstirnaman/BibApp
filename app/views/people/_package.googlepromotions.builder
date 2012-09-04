@@ -16,15 +16,31 @@ xml.Promotions() do
     end
       pid = "Experts_" + pid.downcase    
       promo_h.merge!('id' => pid)
-     
+    
+    # Construct a Solr-ish hash of keywords
+    # so that we can apply exclude_keywords
+    # from the KeywordCloudHelper. 
     queries = []
       queries << p.last_name
-      facets = {:keywords => p.keywords}     
+      facets = {:keywords => p.keywords}
+      
+      # Apply keyword exclusions.  
       kwords = exclude_keywords(facets[:keywords])
-      kwords = kwords.first(3)
+      
+      # Reject keywords which are shorter than 2 words.
+      # This sort of reduces the likelihood of matching
+      # a Google user's query - a hack for preventing false-positives
+      # and noise in the Google queries.
+      kwords = kwords.reject { |kw| kw.name.split.size < 2 }
+      
+      # Only take the first 5 keyword phrases
+      kwords = kwords.first(5)
       if kwords.length > 0
-        kw = []   
-        kw << kwords.map{|k|h(k.name.to_s.gsub(/\W/,' ').strip)}
+        kw = []
+        # Convert any non-word characters to whitespace, squeeze multiple
+        # spaces into one, and strip any
+        # whitespace characters off the ends.
+        kw << kwords.map{|k|h(k.name.to_s.gsub(/\W/,' ').squeeze(" ").strip)}
         queries = [queries, kw].join(", ")
       end
       promo_h.merge!('queries' => queries)
