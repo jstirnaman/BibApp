@@ -24,6 +24,8 @@
 - !ruby/regexp '/^Animal?/'
 - Female
 - Human
+- Internet
+- !ruby/regexp '/^Kansas/'
 - Male
 - Mice
 - Middle Aged
