@@ -48,13 +48,22 @@ $PERSON_COLUMN_DELIMITER = ','
 #
 # Use In the form of a hash, with the key being the CSV column as a string
 # and the hash value as a symbol (mostly for readability) that names the person model field names
-# $ALIAS_MATCH_PERSON = {'id' => :uid, 
-#                       'first' => :first_name, 
-#                       'last' => :last_name, 
-#                       'full' => :display_name, 
-#                       'org' => :organization, 
-#                       'start date' => :start_date
-#                       }
+
+# KUMC.JTS Our CSV file from LDAP output is generated with the LDAP attributes as headings.
+# So, here we're mapping our ldap.yml configuration to the database columns.
+$ALIAS_MATCH_PERSON = {   'uid' => :uid,
+                          'cn'  => :im,
+                          'givenname' => :first_name,
+                          'sn' => :last_name,
+                          'initials' => :middle_name,           
+                          'generationqualifier' => :suffix,
+                          'displayname' => :display_name,
+                          'ou' => :office_address_line_one,
+                          'title' => :suffix,
+                          'l' => :postal_address,     
+                          'mail' => :email,
+                          'telephonenumber' => :phone      
+                       }
 
 # following are fields in sample csv file 
 # these are all csv columns, for not used can set the hash value :ignore
