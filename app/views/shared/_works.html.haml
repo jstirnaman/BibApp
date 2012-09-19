@@ -51,6 +51,8 @@
   - if @export.blank?
     .span-17.clear-both.no-padding-or-margin
       - @works.each do |work|
+        -# / COinS
+        %span.Z3988{:title => "#{coin(work)}"}
         = render "shared/work", :work => work, :allow_select => allow_select, :show_status => show_status,
           :show_dupes => show_dupes, :links_array => links_array
   - else
