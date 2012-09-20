@@ -10,6 +10,7 @@ class SearchController < ApplicationController
       format.yaml
       format.xml
       format.rdf
+      format.rss
     end
   end
 
