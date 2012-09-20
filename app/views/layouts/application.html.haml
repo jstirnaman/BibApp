@@ -44,7 +44,9 @@
     - if (@feeds)
       - @feeds.each do |feed|
         = auto_discovery_link_tag(feed[:format].to_sym, { :action => feed[:action], :id => feed[:id], :format => feed[:format] })
-        
+    - else
+      = auto_discovery_link_tag(:rss, { :action => "index", :controller => "search", :q => @query, :format => "rss" })
+
     %title= t('personalize.application_name') + " - " + (@title || t('layouts.application.default_title'))
   %body 
     -# KUMC accessibility
