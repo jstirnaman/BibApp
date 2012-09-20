@@ -7,7 +7,11 @@ rss_document_on(xml) do
       end
     end
     @works.each do |work|
-      xml << render('shared/rss_item', :work => work, :author_name => work['name_strings'].join("; "))
+      author_names = {}
+      if work['name_strings']
+        author_names = work['name_strings'].join("; ")
+      end
+      xml << render('shared/rss_item', :work => work, :author_name => author_names  )
     end
   end
 end
