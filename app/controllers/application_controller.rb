@@ -138,6 +138,9 @@ class ApplicationController < ActionController::Base
     # Add Feeds
     if @current_object
       @feeds = [{:action => "show", :id => @current_object.id, :format => "rss"}]
+#     elsif @query
+#       params[:format] = "rss"
+#       @feeds = [{:action => "index", :controller => "search", :format => "rss", :params => params}]
     end
 
     # Enable Citeproc
