@@ -1,0 +1,13 @@
+rss_document_on(xml) do
+  xml.channel do
+    xml.title do |c|
+      c << t('personalize.university_short_name') + ": Works" 
+      if @query
+        c << " results for &quot;#{@query}&quot;"
+      end
+    end
+    @works.each do |work|
+      xml << render('shared/rss_item', :work => work, :author_name => work['name_strings'].join("; "))
+    end
+  end
+end
