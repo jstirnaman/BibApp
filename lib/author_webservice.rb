@@ -30,7 +30,6 @@ class AuthorWebservice
        parameters[:namespace] = config['namespace']
      end     
      if self.config['username'].present? and self.config['password'].present?
-#       parameters[:encryption] = :simple_tls
        parameters[:auth] = {:method => :simple, :username => config['username'], :password => config['password']}
      end
      if self.config['token'].present?
@@ -40,10 +39,9 @@ class AuthorWebservice
   end
 
   def get_connection
-#     Net::LDAP.new(self.connection_parameters).tap do |ldap|
-#       raise BibappLdapConnectionError unless ldap.bind
-#     end
     Savon.client(self.connection_parameters[:service_address])
+    rescue Savon::Error => e
+      log e.to_s
   end
   
   def search(query)
@@ -64,16 +62,16 @@ class AuthorWebservice
     # Person data comes back as SOAP-wrapped CDATA-encoded XML doc.
     resultsnode = Nokogiri::XML(response[:get_users_response][:get_users_result])    
     # Convert to an array of person hashes. This mirrors ldap_search results so
-    # we can reuse the same .clean method.
+    # it behaves as a "drop-in" replacement for LDAP and we can reuse the same .clean method
+    # and views.
     entries = resultsnode.xpath('/SearchResults//person').map do |p|
       Hash[p.children.map {|a| [a.attr('name'), [a.content]]}]
     end
-    
-    STDERR.puts entries
      
-    entries.map! {|e| clean(e)}
-     
+    entries.map! {|e| clean(e)}     
     rescue AuthorWebserviceError => e
+      raise AuthorWebserviceError(e.message)
+    rescue Savon::Error => e
       raise AuthorWebserviceError(e.message)
   end
 
