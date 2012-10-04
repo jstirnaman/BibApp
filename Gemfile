@@ -109,6 +109,9 @@ gem 'sort_alphabetical'
 #allow for HTML sanitizing for fields where we want to allow some html
 gem 'loofah-activerecord'
 
+# Interact with SOAP web services. Used for person lookup service to replace LDAP lookups.
+gem 'savon'
+
 #For deployment, but can be ignored if not using capistrano
 gem 'capistrano'
 

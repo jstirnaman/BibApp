@@ -1,3 +1,4 @@
+require 'author_webservice'
 require 'author_batch_load'
 require 'bibapp_ldap'
 require 'redcloth'
@@ -74,15 +75,14 @@ class PeopleController < ApplicationController
 
     before :new do
       if params[:q]
+      # Replaced LDAP lookup with KUMC's local directory webservice search.
         begin
-          @ldap_results = BibappLdap.instance.search(params[:q])
-        rescue BibappLdapConfigError
-          @fail_message = t('common.people.ldap_fail_configuration')
-        rescue BibappLdapConnectionError
-          @fail_message = t('common.people.ldap_fail_authentication')
-        rescue BibappLdapTooManyResultsError
-          @fail_message = t('common.people.ldap_fail_too_many')
-        rescue BibappLdapError => e
+          @ldap_results = AuthorWebservice.instance.search(params[:q])
+        rescue AuthorWebserviceConfigError
+          @fail_message = 'Configuration error in AuthorWebservice'
+        rescue AuthorWebserviceConnectionError
+          @fail_message = 'Connection error in AuthorWebservice'
+        rescue AuthorWebserviceError => e
           @fail_message = e.message
         end
         if @ldap_results.nil?
@@ -90,7 +90,25 @@ class PeopleController < ApplicationController
         else
           @ldap_results.compact!
         end
-      end
+      end            
+#       if params[:q]
+#         begin
+#           @ldap_results = BibappLdap.instance.search(params[:q])
+#         rescue BibappLdapConfigError
+#           @fail_message = t('common.people.ldap_fail_configuration')
+#         rescue BibappLdapConnectionError
+#           @fail_message = t('common.people.ldap_fail_authentication')
+#         rescue BibappLdapTooManyResultsError
+#           @fail_message = t('common.people.ldap_fail_too_many')
+#         rescue BibappLdapError => e
+#           @fail_message = e.message
+#         end
+#         if @ldap_results.nil?
+#           @fail = true
+#         else
+#           @ldap_results.compact!
+#         end
+#       end
       @title = t('common.people.new')
     end
 
