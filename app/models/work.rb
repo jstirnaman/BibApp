@@ -387,10 +387,6 @@ class Work < ActiveRecord::Base
       self.is_duplicate
     end
 
-    #@TODO: Is there a way that we can calculate the *canonical best*
-    # version of a work? We've tried this in the past, but we need to do
-    # it in a better way (e.g.  we don't end up accidentally re-marking things as
-    # dupes that have previously been determined to not be dupes by a human)
   end
   
   def richness
@@ -405,23 +401,7 @@ class Work < ActiveRecord::Base
     richness += self.publication_id ? 10 : 0
   end
   
-  def sort_dupes_by_richness(dupes)
-    # Returns duplicates for a work, including the work itself,
-    # as an array of work objects sorted by descending richness   
-       
-      unless dupes.size <= 1
-        # Sort by descending richness
-        dupesorted = dupes.sort {|a,b| b.richness <=> a.richness}        
-        if dupesorted.first.richness == dupesorted.last.richness
-          # Re-sort by ID to let the oldest be the master
-          dupesorted = dupesorted.sort {|a,b| a[:id] <=> b[:id]}
-        end
-        
-        return dupesorted            
-      end
-  end
-  
-  def merge_duplicates(status='ALL', rows=3)
+  def merge_duplicates(status='ALL', rows=10)
     logger.debug("\n\n===MERGE DUPLICATES===\n\n")
     case status
     when 'UNACCEPTED'
@@ -438,14 +418,22 @@ class Work < ActiveRecord::Base
     logger.debug("\n===Merging unaccepted duplicates===\n")   
     dupes = Index.possible_unaccepted_duplicate_works(self, rows)
     logger.debug("\n===Found #{dupes.size} unaccepted dupes===\n")
-    self.sort_and_merge(dupes)
+    if self.accepted?
+      # Then use self as the master work to merge all unaccepted duplicates into.
+      self.sort_and_merge(dupes, self)
+    else
+      self.sort_and_merge(dupes, nil)
+    end
   end
   
   def merge_accepted_duplicates(rows)
     logger.debug("\n===Merging accepted duplicates===\n") 
     dupes = Index.possible_accepted_duplicate_works(self, rows)
     logger.debug("\n===Found #{dupes.size} accepted dupes===\n")
-    master = self.sort_and_merge(dupes) unless dupes.size <= 1
+    unless self.accepted?
+      dupes << self
+    end
+    master = self.sort_and_merge(dupes, nil) unless dupes.size < 1
     unless master.nil? 
       master.is_accepted
     end
@@ -459,13 +447,33 @@ class Work < ActiveRecord::Base
     ( self.title_dupe_key == object.title_dupe_key || self.name_string_dupe_key == object.name_string_dupe_key )
   end
   
+  def sort_dupes_by_richness(dupes)
+    # Returns duplicates for a work, including the work itself,
+    # as an array of work objects sorted by descending richness   
+      dupesorted = [] 
+      unless dupes.size <= 1
+        # Sort by descending richness
+        dupesorted = dupes.sort {|a,b| b.richness <=> a.richness}        
+        if dupesorted.first.richness == dupesorted.last.richness
+          # Re-sort by ID to let the oldest be the master
+          dupesorted = dupesorted.sort {|a,b| a[:id] <=> b[:id]}
+        end
+      else
+        dupesorted = dupes                   
+      end
+      return dupesorted
+  end
   
-  def sort_and_merge(dupes)     
-      if dupes 
-        logger.debug("\n===Sort and merge works===\n")  
+  def sort_and_merge(dupes, master)     
+      unless dupes.empty?
+        logger.debug("\n===Sort and merge #{dupes.size} works===\n")  
          
-        dupesorted = self.sort_dupes_by_richness(dupes)  
-        master = dupesorted.slice!(0)
+        dupesorted = self.sort_dupes_by_richness(dupes)
+        
+        # If master isn't supplied then use the richest record.
+        if master.nil?
+          master = dupesorted.slice!(0)
+        end
         
         #@TODO: This is the only way I can get the objects
         # passed to merge!
@@ -477,8 +485,12 @@ class Work < ActiveRecord::Base
         logger.debug("\n===Merging #{dupesorted.size} duplicates into work # #{master.id}===\n")
                       
         dupesorted.each do |d|
-          master.merge!(d)
+        # Make sure d still exists
+          if Work.exists?(d[:id])
+            master.merge!(d)
+          end
         end
+        logger.debug("\n===Finished merging duplicates into work # #{master.id}===\n")
         return master
       end
   end

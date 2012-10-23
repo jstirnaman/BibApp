@@ -339,16 +339,16 @@ class WorksController < ApplicationController
     full_success = true
 
     if work_ids.present?
-      #Destroy each work one by one, so we can be sure user has 'admin' rights on all
+      #Merge dupes for each work one by one, so we can be sure user has 'admin' rights on all
       work_ids.each do |work_id|
         work = Work.find_by_id(work_id)
         if work
-        #One final check...only an admin on this work can destroy it
-        if logged_in? && current_user.has_role?("admin", work)
-          work.merge_duplicates
-        else
-          full_success = false
-        end
+					#One final check...only an admin on this work can destroy it
+					if logged_in? && current_user.has_role?("admin", work)
+						work.merge_duplicates('ALL', 20)
+					else
+						full_success = false
+					end
         else
           # If the work doesn't exist in the database then it shouldn't be in Solr.
           # Just remove it, no need to bother the user.
