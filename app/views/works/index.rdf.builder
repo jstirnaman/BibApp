@@ -5,6 +5,10 @@ rdf_document_on(xml) do
   end
   if @has_next_page
     @page = @page == 0 ? 1 : @page
-    xml.link({:rel => "next", :href => "#{works_url()}.rdf?page=#{@page.to_i+1}"})
+		  xml.oslc(:ResponseInfo, 
+		           'rdf:about' => "#{request.protocol}#{request.host_with_port}#{request.fullpath}?page=#{@page.to_i}&oslc.paging=true",
+               'xmlns:oslc' => "http://open-services.net/ns/core#ResponseInfo" ) do
+        xml.oslc(:nextPage, 'rdf:resource' => "#{request.protocol}#{request.host_with_port}#{request.fullpath}?page=#{@page.to_i+1}")
+      end
   end
 end
