@@ -5,7 +5,7 @@
     = text_field_tag :q, params[:q]
     = submit_tag t('app.search')
     &nbsp; #{t '.example'}
-
+%p
 - if @ldap_results
   = js_data_div('ldap_results', @ldap_results)
   %fieldset
