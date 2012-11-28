@@ -46,7 +46,7 @@ class AuthorWebservice
   
   def search(query)
     client = self.get_connection
-    response = client.request :dir, :get_users do
+    response = client.request :dir, :get_users_by_name do
       soap.version = 1
       # Namespacing required for authentication.
       soap.namespaces["xmlns:dir"] = self.connection_parameters[:namespace]
