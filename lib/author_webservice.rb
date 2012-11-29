@@ -60,7 +60,7 @@ class AuthorWebservice
      end
     
     # Person data comes back as SOAP-wrapped CDATA-encoded XML doc.
-    resultsnode = Nokogiri::XML(response[:get_users_response][:get_users_result])    
+    resultsnode = Nokogiri::XML(response[:get_users_by_name_response][:get_users_by_name_result])    
     # Convert to an array of person hashes. This mirrors ldap_search results so
     # it behaves as a "drop-in" replacement for LDAP and we can reuse the same .clean method
     # and views.
