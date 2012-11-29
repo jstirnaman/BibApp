@@ -112,7 +112,7 @@ gem 'loofah-activerecord'
 # Interact with SOAP web services. Used for person lookup service to replace LDAP lookups.
 gem 'savon'
 
-# Simplify creating Google Charts
+# Googlecharts for easy Google Charts
 gem 'googlecharts'
 
 #For deployment, but can be ignored if not using capistrano
