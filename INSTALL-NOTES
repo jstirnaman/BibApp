@@ -1,0 +1,37 @@
+# Running Bibapp on Rackspace Ubuntu:
+# File permissions are set to jstirnaman:users 775. Log permissions are 666.
+#=== RVM and Ruby ===
+# DO NOT use Ubuntu's packaged Ruby-RVM! It's outdated. See http://stackoverflow.com/questions/9056008/installed-ruby-1-9-3-with-rvm-but-command-line-doesnt-show-ruby-v/9056395#9056395
+# Make sure you're using the correct Ruby when starting Passenger and BibApp. 
+# This should work, though I can't explain why. Maybe because of ~/.bashrc
+# /bin/bash --login 
+
+#=== Starting up Passenger for BibApp ===
+# Running Phusion Passenger Standalone (w/ Nginx). Passenger executes the application as the owner of config/environment.rb with the group set to that user's primary group.
+# As user jstirnaman (or some other sudoer):
+# sudo passenger start -e production -p 80 --user bibapp
+# However, with RVM, sudo needs to specify
+# which passenger gem to use, e.g.:
+# sudo /home/jstirnaman/.rvm/gems/ree-1.8.7-2011.03@bibapp-rails3/gems/passenger-3.0.19/bin/passenger start -p80 -e production -d --user jstirnaman
+# Add -d option to daemonize passenger
+#
+#
+# Machine specs
+# Started with a 512M machine, but response was too slow.
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND             
+ 3000 bibapp    20   0  295m 137m 1252 S    0 28.0   0:47.59 ruby1.8             
+ 4375 bibapp    20   0 2343m 117m 3432 S    0 24.0   0:07.29 java                
+ 9051 bibapp    20   0  271m  67m  704 S    0 13.9   0:36.53 ruby                
+ 3085 postgres  20   0  127m  20m  19m S    0  4.1   0:04.71 postgres            
+ 9053 postgres  20   0  132m 2372 1820 S    0  0.5   0:30.12 postgres            
+ 1287 root      20   0 57048 1696  456 S    0  0.3   0:00.68 passenger           
+ 5022 bibapp    20   0 17332 1248  920 R    0  0.2   0:00.33 top                 
+  940 postgres  20   0  125m 1060  660 S    0  0.2   1:07.56 postgres            
+ 1335 bibapp    20   0 35508 1020  540 S    0  0.2   0:00.49 nginx 
+
+Rendered publications/index.html.haml within layouts/application (28414.8ms)
+Completed 200 OK in 28728ms (Views: 27527.6ms | ActiveRecord: 900.4ms)
+
+Rendered people/index.html.haml within layouts/application (7772.6ms)
+Completed 200 OK in 7951ms (Views: 2546.8ms | ActiveRecord: 5303.4ms)
+
