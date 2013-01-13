@@ -39,7 +39,7 @@ class Group < ActiveRecord::Base
   def self.parse_solr_data(group_data)
     data = group_data.split("||")
     name = data[0]
-    id = data[1]
+    id = data[1].strip
 
     return name, id
   end
@@ -47,8 +47,7 @@ class Group < ActiveRecord::Base
   #### Methods ####
 
   def works
-    Work.verified.includes(:contributorships => {:person => :memberships}).
-        where(:contributorships => {:person => {:memberships => {:group_id => self.id}}})
+    self.people.collect {|p| p.works.verified}.flatten.uniq
   end
 
   def get_associated_works
@@ -61,7 +60,7 @@ class Group < ActiveRecord::Base
 
   # Convert object into semi-structured data to be stored in Solr
   def to_solr_data
-    "#{name} || #{id}"
+    "#{name}||#{id}"
   end
 
   def solr_filter
