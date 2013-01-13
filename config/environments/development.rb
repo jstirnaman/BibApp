@@ -20,10 +20,6 @@ Bibapp::Application.configure do
   #config.action_controller.perform_caching = true
   #config.action_controller.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache', Rails.env)
 
-  #enable caching on the file system
-  #config.action_controller.perform_caching = true
-  #config.action_controller.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache', Rails.env)
-
 # Don't want the mailer to send.
   config.action_mailer.delivery_method = :test
   config.action_mailer.raise_delivery_errors = false
