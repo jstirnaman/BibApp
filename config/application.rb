@@ -1,7 +1,6 @@
 require File.expand_path('../boot', __FILE__)
-
 require 'rails/all'
-
+require 'rack/jsonp' # Why doesn't this get loaded with all other gems?
 # If you have a Gemfile, require the gems listed there, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
@@ -61,6 +60,9 @@ module Bibapp
 
     #log deprecations
     config.active_support.deprecation = :log
+    
+    # Provide JSONP Javascript-formatted responses.
+    config.middleware.use Rack::JSONP
   end
 
 end
