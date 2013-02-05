@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/BibApp/tolk.git
-  revision: 0d1aab1ab763acf6f3f21643d7bdf7841e9efd43
+  revision: c96815f7e62389fd6dc6339811f106cd4bce1127
   branch: rails3
   specs:
     tolk (1.0)
@@ -62,7 +62,7 @@ GEM
       activerecord (>= 3.0.7)
       activerecord (>= 3.0.7)
     authorization (1.0.12)
-    backports (2.5.3)
+    backports (2.6.5)
     builder (2.1.2)
     capistrano (2.12.0)
       highline
@@ -93,6 +93,7 @@ GEM
       capybara (>= 1.1.2)
       cucumber (>= 1.1.8)
       nokogiri (>= 1.5.0)
+    daemon_controller (1.1.0)
     daemons (1.0.10)
     database_cleaner (0.7.2)
     delayed_job (3.0.2)
@@ -115,6 +116,7 @@ GEM
       multipart-post (~> 1.1)
       rack (~> 1.1)
     fastercsv (1.5.5)
+    fastthread (1.0.7)
     ffi (1.0.11)
     gherkin (2.10.0)
       json (>= 1.4.6)
@@ -220,6 +222,11 @@ GEM
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
       mime-types
+    passenger (3.0.19)
+      daemon_controller (>= 1.0.0)
+      fastthread (>= 1.0.1)
+      rack
+      rake (>= 0.8.1)
     pg (0.13.2)
     polyglot (0.3.3)
     pyu-ruby-sasl (0.0.3.3)
@@ -369,6 +376,7 @@ DEPENDENCIES
   net-ldap
   omniauth (~> 0.3)
   paperclip (~> 2.7.0)
+  passenger
   pg
   rails (= 3.0.19)
   rails-i18n
@@ -388,7 +396,7 @@ DEPENDENCIES
   solr-ruby (~> 0.0.6)
   sort_alphabetical
   spork-rails
-  sword2ruby (>= 0.0.6)!
+  sword2ruby!
   thin
   tolk!
   will_paginate (~> 3.0.beta)
