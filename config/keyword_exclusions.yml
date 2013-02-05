@@ -23,7 +23,7 @@
 - Adult
 - !ruby/regexp '/^Animal?/'
 - Female
-- Human
+- !ruby/regexp '/^Human?/'
 - Internet
 - !ruby/regexp '/^Kansas/'
 - Male
