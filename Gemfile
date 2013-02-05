@@ -112,6 +112,9 @@ gem 'loofah-activerecord'
 # Interact with SOAP web services. Used for person lookup service to replace LDAP lookups.
 gem 'savon'
 
+# Provide Javascript JSONP data responses.
+gem 'rack-jsonp-middleware'
+
 # Googlecharts for easy Google Charts
 gem 'googlecharts'
 
