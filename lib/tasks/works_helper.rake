@@ -68,5 +68,26 @@ namespace :works_helper do
       puts "Missing works file. Usage example: Ex: bundle exec rake works_helper:batch_merge_duplicates_list works='dupes_list.txt' work_status='ALL'"
     end
   end
+  
+  desc "Merges all duplicates (accepted and unaccepted!) in orphaned works."
+  task :batch_merge_duplicate_orphans => :environment do
+    count_start = Work.orphans.size
+    puts count_start.to_s + " orphaned works. This could take a while."
+    orphans_with_error = []
+    Work.orphans.each do |w|
+      begin
+        w.merge_duplicates # Merges accepted and unaccepted duplicates!
+      rescue Exception => e
+        orphans_with_error << w.id
+        STDERR.puts "Could not merge Work #{w}. #{e}"
+        STDERR.puts "work_id added to error list."
+      end
+    end
+    count_end = Work.orphans.size
+    puts "Finished merging orphans. Merged #{count_start - count_end} works."
+    puts "You now have #{count_end} orphaned works."
+    puts "Encountered errors while attempting to merge these works:"
+    puts orphans_with_error.join(', ')
+  end
 
 end
