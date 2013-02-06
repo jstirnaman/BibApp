@@ -450,8 +450,9 @@ class Work < ActiveRecord::Base
   def sort_dupes_by_richness(dupes)
     # Returns duplicates for a work, including the work itself,
     # as an array of work objects sorted by descending richness   
-      dupesorted = [] 
-      unless dupes.size <= 1
+      dupesorted = []
+      dupes.compact!
+      if dupes && dupes.size > 1
         # Sort by descending richness
         dupesorted = dupes.sort {|a,b| b.richness <=> a.richness}        
         if dupesorted.first.richness == dupesorted.last.richness
@@ -465,32 +466,36 @@ class Work < ActiveRecord::Base
   end
   
   def sort_and_merge(dupes, master)     
-      unless dupes.empty?
+      if dupes && !dupes.empty?
         logger.debug("\n===Sort and merge #{dupes.size} works===\n")  
          
         dupesorted = self.sort_dupes_by_richness(dupes)
-        
-        # If master isn't supplied then use the richest record.
-        if master.nil?
-          master = dupesorted.slice!(0)
+        if !dupesorted.empty?
+					# If master isn't supplied then use the richest record.
+					if master.nil?
+						master = dupesorted.slice!(0)
+					end
+					unless master.nil? # Proceed if master is still not nil.
+						#@TODO: dupesorted.each is the only way I can get the objects
+						# passed to merge!
+						# merge! is supposed to take a list of objects as an argument.
+						# "List" should mean array?
+						# I assume that would be more efficient than repeatedly
+						# calling merge!, but apparently I'm not building
+						# the list correctly. Surely there is a better way.
+						
+						logger.debug("\n===Merging #{dupesorted.size} duplicates into work # #{master.id}===\n")
+													
+						dupesorted.each do |d|
+						# Make sure d still exists
+							if Work.exists?(d[:id])
+								master.merge!(d)
+							end
+						end
+					  logger.debug("\n===Finished merging duplicates into work # #{master.id}===\n")
+					end
         end
-        
-        #@TODO: This is the only way I can get the objects
-        # passed to merge!
-        # merge! is supposed to take a list of objects as an argument.
-        # I assume that would be more efficient than repeatedly
-        # calling merge!, but apparently I'm not building
-        # the list correctly. Surely there is a better way.
-        
-        logger.debug("\n===Merging #{dupesorted.size} duplicates into work # #{master.id}===\n")
-                      
-        dupesorted.each do |d|
-        # Make sure d still exists
-          if Work.exists?(d[:id])
-            master.merge!(d)
-          end
-        end
-        logger.debug("\n===Finished merging duplicates into work # #{master.id}===\n")
+
         return master
       end
   end
