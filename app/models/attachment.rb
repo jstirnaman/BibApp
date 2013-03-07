@@ -30,7 +30,7 @@ class Attachment < ActiveRecord::Base
       self.data_file_size.div(1000000).round.to_s + "MB"
       # if >= thousand bytes, specify in KB
     elsif self.data_file_size >= 1000
-      self.size.div(1000).round.to_s + "KB"
+      self.data_file_size.div(1000).round.to_s + "KB"
       # if < thousand bytes, specify in bytes
     elsif self.data_file_size < 1000
       self.data_file_size.to_s + "bytes"
