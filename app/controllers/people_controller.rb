@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
 
   # Require a user be logged in to create / update / destroy
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :batch_csv_show, :batch_csv_create]
-
+  
   make_resourceful do
     build :index, :new, :create, :show, :edit, :update, :destroy
 
@@ -27,6 +27,23 @@ class PeopleController < ApplicationController
       format.html #loads show.html.haml (HTML needs to be first, so I.E. views it by default)
       format.rss #loads show.rss.rxml
       format.rdf
+    end
+    response_for :show_fails do |format|
+        format.html do
+          @status ||= status
+          @error_message ||= @status.to_s
+          render :template => "errors/error_#{@status}", :layout => 'layouts/application', :status => @status  
+        end
+        format.rss do
+          @status ||= status
+          @error_message ||= @status.to_s
+          render :xml => ('<?xml version="1.0" encoding="UTF-8"?>
+            <errors>
+            <error code="' + @status.to_s + '">' + @error_message + '</error></errors>'),
+          :content_type => 'application/xml', 
+          :status => @status
+        end
+        format.rdf
     end
 
     response_for :index do |format|
@@ -129,7 +146,7 @@ class PeopleController < ApplicationController
       end
       @top_level_groups.uniq!
     end
-
+  
     before :destroy do
       permit "admin"
       person = Person.find(params[:id])
@@ -141,7 +158,21 @@ class PeopleController < ApplicationController
     before :edit do
       @title = t('common.people.edit_title', :name => @person.display_name)
     end
+  end
 
+  def show
+    before :show
+    unless @current_user and @current_user.has_role?('admin')
+    if @person.person_active == "false"
+      @status = 410 
+      @error_message = 'We have data for ' + @person.id.to_s + '-' + @person.display_name + ', but this person is no longer at KUMC.'
+      set_default_flash :error, @error_message
+      raise @status
+    end
+    end
+    response_for :show 
+  rescue
+      response_for :show_fails
   end
 
   def create
