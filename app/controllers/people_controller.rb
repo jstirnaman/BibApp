@@ -162,7 +162,7 @@ class PeopleController < ApplicationController
 
   def show
     before :show
-    unless @current_user and @current_user.has_role?('admin')
+    unless current_user and current_user.has_role?('admin')
     if @person.person_active == "false"
       @status = 410 
       @error_message = 'We have data for ' + @person.id.to_s + '-' + @person.display_name + ', but this person is no longer at KUMC.'
