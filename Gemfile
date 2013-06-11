@@ -142,8 +142,8 @@ group :development do
   # - we filter the personalize keys so that Tolk doesn't sync them
   # - we don't generate a new migration - the migration for tolk is committed into Bibapp itself
 
-  gem 'tolk', :git => 'git://github.com/BibApp/tolk.git', :branch => 'rails3'
-
+ # gem 'tolk', :git => 'git://github.com/BibApp/tolk.git', :branch => 'rails3'
+gem 'tolk'
 end
 
 group :test, :development do
@@ -151,8 +151,6 @@ group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'email_spec'
-
-  gem 'rcov'
 
   #Adding additional Gems for faster testing
   gem 'rb-fsevent'
