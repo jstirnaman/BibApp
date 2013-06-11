@@ -101,7 +101,7 @@ gem 'sort_alphabetical'
 gem 'loofah-activerecord'
 
 #For deployment, but can be ignored if not using capistrano
-gem 'capistrano'
+#gem 'capistrano'
 
 #include thin webserver for development
 #to start it, do 'bundle exec thin start' - this is important, as
@@ -134,7 +134,6 @@ group :test, :development do
   gem 'shoulda'
   gem 'factory_girl'
   gem 'simplecov'
-  gem 'database_cleaner'
   gem 'test-unit'
   gem 'better_errors'
   gem 'binding_of_caller'
