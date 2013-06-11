@@ -36,7 +36,10 @@ module Bibapp
     config.plugins = [ :all ]
     
     # Activate observers that should always be running
-    config.active_record.observers = :user_observer, :index_observer, :publications_sweeper
+    # We seem to need to skip observers when running migrations - I'm not sure why
+    unless (File.basename($0) == "rake" && ARGV.include?("db:migrate"))
+      config.active_record.observers = :user_observer, :index_observer, :publications_sweeper
+    end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
@@ -67,5 +70,6 @@ module Bibapp
 
 end
 
+require File.join(Rails.root, 'config', 'personalize.rb')
 require 'error_handler'
 require 'index'

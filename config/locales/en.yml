@@ -525,7 +525,7 @@ en:
       unknown: "Nobody is registered with this name. Maybe this person belongs to another institution."
     notifier:
       error_summary_subject: "%{app_name} - Exception summary: %{time}"
-      from: "%{app_name} <%{no_reply_email}>"
+      from: "%{app_name} %{no_reply_email}"
       import_persons_subject: "%{app_name} - batch upload of persons has completed"
       import_review_subject: "%{app_name} - Batch import ready for review"
     passwords:

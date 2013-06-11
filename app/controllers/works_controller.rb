@@ -1,8 +1,6 @@
-require 'cmess/guess_encoding'
 require 'will_paginate/array'
 require 'set'
 class WorksController < ApplicationController
-  #require CMess to help guess encoding of uploaded text files
 
   #Require a user be logged in to create / update / destroy
   before_filter :login_required,
@@ -43,7 +41,7 @@ class WorksController < ApplicationController
 
       if @person
         #If adding to a person, must be an 'editor' of that person
-        permit "editor on person"
+        permit "editor on person", :person => @person
       else
         #Default: anyone with 'editor' role (anywhere) can add works
         permit "editor"
@@ -150,7 +148,7 @@ class WorksController < ApplicationController
 
     if @person
       #If adding to a person, must be an 'editor' of that person
-      permit "editor on person"
+      permit "editor on person", :person => @person
     else
       #Default: anyone with 'editor' role (anywhere) can add works
       permit "editor"
@@ -218,7 +216,7 @@ class WorksController < ApplicationController
 
     else #Only perform update if 'save' button was pressed
          #Anyone with 'editor' role on this work can edit it
-      permit "editor on work"
+      permit "editor on work", :work => @work
 
       #First, update work attributes (ensures deduplication keys are updated)
       @work.attributes = params[:work]
