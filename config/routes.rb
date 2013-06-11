@@ -1,7 +1,9 @@
 Bibapp::Application.routes.draw do
 
+  mount Tolk::Engine => '/tolk', :as => 'tolk'
 
   def make_routes
+    scope "(:locale)", :locale => /en|de/ do
     resources :works do
       collection do
         get :orphans
@@ -207,6 +209,7 @@ Bibapp::Application.routes.draw do
 
     # Default homepage to works index action
     root :to => 'works#index'
+    match '/:locale' => 'works#index'
 
     match 'citations', :to => 'works#index'
 
@@ -227,17 +230,18 @@ Bibapp::Application.routes.draw do
     match 'roles/new_admin' => "roles#new_admin"
     match 'roles/new_editor' => "roles#new_editor"
   end
-
-  if I18n.available_locales.many?
-    locale_regexp = Regexp.new(I18n.available_locales.join('|'))
-    scope "(:locale)", :locale => locale_regexp do
-      make_routes
-    end
-    #uncomment to make multi-locale version able to direct locale-less routes as well
-    #make_routes
-  else
-    make_routes
   end
+#  if I18n.available_locales.many?
+#    locale_regexp = Regexp.new(I18n.available_locales.join('|'))
+#    scope "(:locale)", :locale => locale_regexp do
+#      make_routes
+#    end
+#    #uncomment to make multi-locale version able to direct locale-less routes as well
+#    #make_routes
+#  else
+#    make_routes
+#  end
+make_routes
 
 
 end
