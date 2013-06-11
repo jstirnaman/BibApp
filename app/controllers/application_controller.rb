@@ -37,13 +37,10 @@ class ApplicationController < ActionController::Base
     false
   end
 
-  def default_url_options(options = {})
-    if I18n.available_locales.many?
-      {:locale => I18n.locale}
-    else
-      {}
-    end
-  end
+def default_url_options(options={})
+    logger.debug "default_url_options is passed options: #{options.inspect}\n"
+      { :locale => I18n.locale }
+end
 
   # Adds a work.id to the session[:saved] array
   def add_to_saved

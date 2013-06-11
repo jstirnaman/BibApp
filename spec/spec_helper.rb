@@ -93,3 +93,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("spec/factories/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("spec/behaviors/**/*.rb")].each {|f| require f}
 ActionMailer::Base.delivery_method = :test
+
+
+RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+end
+

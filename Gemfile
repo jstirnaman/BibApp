@@ -2,7 +2,9 @@ source "http://rubygems.org"
 source "http://gems.github.com"
 
 #Rails itself
-gem "rails", "3.0.20"
+
+gem "rails", "~> 3.2.6"
+
 
 #Use jquery for javascript - in Rails 3.0 this involves running a generator too
 #once we get to 3.1 all that should be necessary is adding some includes
@@ -17,53 +19,47 @@ gem "haml"
 #Make resourceful - used by some controllers
 
 #backports may be needed by a 1.8 ruby to make make_resourceful work
-gem 'backports'
+
 gem 'make_resourceful'
 
 #file attachment - to replace attachment_fu
-gem 'paperclip', "~>2.7.0"
+#TODO Can remove version requirement after 1.9 migration
+gem 'paperclip'
 
-#HTMLEntities - used to encode UTF-8 data so that it is valid in HTML
-gem "htmlentities", "~>4.0.0"
+gem "htmlentities"
 
-#Daemons - needed to run delayed_job
-gem "daemons", "~>1.0.10"
-
-#LibXML Ruby - Dependency of Solr Ruby
-#Bundler should take care of it then
-gem "libxml-ruby", "~>0.8.3", :require => "xml/libxml"
 
 #Namecase - converts strings to be properly cased
-gem "namecase", "~>1.1.0"
-
-#RedCloth - converts plain text or textile to HTML (also used by HAML)
-gem "RedCloth",  "~>4.1.9", :require => "redcloth"
+gem "namecase"
 
 #RubyZip - used to create Zip file to send via SWORD
-gem "rubyzip", "~>0.9.1", :require => "zip/zip"
+gem "rubyzip"
 
 #Sword2Ruby - used for SWORD interaction
 gem "sword2ruby", ">=0.0.6", :git => 'git://github.com/BibApp/sword2ruby.git'
 
 #Solr-Ruby - Solr connections for ruby
-gem "solr-ruby", "~>0.0.6", :require => "solr"
+gem "solr-ruby"
 
 #Required for LDAP lookups
 gem "net-ldap"
 
 #Will Paginate - for fancy pagination
-gem 'will_paginate', "~> 3.0.beta", :require => 'will_paginate'
+
+#TODO may need to update or replace as rails version goes up
+gem 'will_paginate'
+
 
 #CMess - Assists with handling parsing citations from a non-Unicode text file
 #  See: http://prometheus.rubyforge.org/cmess/
-gem 'cmess', "~>0.1.2"
+gem 'cmess'
 
 #AASM - Acts as State Machine - helps manage batch import state
 gem 'aasm'
 
-#ISBN Tools - Helps validate ISBNs
-# See: http://isbn-tools.rubyforge.org/rdoc/index.html
-gem 'isbn-tools',  "~>0.1.0", :require => "isbn/tools"
+#lisbn - Helps validate ISBNs - as far as I can tell this is able to replace previously used ISBN_tools with minor
+#modifications
+gem 'lisbn'
 
 #delayed jobs
 gem 'delayed_job'
@@ -88,11 +84,15 @@ gem 'pg'
 gem 'yaml_db'
 
 #authorization, replacing plugin used previously
+#We want to get rid of this, but for now we fork our own version with some ruby 1.9 fixes
 gem 'authorization'
 
 #authentication
 gem 'authlogic'
-gem 'omniauth', "~> 0.3"
+
+#TODO will require some work to go to 1.0 series
+gem 'omniauth'
+
 
 #batch loading of authors
 gem 'fastercsv'
@@ -119,7 +119,7 @@ gem 'rack-jsonp-middleware'
 gem 'googlecharts'
 
 #For deployment, but can be ignored if not using capistrano
-gem 'capistrano'
+#gem 'capistrano'
 
 #Performance analysis without New Relic
 gem 'request-log-analyzer'
@@ -134,40 +134,51 @@ group :development do
   #HOWEVER - generating Gemfile.lock with it uncommented can mess up deployment,
   #so whenever adding new Gems or otherwise generating a new Gemfile.lock to check in
   #please recomment it out!
-#  if File.exist?(File.join(File.dirname(__FILE__), 'config', 'newrelic.yml'))
-#    gem 'newrelic_rpm'
-#  end
+  #  if File.exist?(File.join(File.dirname(__FILE__), 'config', 'newrelic.yml'))
+  #    gem 'newrelic_rpm'
+  #  end
   #We use a custom version of tolk for three reasons:
   # - some necessary requires are missing from the main version
   # - we filter the personalize keys so that Tolk doesn't sync them
   # - we don't generate a new migration - the migration for tolk is committed into Bibapp itself
+
   gem 'tolk', :git => 'git://github.com/BibApp/tolk.git', :branch => 'rails3'
+
 end
 
 group :test, :development do
+  gem 'database_cleaner'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'email_spec'
-  gem 'ruby-debug-base'
-  gem 'ruby-debug'
-  gem 'ruby-debug-ide'
-  gem 'shoulda'
-  gem 'factory_girl', '~> 2.6.4'
+
   gem 'rcov'
-  gem 'cucumber-rails'
-  gem 'database_cleaner'
+
   #Adding additional Gems for faster testing
   gem 'rb-fsevent'
   gem 'growl'
   gem 'guard-rspec'
   gem 'spork-rails'
   gem 'guard-spork'
+
+  gem 'ruby-debug-base19'
+  gem 'ruby-debug19'
+  gem 'ruby-debug-ide19'
+  gem 'shoulda'
+  gem 'factory_girl'
+  gem 'simplecov'
+  gem 'test-unit'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+
   #I'd prefer to add metric_fu directly here, but something it pulls
   #in pulls in something else that conflicts with the Keyword class.
   #So instead I've installed the metrical gem separately to see
   #if I can get it to work that way.
   #gem 'metric_fu
 
-  #attempt to remove excess logging caused by postgres
-  gem 'silent-postgres'
+end
+
+group :test do
+  gem 'cucumber-rails'
 end

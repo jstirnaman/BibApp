@@ -1,7 +1,8 @@
+
 require 'author_webservice'
 require 'author_batch_load'
+
 require 'bibapp_ldap'
-require 'redcloth'
 
 class PeopleController < ApplicationController
   include GoogleChartsHelper
@@ -25,7 +26,7 @@ class PeopleController < ApplicationController
     #Add a response for RSS
     response_for :show do |format|
       format.html #loads show.html.haml (HTML needs to be first, so I.E. views it by default)
-      format.rss #loads show.rss.rxml
+      format.rss #loads show.rss.builder
       format.rdf
     end
     response_for :show_fails do |format|
@@ -279,41 +280,30 @@ class PeopleController < ApplicationController
 
   def batch_csv_create
     permit "admin"
+    @message = ''
     begin
-      msg = ''
-      data = params[:person][:data]
       filename = params[:person][:data].original_filename
-
-      str = ''
-      if data.respond_to?(:read)
-        str = data.read
-      elsif File.readable?(data)
-        str = File.read(data)
-      else
-        msg = t('common.people.file_unreadable')
+      str = params[:person][:data].read
+      unless str.is_utf8?
+        encoding = CMess::GuessEncoding::Automatic.guess(str)
+        unless encoding.nil? or encoding.empty? or encoding==CMess::GuessEncoding::Encoding::UNKNOWN
+          str = Iconv.iconv('UTF-8', encoding, str).to_s
+        else
+          flash[:notice] = t('common.people.flash_batch_csv_create_bad_encoding')
+          @message = t('common.people.file_unconvertible')
+        end
       end
-      if msg.empty?
-        unless str.is_utf8?
-          encoding = CMess::GuessEncoding::Automatic.guess(str)
-          unless encoding.nil? or encoding.empty? or encoding==CMess::GuessEncoding::Encoding::UNKNOWN
-            str =Iconv.iconv('UTF-8', encoding, str).to_s
-          else
-            flash[:notice] = t('common.people.flash_batch_csv_create_bad_encoding')
-            msg = t('common.people.file_unconvertible')
-          end
-        end
-        if msg.empty?
-          # is it better to pass the filename instead of storing the csv contents in the db
-          # even if the db row is temporary ?
-          Delayed::Job.enqueue CsvPeopleUpload.new(str, current_user.id, filename)
-          msg = t('common.people.file_accepted')
-        end
+      if @message.empty?
+        BatchUpload::CsvPeople.new(str, current_user.id, filename).delay.perform
+        @message = t('common.people.file_accepted')
       end
     rescue Exception => e
       flash[:notice] = t('app.exception_with_message', :message => e.to_s)
-      msg = t('common.people.batch_csv_error')
+      @message = t('common.people.batch_csv_error')
     end
-    redirect_to batch_csv_show_people_url(:completed => msg)
+
+    render 'batch_csv_show'
   end
+
 
 end

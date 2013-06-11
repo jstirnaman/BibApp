@@ -12,7 +12,7 @@ RSpec.configure do |config|
 
   def login_as(factory = :activated_user, opts = {})
     activate_authlogic
-    user = Factory.create(factory, opts)
+    user = create(factory, opts)
     UserSession.create!(user)
     user
   end

@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
     #Add a response for RSS
     response_for :show do |format|
       format.html #loads show.html.haml (HTML needs to be first, so I.E. views it by default)
-      format.rss #loads show.rss.rxml
+      format.rss #loads show.rss.builder
     end
 
     before :index do
@@ -99,7 +99,7 @@ class GroupsController < ApplicationController
   def hide
     @group = Group.find(params[:id])
 
-    permit "editor on group"
+    permit "editor on group", :group => @group
 
     children = @group.children.select { |c| !c.hide? }
 
@@ -122,7 +122,7 @@ class GroupsController < ApplicationController
   def unhide
     @group = Group.find(params[:id])
 
-    permit "editor on group"
+    permit "editor on group", :group => @group
 
     parent = @group.parent
 
