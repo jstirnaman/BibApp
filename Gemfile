@@ -120,7 +120,7 @@ group :development do
   # - some necessary requires are missing from the main version
   # - we filter the personalize keys so that Tolk doesn't sync them
   # - we don't generate a new migration - the migration for tolk is committed into Bibapp itself
-#  gem 'tolk', "~> 1.0.1", :git => 'git://github.com/BibApp/tolk.git'
+  gem 'tolk' #, "~> 1.0.1", :git => 'git://github.com/BibApp/tolk.git'
 end
 
 group :test, :development do
@@ -134,10 +134,10 @@ group :test, :development do
   gem 'shoulda'
   gem 'factory_girl'
   gem 'simplecov'
-  gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'test-unit'
-
+  gem 'better_errors'
+  gem 'binding_of_caller'
   #I'd prefer to add metric_fu directly here, but something it pulls
   #in pulls in something else that conflicts with the Keyword class.
   #So instead I've installed the metrical gem separately to see
