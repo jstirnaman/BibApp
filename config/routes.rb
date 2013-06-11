@@ -1,7 +1,5 @@
 Bibapp::Application.routes.draw do
 
-  mount Tolk::Engine => '/tolk', :as => 'tolk'
-
   def make_routes
     scope "(:locale)", :locale => /en|de/ do
     resources :works do
@@ -243,5 +241,6 @@ Bibapp::Application.routes.draw do
 #  end
 make_routes
 
+mount Tolk::Engine => '/tolk', :as => 'tolk'
 
 end
