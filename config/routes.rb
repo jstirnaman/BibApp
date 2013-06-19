@@ -1,7 +1,8 @@
 Bibapp::Application.routes.draw do
 
   def make_routes
-    scope "(:locale)", :locale => /en|de/ do
+    #Setting locale scope is causing problem with authentication redirects
+    #scope "(:locale)", :locale => /en|de/ do
     resources :works do
       collection do
         get :orphans
@@ -207,14 +208,15 @@ Bibapp::Application.routes.draw do
     end
 
     # Default homepage to works index action
+    #match '/:locale' => 'works#index' 
     root :to => 'works#index'
-    match '/:locale' => 'works#index'
 
     match 'citations', :to => 'works#index'
 
     resource :user_session
-
+    
     resources :authentications
+    #match 'auth/:provider' => redirect {|params, req| "/auth/#{params[:provider]}?locale=''"}
     match 'auth/:provider/callback' => 'authentications#create'
     match 'auth/failure' => 'user_sessions#new'
     match 'admin/index' => "admin#index"
@@ -237,17 +239,7 @@ Bibapp::Application.routes.draw do
     match 'pages/about'
     match 'pages/faq'
   end
-  end
-#  if I18n.available_locales.many?
-#    locale_regexp = Regexp.new(I18n.available_locales.join('|'))
-#    scope "(:locale)", :locale => locale_regexp do
-#      make_routes
-#    end
-#    #uncomment to make multi-locale version able to direct locale-less routes as well
-#    #make_routes
-#  else
-#    make_routes
-#  end
+  #end
 make_routes
 
 mount Tolk::Engine => '/tolk', :as => 'tolk'
