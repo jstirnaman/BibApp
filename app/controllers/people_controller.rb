@@ -1,6 +1,5 @@
 
 require 'author_webservice'
-require 'author_batch_load'
 
 require 'bibapp_ldap'
 
