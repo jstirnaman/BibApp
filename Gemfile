@@ -154,21 +154,17 @@ group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'email_spec'
-
-  #Adding additional Gems for faster testing
-  gem 'rb-fsevent'
-  gem 'growl'
-  gem 'guard-rspec'
-  gem 'spork-rails'
-  gem 'guard-spork'
-
   gem 'ruby-debug-base19'
   gem 'ruby-debug19'
   gem 'ruby-debug-ide19'
   gem 'shoulda'
   gem 'factory_girl'
   gem 'simplecov'
+  gem 'cucumber-rails'
+  gem 'database_cleaner'
   gem 'test-unit'
+
+  # Gems for more functional error pages when developing.
   gem 'better_errors'
   gem 'binding_of_caller'
 
