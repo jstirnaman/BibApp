@@ -242,6 +242,6 @@ Bibapp::Application.routes.draw do
   #end
 make_routes
 
-mount Tolk::Engine => '/tolk', :as => 'tolk'
+#mount Tolk::Engine => '/tolk', :as => 'tolk'
 
 end

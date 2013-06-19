@@ -146,7 +146,7 @@ group :development do
   # - we don't generate a new migration - the migration for tolk is committed into Bibapp itself
 
  # gem 'tolk', :git => 'git://github.com/BibApp/tolk.git', :branch => 'rails3'
-gem 'tolk'
+#gem 'tolk'
 end
 
 group :test, :development do
