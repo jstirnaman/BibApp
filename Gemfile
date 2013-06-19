@@ -93,6 +93,9 @@ gem 'authlogic'
 #TODO will require some work to go to 1.0 series
 gem 'omniauth'
 
+# OmniAuth 1.0 CAS strategy
+gem 'omniauth-cas'
+
 
 #batch loading of authors
 gem 'fastercsv'

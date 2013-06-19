@@ -166,6 +166,10 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-cas (1.0.2)
+      addressable (~> 2.3)
+      nokogiri (~> 1.5)
+      omniauth (~> 1.1.0)
     paperclip (3.4.2)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -326,6 +330,7 @@ DEPENDENCIES
   namecase
   net-ldap
   omniauth
+  omniauth-cas
   paperclip
   pg
   rack-jsonp-middleware

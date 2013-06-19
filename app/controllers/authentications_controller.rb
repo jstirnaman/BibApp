@@ -1,27 +1,28 @@
 class AuthenticationsController < ApplicationController
   def create
     omniauth = request.env['omniauth.auth']
+    logger.debug(omniauth.inspect)
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-    specific_msg = ""
+
       # KUMC.JTS Hack to lookup and add user's email to omniauth variable to satisfy User model since I can't
-      # get the user attributes from CAS/SAML. I'm not happy with
-      # this nor how tightly the User model is woven with the email address from the oauth response.
+      # get the user attributes from CAS/SAML. I'm not happy with this.
     if omniauth['provider'] == 'cas'
-      casuser = User.find_by_sql ["SELECT email FROM users WHERE email LIKE ? LIMIT 1", omniauth['uid']+"@kumc.edu"]
+      casemail = omniauth['extra']['user'] + '@' + Bibapp::Application.config.oauth_config['cas']['host'][/[a-z,0-9]*\.(.*)/, 1] 
+      casuser = User.find_by_sql ["SELECT email FROM users WHERE email LIKE ? LIMIT 1", casemail]
       if casuser.empty?
-        omniauth['user_info'] = {}
-        specific_msg = "Signup or double-check that your CAS login matches your registered email."
+        omniauth['info'] = {}
+        @fl_msg = "CAS authentication succeeded, but we were unable to find a matching registered email address. Please register or contact us to update your email address."
       else
-        omniauth['user_info'] = { 'email' => casuser[0]['email'] }
+        omniauth['info'] = { 'email' => casuser[0]['email'] }
+        logger.debug(omniauth['info'])
       end
-      
     end
     
     if authentication
       # User is already registered with application
       flash[:info] = t('common.authentications.flash_sign_in')
-
-    elsif user = current_user || User.find_by_email(omniauth['user_info']['email'])
+      sign_in_and_redirect(authentication.user)
+    elsif user = current_user || User.find_by_email(omniauth['info']['email'])
 
       # User is signed in but has not already authenticated with this social network
       # OR
@@ -43,7 +44,7 @@ class AuthenticationsController < ApplicationController
         sign_in_and_redirect(user)
       else         
         session[:omniauth] = omniauth.except('extra')
-        flash[:notice] = "We could not find a matching username." + " " + specific_msg
+        flash[:notice] = "We could not find a matching username." + " " + @fl_msg.to_s
         redirect_to signup_path        
       end
     end
@@ -62,6 +63,6 @@ class AuthenticationsController < ApplicationController
       user_session = UserSession.new(user)
       user_session.save
     end
-    redirect_to root_url
+   redirect_to request.env['omniauth.origin'] || root_url
   end
 end
