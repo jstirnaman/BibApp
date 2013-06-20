@@ -271,15 +271,15 @@ describe Work do
       @work2.should be_accepted
 
       
-      @work.sort_dupes_by_richness.should include(@work, @work2)
+      @work.sort_dupes_by_richness([@work, @work2]).should include(@work, @work2)
       
       @work.update_attributes(:issue => '1')
       
-      @work.sort_dupes_by_richness.should eq([@work, @work2])
+      @work.sort_dupes_by_richness([@work, @work2]).should eq([@work, @work2])
       
       @work2.update_attributes(:issue => '1', :links => 'http://example.com/work2')
     
-      @work.sort_dupes_by_richness.should eq([@work2, @work])
+      @work.sort_dupes_by_richness([@work, @work2]).should eq([@work2, @work])
     end
     
     it 'matches works that have identical non-system attributes' do
