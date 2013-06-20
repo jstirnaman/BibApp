@@ -249,10 +249,10 @@ describe Work do
   
   context 'merge duplicates' do
     before(:each) do
-      @work = Factory.create(:work, :title_primary => 'Work Title 1',
+      @work = create(:work, :title_primary => 'Work Title 1',
                 :abstract => 'The abstract of my work.', :volume => '1')
-      name_string = Factory.create(:name_string, :name => 'Name String Name')
-        Factory.create(:work_name_string, :work => @work, :name_string => name_string)                
+      name_string = create(:name_string, :name => 'Name String Name')
+        create(:work_name_string, :work => @work, :name_string => name_string)                
       @work2 = @work.clone
       @work2.save    
     end
