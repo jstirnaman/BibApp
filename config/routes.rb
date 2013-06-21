@@ -102,6 +102,7 @@ Bibapp::Application.routes.draw do
         put :deny
       end
     end
+    match 'contributorships/:group_id' => 'contributorships#index'
     #####
     # Publisher routes
     #####
