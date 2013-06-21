@@ -7,17 +7,24 @@ class ContributorshipsController < ApplicationController
     build :index
 
     before :index do
-      if params[:person_id]
-        @person = Person.find(params[:person_id])
+      if params[:person_id] or params[:group_id]
+        @person = Person.find(params[:person_id]) unless params[:person_id].nil?
+        @group = Group.find(params[:group_id]) unless params[:group_id].nil?
         @page = params[:page] || 1
         @rows = params[:rows] || 10
         @status = params[:status] || "unverified"
         #Don't want to allow an arbitrary send to @person.contributorships below - e.g. params[:status] = 'clear'
         @status = 'unverified' unless ['unverified', 'verified', 'denied'].member?(@status.to_s)
         @title = t('common.contributorships.index_title', :display_name => @person.display_name,
-                   :status => t("common.contributorships.#{@status}").capitalize)
+                   :status => t("common.contributorships.#{@status}").capitalize) unless @person.nil?
+        if !@person.nil?
         @contributorships = @person.contributorships.send(@status).includes(:work).
             order('works.publication_date_year desc, works.publication_date_month desc, works.publication_date_day desc').paginate(:page => @page, :per_page => @rows)
+        elsif !@group.nil?
+        @contributorships = Contributorship.for_person(@group.people).send(@status).includes(:work).
+            order('works.publication_date_year desc, works.publication_date_month desc, works.publication_date_day desc').paginate(:page => @page, :per_page => @rows)
+        logger.debug @contributorships
+        end
       else
         render :status => 404
       end
@@ -34,7 +41,7 @@ class ContributorshipsController < ApplicationController
     if ['verify', 'unverify', 'deny'].include?(action)
       self.send(:"#{action}_multiple") and return
     end
-    redirect_to contributorships_path(:person_id=>params[:person_id], :status=>params[:status])
+    redirect_to contributorships_path(:person_id=>params[:person_id], :group_id=>params[:group_id], :status=>params[:status])
   end
 
   def verify
@@ -123,7 +130,7 @@ class ContributorshipsController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('common.contributorships.flash_act_on_many', :action => t("common.contributorships.#{flash_action}"))
       #forward back to path which was specified in params
-      format.html { redirect_to contributorships_path(:person_id=>params[:person_id], :status=>params[:status]) }
+      format.html { redirect_to contributorships_path(:person_id=>params[:person_id], :group_id=>params[:group_id], :status=>params[:status]) }
       format.xml { head :ok }
     end
   end
