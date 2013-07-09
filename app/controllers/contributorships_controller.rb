@@ -61,6 +61,11 @@ class ContributorshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
+        # Respond to Javascript from AJAX requests
+      format.js {
+        render :action => "verify"
+        #render :partial => "contributorship", :locals => { :contributorship => Contributorship.find(@contributorship.id) }
+      } 
     end
   end
 
@@ -77,6 +82,33 @@ class ContributorshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
+      format.js {
+        render :action => "verify"
+      }
+    end
+  end
+
+    def unverify
+    @contributorship = Contributorship.find(params[:id])
+    person = @contributorship.person
+
+    # only 'editor' of this person can unverify contributorship
+    permit "editor of :person", :person => person
+
+    #Verify & save contributorship
+    #(Note: Contributorship callbacks will automatically update scores, etc.)
+    @contributorship.unverify_contributorship
+    @contributorship.save
+
+    #get updated list of contributorships to display
+    @contributorships = person.contributorships.to_show
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+        # Respond to Javascript from AJAX requests
+      format.js {
+        render :action => "verify" #:partial => "contributorship", :locals => { :contributorship => Contributorship.find(@contributorship.id) }
+      } 
     end
   end
 
