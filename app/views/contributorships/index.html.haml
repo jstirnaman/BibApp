@@ -12,7 +12,7 @@
   - elsif @group
     = render "shared/local_nav", :object => "group", :state => "edit"
     -#= render 'status_nav'
-  %div= @contributorships.inspect
+  -#%div= @contributorships.inspect
   .span-13.append-1.last
     #sort-by.right
       = render 'row_count_form'
