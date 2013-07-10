@@ -21,7 +21,10 @@ class ContributorshipsController < ApplicationController
         @contributorships = @person.contributorships.send(@status).includes(:work).
             order('works.publication_date_year desc, works.publication_date_month desc, works.publication_date_day desc').paginate(:page => @page, :per_page => @rows)
         elsif !@group.nil?
-        @contributorships = Contributorship.for_person(@group.people).send(@status).includes(:work).
+        # Only return one contributorship per work for the group. Views will retrieve remaining contributorships for the work.
+        @contributorships = Contributorship.for_person(@group.people).send(@status).select("id, work_id").to_a.uniq {|c| c.work_id}
+        uniq_work_contribs = @contributorships.map {|c| c.id}
+        @contributorships = Contributorship.where("contributorships.id IN (?)", uniq_work_contribs).includes(:work).
             order('works.publication_date_year desc, works.publication_date_month desc, works.publication_date_day desc').paginate(:page => @page, :per_page => @rows)
         logger.debug @contributorships
         end

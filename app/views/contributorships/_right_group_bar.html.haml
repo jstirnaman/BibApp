@@ -1,6 +1,0 @@
-.span-7.prepend-1.last
-  %h3 Most Recent Authors
-  %ol.people
-    - recent_authors = Person.sort_by_most_recent_work(@group.people).first(10)
-    - recent_authors.each do |p|
-      %li=link_to "#{p.display_name}", person_path(p)

@@ -15,38 +15,15 @@
 - elsif @group
   .span-14.contributorship{:id => "contributorship_id-#{contributorship.id}"}
     .span-9
-
       = render "shared/proper_work", :work => contributorship.work, :links => []
-
     .prepend-2.span-3.last
       .span-3{:id => "contributorship_admin-#{contributorship.id}"}
         .contributorship_person
           - p = Person.find(contributorship.person_id)
-          %li 
-            =link_to "#{p.display_name}", person_path(p)
-            .span-3.big-number.contributorship_score{:id => "contributorship_score-#{contributorship.id}"}
-              %strong #{t('app.percent_sure', :percentage => contributorship.score)}
-            .admin_actions
-              = render "actions", :contributorship => contributorship           
-        .related_contributorships
-          -# related = Contributorship.where("work_id = ? AND id != ?", contributorship.work_id, contributorship.id)
-          - related = []
+          = render "contributorship_actions", :contributorship => contributorship, :person => p           
+        .contributorships_related
+          - related = Contributorship.where("work_id = ? AND id != ?", contributorship.work_id, contributorship.id)
           - unless related.empty?
-            %strong 
-              Other contributorships:
             - related.each do |c|
               - p = Person.find(c.person_id)
-              %li
-                - unless c.verified?
-                  = check_box_tag "contrib_id[]", "#{c.id}", false, :class => 'left child-checkbox'
-                  %strong #{t('app.percent_sure', :percentage => c.score)}
-                =link_to "#{p.display_name}", person_path(p)
-                - if c.verified? 
-                  %strong #{t('.verified')}
-                - elsif c.unverified?
-                  %strong #{t('.unverified')}
-                - elsif c.denied?
-                  %strong #{t('.denied')}
-
-
-                    
+              = render "contributorship_actions", :contributorship => c, :person => p  
