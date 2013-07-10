@@ -1,10 +1,15 @@
 .actions
   - if contributorship.verified?
-    %p
-      %strong #{t('.verified')}!
-    =link_to "Unverify", {:action => :unverify, :id => contributorship}, :remote => true, :method => :put, :id => "unverify-#{contributorship.id}", :class => 'child-actionlink'
-      
+    %strong #{t('.verified')}!
+    %div
+      =link_to "Unverify", {:action => :unverify, :id => contributorship}, :remote => true, :method => :put, :id => "unverify-#{contributorship.id}", :class => 'child-actionlink'
+      =link_to "Deny", {:action => :deny, :id => contributorship}, :remote => true, :method => :put, :id => "deny-#{contributorship.id}", :class => 'child-actionlink'
+  - elsif contributorship.denied?
+    %strong #{t('.denied')}!
+    %div
+      =link_to "Unverify", {:action => :unverify, :id => contributorship}, :remote => true, :method => :put, :id => "unverify-#{contributorship.id}", :class => 'child-actionlink'
+      =link_to "Verify", {:action => :verify, :id => contributorship}, :remote => true, :method => :put, :id => "verify-#{contributorship.id}", :class => 'child-actionlink'
   - else
     =link_to "Verify", {:action => :verify, :id => contributorship}, :remote => true, :method => :put, :id => "verify-#{contributorship.id}", :class => 'child-actionlink'
-  =link_to "Deny", {:action => :deny, :id => contributorship}, :remote => true, :method => :put, :id => "deny-#{contributorship.id}", :class => 'child-actionlink'
-  
+    =link_to "Deny", {:action => :deny, :id => contributorship}, :remote => true, :method => :put, :id => "deny-#{contributorship.id}", :class => 'child-actionlink'
+

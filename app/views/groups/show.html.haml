@@ -4,6 +4,7 @@
   = render :layout => 'layouts/admin_bar' do
     %li= link_to t('groups.show.add'), new_group_path
     %li= link_to t('groups.show.edit'), edit_group_path
+    %li= link_to t('people.admin_actions.manage_contributorships'), contributorships_url(:group_id => @group.id)
     %li= link_to t('groups.show.roles'), group_roles_path(@group)
 
 = render :layout => 'layouts/main_body', :locals => {:header => body_header(@group)} do

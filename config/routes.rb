@@ -103,7 +103,7 @@ Bibapp::Application.routes.draw do
         put :unverify
       end
     end
-    match 'contributorships/:group_id', :to => 'contributorships#index', :as => 'contributorships'
+    
     #####
     # Publisher routes
     #####

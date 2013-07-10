@@ -11,13 +11,9 @@
     = render "shared/local_nav", :object => "person", :state => "edit"
   - elsif @group
     = render "shared/local_nav", :object => "group", :state => "edit"
-    -#= render 'status_nav'
-  -#%div= @contributorships.inspect
   .span-13.append-1.last
     #sort-by.right
       = render 'row_count_form'
     = render 'act_on_multiple_form'
     - if @person
       = render 'right_bar'
-    - elsif @group
-      = render 'right_group_bar'

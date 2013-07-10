@@ -1,0 +1,6 @@
+%li.list_item{:id => "contributorship_item-#{contributorship.id}"} 
+  =link_to "#{person.display_name}", person_path(person)
+  .span-3.big-number.contributorship_score{:id => "contributorship_score-#{contributorship.id}"}
+    #{t('app.percent_sure', :percentage => contributorship.score)}
+  .admin_actions
+    = render "actions", :contributorship => contributorship
