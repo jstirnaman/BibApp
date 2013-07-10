@@ -13,10 +13,10 @@
           .span-3.big-number.contributorship_score{:id => "contributorship_score-#{contributorship.id}"}
             %strong #{t('app.percent_sure', :percentage => contributorship.score)}
 - elsif @group
-  .span-14.contributorship{:id => "contributorship_id-#{contributorship.id}"}
+  .span-20.contributorship{:id => "contributorship_id-#{contributorship.id}"}
     .span-9
       = render "shared/proper_work", :work => contributorship.work, :links => []
-    .prepend-2.span-3.last
+    .prepend-2.span-3
       .span-3{:id => "contributorship_admin-#{contributorship.id}"}
         .contributorship_person
           - p = Person.find(contributorship.person_id)
@@ -26,4 +26,13 @@
           - unless related.empty?
             - related.each do |c|
               - p = Person.find(c.person_id)
-              = render "contributorship_actions", :contributorship => c, :person => p  
+              = render "contributorship_actions", :contributorship => c, :person => p 
+    .prepend-5.span-5.last
+      - accepted_dupes =  Index.possible_accepted_duplicate_works(contributorship.work)
+      - if accepted_dupes.size == 1 && contributorship.work.id == accepted_dupes[0].id
+        %strong No accepted dupes
+      - else
+        %strong Accepted Duplicates
+        - accepted_dupes.each do |w|
+          - unless contributorship.work.id == w.id
+            = render "shared/proper_work", :work => w
