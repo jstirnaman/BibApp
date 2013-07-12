@@ -7,17 +7,27 @@ class ContributorshipsController < ApplicationController
     build :index
 
     before :index do
-      if params[:person_id]
-        @person = Person.find(params[:person_id])
+      if params[:person_id] or params[:group_id]
+        @person = Person.find(params[:person_id]) unless params[:person_id].nil?
+        @group = Group.find(params[:group_id]) unless params[:group_id].nil?
         @page = params[:page] || 1
         @rows = params[:rows] || 10
         @status = params[:status] || "unverified"
         #Don't want to allow an arbitrary send to @person.contributorships below - e.g. params[:status] = 'clear'
         @status = 'unverified' unless ['unverified', 'verified', 'denied'].member?(@status.to_s)
         @title = t('common.contributorships.index_title', :display_name => @person.display_name,
-                   :status => t("common.contributorships.#{@status}").capitalize)
+                   :status => t("common.contributorships.#{@status}").capitalize) unless @person.nil?
+        if !@person.nil?
         @contributorships = @person.contributorships.send(@status).includes(:work).
             order('works.publication_date_year desc, works.publication_date_month desc, works.publication_date_day desc').paginate(:page => @page, :per_page => @rows)
+        elsif !@group.nil?
+        # Only return one contributorship per work for the group. Views will retrieve remaining contributorships for the work.
+        @contributorships = Contributorship.for_person(@group.people).send(@status).select("id, work_id").to_a.uniq {|c| c.work_id}
+        uniq_work_contribs = @contributorships.map {|c| c.id}
+        @contributorships = Contributorship.where("contributorships.id IN (?)", uniq_work_contribs).includes(:work).
+            order('works.publication_date_year desc, works.publication_date_month desc, works.publication_date_day desc').paginate(:page => @page, :per_page => @rows)
+        logger.debug @contributorships
+        end
       else
         render :status => 404
       end
@@ -34,7 +44,7 @@ class ContributorshipsController < ApplicationController
     if ['verify', 'unverify', 'deny'].include?(action)
       self.send(:"#{action}_multiple") and return
     end
-    redirect_to contributorships_path(:person_id=>params[:person_id], :status=>params[:status])
+    redirect_to contributorships_path(:person_id=>params[:person_id], :group_id=>params[:group_id], :status=>params[:status])
   end
 
   def verify
@@ -54,6 +64,11 @@ class ContributorshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
+        # Respond to Javascript from AJAX requests
+      format.js {
+        render :action => "verify"
+        #render :partial => "contributorship", :locals => { :contributorship => Contributorship.find(@contributorship.id) }
+      } 
     end
   end
 
@@ -70,6 +85,33 @@ class ContributorshipsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to :back }
+      format.js {
+        render :action => "verify"
+      }
+    end
+  end
+
+    def unverify
+    @contributorship = Contributorship.find(params[:id])
+    person = @contributorship.person
+
+    # only 'editor' of this person can unverify contributorship
+    permit "editor of :person", :person => person
+
+    #Verify & save contributorship
+    #(Note: Contributorship callbacks will automatically update scores, etc.)
+    @contributorship.unverify_contributorship
+    @contributorship.save
+
+    #get updated list of contributorships to display
+    @contributorships = person.contributorships.to_show
+
+    respond_to do |format|
+      format.html { redirect_to :back }
+        # Respond to Javascript from AJAX requests
+      format.js {
+        render :action => "verify" #:partial => "contributorship", :locals => { :contributorship => Contributorship.find(@contributorship.id) }
+      } 
     end
   end
 
@@ -123,7 +165,7 @@ class ContributorshipsController < ApplicationController
     respond_to do |format|
       flash[:notice] = t('common.contributorships.flash_act_on_many', :action => t("common.contributorships.#{flash_action}"))
       #forward back to path which was specified in params
-      format.html { redirect_to contributorships_path(:person_id=>params[:person_id], :status=>params[:status]) }
+      format.html { redirect_to contributorships_path(:person_id=>params[:person_id], :group_id=>params[:group_id], :status=>params[:status]) }
       format.xml { head :ok }
     end
   end

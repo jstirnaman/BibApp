@@ -147,6 +147,11 @@ group :development do
 
  # gem 'tolk', :git => 'git://github.com/BibApp/tolk.git', :branch => 'rails3'
 #gem 'tolk'
+
+  # Helpful error pages for development
+ # gem 'better_errors'
+ # gem 'binding_of_caller'
+
 end
 
 group :test, :development do
@@ -163,10 +168,6 @@ group :test, :development do
   gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'test-unit'
-
-  # Gems for more functional error pages when developing.
-  gem 'better_errors'
-  gem 'binding_of_caller'
 
   #I'd prefer to add metric_fu directly here, but something it pulls
   #in pulls in something else that conflicts with the Keyword class.

@@ -1,18 +1,19 @@
 - include_javascript('specific/contributorships/index')
 - if current_user_any_role?("editor", Group)
   = render :layout => '/layouts/admin_bar' do
-    %li= link_to t('contributorships.index.delete_person'), person_url(@person),
-      :method => :delete, :confirm => t('contributorships.index.delete_person_confirm')
-    %li= link_to t('contributorships.index.add_person'), new_person_path
+    - if @person
+      %li= link_to t('contributorships.index.delete_person'), person_url(@person),
+        :method => :delete, :confirm => t('contributorships.index.delete_person_confirm')
+      %li= link_to t('contributorships.index.add_person'), new_person_path
 
-= render :layout => 'layouts/main_body', :locals => {:header => body_header(@person, @status)} do
-  = render "shared/local_nav", :object => "person", :state => "edit"
-  = render 'status_nav'
-
-  .span-13.append-1.last
+= render :layout => 'layouts/main_body', :locals => {:header => body_header(@person || @group, @status)} do
+  - if @person
+    = render "shared/local_nav", :object => "person", :state => "edit"
+  - elsif @group
+    = render "shared/local_nav", :object => "group", :state => "edit"
+  .span-21.append-1.last
     #sort-by.right
       = render 'row_count_form'
-
     = render 'act_on_multiple_form'
-
-  = render 'right_bar'
+    - if @person
+      = render 'right_bar'
