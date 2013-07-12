@@ -100,8 +100,10 @@ Bibapp::Application.routes.draw do
       member do
         put :verify
         put :deny
+        put :unverify
       end
     end
+    
     #####
     # Publisher routes
     #####

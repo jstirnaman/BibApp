@@ -1,0 +1,1 @@
+$("#contributorship_item-<%= @contributorship.id %> .admin_actions").html("<%= escape_javascript(render(:partial => "actions", :locals => {:contributorship => Contributorship.find(@contributorship.id)}))%>");

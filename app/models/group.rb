@@ -15,8 +15,8 @@ class Group < ActiveRecord::Base
   #### Associations ####
 
   has_many :people,
-           :through => :memberships,
-           :order => "last_name, first_name"
+           :through => :memberships #,
+           #:order => "last_name, first_name" # :order on has_many :through associations is broken in Rails 3.2. Supposedly fixed in 4.0? See https://github.com/rails/rails/issues/8663
   has_many :memberships
 
   scope :hidden, where(:hide => true)
