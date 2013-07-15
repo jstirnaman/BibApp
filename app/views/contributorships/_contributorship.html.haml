@@ -29,7 +29,7 @@
               = render "contributorship_actions", :contributorship => c, :person => p 
     .span-6.last
       - accepted_dupes =  Index.possible_accepted_duplicate_works(contributorship.work)
-      - if accepted_dupes.size == 1 && contributorship.work.id == accepted_dupes[0].id
+      - if accepted_dupes.size == 0 || (accepted_dupes.size == 1 && contributorship.work.id == accepted_dupes[0].id)
         %strong No accepted duplicates
       - else
         %strong Possible accepted duplicates
