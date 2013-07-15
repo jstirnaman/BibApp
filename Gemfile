@@ -149,8 +149,8 @@ group :development do
 #gem 'tolk'
 
   # Helpful error pages for development
- # gem 'better_errors'
- # gem 'binding_of_caller'
+ gem 'better_errors'
+ gem 'binding_of_caller'
 
 end
 
@@ -165,9 +165,6 @@ group :test, :development do
   gem 'shoulda'
   gem 'factory_girl'
   gem 'simplecov'
-  gem 'cucumber-rails'
-  gem 'database_cleaner'
-  gem 'test-unit'
 
   #I'd prefer to add metric_fu directly here, but something it pulls
   #in pulls in something else that conflicts with the Keyword class.
