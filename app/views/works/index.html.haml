@@ -26,15 +26,15 @@
   - else
     -#%h2 #{t('works.index.heading_html')}
 
-    .span-15
+    .col_9a
       = render "shared/people", :count => 15, :randomize => true
-    .span-7.last
+    .col_2.last
       = render 'first_works'
 
-    #facets.span-24
-      .span-6
+    #facets.col_12
+      .col_4
         = render "shared/groups", :count => 10
-      .span-6.prepend-1.append-2
+      .col_3.prepend-1.append-2
         = render "shared/publications", :count => 10
-      .span-6.last
+      .col_4.last
         = render "shared/publishers", :count => 10

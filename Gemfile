@@ -36,7 +36,7 @@ gem "namecase"
 gem "rubyzip"
 
 #Sword2Ruby - used for SWORD interaction
-gem "sword2ruby", ">=0.0.6", :git => 'git://github.com/BibApp/sword2ruby.git'
+gem "sword2ruby", :git => 'git://github.com/BibApp/sword2ruby.git'
 
 #Solr-Ruby - Solr connections for ruby
 gem "solr-ruby"
@@ -127,6 +127,7 @@ gem 'googlecharts'
 #Performance analysis without New Relic
 gem 'request-log-analyzer'
 
+gem 'passenger'
 #include thin webserver for development
 #to start it, do 'bundle exec thin start' - this is important, as
 #doing simply 'thin start' may pull in unbundled gems and cause
