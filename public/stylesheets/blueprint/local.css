@@ -1,8 +1,8 @@
-@import "http://www.kumc.edu/css/template2009/kupresentation.css";
+/* @import "http://www.kumc.edu/css/template2009/kupresentation.css"; */
 
 /* -----------------------------
  * overridden elements
- ------------------------------- */
+ ------------------------------- 
 body {margin: 0;}
 div.screen-format {
 	padding: inherit;
@@ -17,10 +17,51 @@ h2 {
 ol li {
 	list-style-type: none;
 	margin: 0;
+}*/
+
+body {
+  background: url('https://www.kumc.edu/images/x/kumc-hemenway.jpg') no-repeat center 30px;
 }
+
+#footer-bottom p img {
+  float: inherit;
+  margin: inherit;
+  padding: inherit;
+}
+
+#wrapper #header {
+  margin-bottom: inherit;
+  padding-top: inherit;
+}
+
+.container {
+  width: inherit;
+  background-color: inherit;
+}
+
+h2.unit-name {
+  border-bottom: inherit;
+}
+
+h3.heading, h3.heading a, div.box_heading {
+font-family: Georgia, Times, "Times New Roman", serif!important;
+font-size: 18px!important;
+font-weight: bold;
+display: block;
+float: left;
+width: 100%;
+height: 34px;
+padding: 7px 0 0 11px;
+margin-bottom: 1em;
+line-height: 18px;
+color: #fff;
+background-color: #666666;
+border-bottom: #DAD6CB 1px solid;
+}
+
 /* -----------------------------
  * overridden ids
- ------------------------------- */
+ ------------------------------- 
 
 #alpha-nav.pagination {
 	margin-bottom:inherit;
@@ -51,7 +92,7 @@ ol li {
 #results ol.facet_filters li {
 	list-style-type: none;	
 }
-
+*/
 #toptabnav ul li {
 	font-size: inherit;
 }
@@ -61,7 +102,7 @@ ol li {
 	margin-left: 0px;
 	text-align: center;
 	}
-
+/*
 ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 
 div#content div#facets ol, div#content div#facets ol li {
@@ -72,11 +113,11 @@ ol#publications {
 list-style: none;
 line-height: 1.75em;
 }
-
+*/
 
 /* -----------------------------
  * overridden classes
- ------------------------------- */
+ ------------------------------- 
 
 .container {background-color: transparent;}
 
@@ -98,8 +139,8 @@ line-height: 1.75em;
 	color: #000000;
 	text-decoration: none;
 }
-
-/* Override KU Presentation */
+*/
+/* Override KU Presentation 
 #content div.right {
   float: right;
   text-align: left;
@@ -108,7 +149,7 @@ line-height: 1.75em;
 #content div.right ul, #content div.right ul li {
 	list-style-type: none;
 }
-
+*/
 /* Style for displaying Deposit License Agreement, etc. in nice scrollable div */
 .scrollarea {
     width: 550px;
@@ -122,14 +163,14 @@ p.metadata {font-size: 0.9em;}
 
 .person-last-name {line-height:1.5em;}
 
-/** Replicate the KU rightnavheading **/
+/** Replicate the KU rightnavheading *
 div.span-6 h3.heading, div.span-7 h3.heading, div.box_heading {
-	color: #A5AAAB;
+  	color: #A5AAAB;
     background: url("https://www.kumc.edu/Images/template2009/widgets/rightnavheaderbg.gif") no-repeat scroll left top transparent;
     border-bottom: 1px dotted #CCCCCC;
     height: 28px;
     padding: 7px 0 0 11px;
-	font-weight: bold;
+  	font-weight: bold;
 }
 
 div.span-6 h3.heading a, div.span-7 h3.heading a {color: #A5AAAB; font-weight: bold;}
@@ -152,11 +193,11 @@ div.left_box div.box_heading {
     width: 100%;
 	}
 
-
+*/
 /* -----------------------------
  * KUMC-custom styles go here
  * kumc_...
- ------------------------------- */
+ ------------------------------- 
 .kumc_hidden {visibility:hidden;}
 .kumc_nodisplay {display:none;}
 #azbox {
@@ -166,3 +207,4 @@ div.left_box div.box_heading {
 	margin: 0px;
 	padding-bottom: 0px;
 }
+*/
