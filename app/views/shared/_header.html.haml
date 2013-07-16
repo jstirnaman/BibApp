@@ -1,112 +1,24 @@
--# KUMC custom header
-#header{:class => "container"}
-  .span-24.last
-    #logo.span-9
-      %img#mylogo.png{:src => "http://www.kumc.edu/Images/logos/kumclogo_w.png", :alt => "The University of Kansas Medical Center"}/
-    #buildingicon.span-6
-      %span &nbsp;
-      -# %img{:src => "http://www.kumc.edu/Images/icons/murphy_blue_white.png", :alt => "The University of Kansas Medical Center", :border => "0", :class => "png"}/
-    #search.span-9.last
-      %form.search#cse-search-box{:method => "get", :action => "http://www.kumc.edu/googlesearch/Search.aspx"}
-        %div
-          %input{:type => "hidden", :name => "cx", :value => "016253077276564549295:wgpvnlwdiya"}
-          %input{:type => "hidden", :name => "cof", :value => "FORID:9"}
-          %input{:type => "hidden", :name => "ie", :value => "UTF-8"}
-          %label{:for => "txtTop", :accesskey => "I", :class => "searchlabel"} Search
-          %input#txtTop.kumc_searchform.input{:name => "q", :type => "text", :autocomplete => "off", :size => "40", :value => "kumc.edu", :onfocus => "this.value='';"}
-          %input.button{:name => "sa", :type => "image", :src => "http://www.kumc.edu/Images/icons/search.gif", :alt => "Search"}
-      %ul.links
-        %li
-          %a{:href => "https://my.kumc.edu/"} myKUMC
-        %li
-          %a{:href => "http://webmail.kumc.edu/"} Email
-        %li
-          %a{:href => "https://my.kumc.edu/cas/login?service=https://elearning.kumc.edu/angel/KUMC_login.aspx"} Angel
-        %li
-          %a{:href => "http://www2.kumc.edu/directory"} Directory
-        %li
-          %a{:href => "http://library.kumc.edu"} Library                    
-        %li#azpopuplink
-          %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all", :onclick => "return false;"}
-            A-Z
-            %img.azcarot{:src => "http://www.kumc.edu/Images/icons/downcarot.gif", :alt => "A-Z Links"}/
-      #azbox
-        %ul
+#header
+  .wrapper-for-content
+    #topnav.row
+      .col_12.last
+        %p.topleft
+          %a{:href => "http://www.kumc.edu/"} University of Kansas Medical Center
+        %ul#top_main_nav.inline-list
           %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=A"} A
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=B"} B
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=C"} C
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=D"} D
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=E"} E
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=F"} F
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=G"} G
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=H"} H
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=I"} I
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=J"} J
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=K"} K
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=L"} L
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=M"} M
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=N"} N
-        %ul
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=O"} O
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=P"} P
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Q"} Q
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=R"} R
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=S"} S
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=T"} T
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=U"} U
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=V"} V
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=W"} W
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=X"} X
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Y"} Y
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=Z"} Z
-          %li
-            %a{:href => "http://www2.kumc.edu/directory/KUMCSiteIndex.aspx?Id=all"} all
-  #topnav{:class => "span-24 last"}
-    %h2= link_to t('personalize.application_name'), works_path
-  
-    #toptabnav
-
-      .span-24
-        = render 'shared/tagline_and_locales'                     
-      .span-16
-        = render 'shared/header_nav'
-                
-        .span-7.prepend-15.last
-          = form_tag search_path, :method => :get, :class => "header-search-form" do
-            #search-box
-              #{text_field_tag(:q, nil, :size => 21)}
-              #{ submit_tag t('app.search')}
-            %span.advanced-search-link #{link_to t('app.advanced'), advanced_search_path}            
-                   
-      .span-6.last
-        = render 'shared/header_global_nav'
-       
--# KUMC print header
-#printheader
-  %img#myprintlogo{:class => "png", :src => "http://webmedia.ku.edu/images/logos/kulogo.png", :alt => "The University of Kansas"}/           
+            %a{:href => "http://library.kumc.edu/", :title => "Dykes Library"} Dykes Library
+.container
+  .wrapper-for-content
+    #header-container.row
+      #main-search.row
+        .col_12.last
+          .col_2
+            .logo-img
+              %a{:href => "http://www.kumc.edu/"}
+                %img{:alt => "KU Medical Center", :src => "https://www.kumc.edu/images/x/logo.png"}/
+          .col_6
+            %h2.unit-name Meet Our Experts
+            %p.unit-description
+            #crumbtrail
+              %p.small
+          #search.col_4.last

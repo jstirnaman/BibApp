@@ -1,61 +1,62 @@
 - bibapp_cache(:controller => 'shared', :action => 'partial', :action_suffix => 'footer') do
-  #footer
-    #concave.container
-      #myfooter.container
-        #footercontact.span-10
-          %strong
-            = link_to("Contact KUMC", "http://www.kumc.edu/Pulse/howtocontact.html")
-            %br/
-            The University of Kansas
-            %br/
-            Medical Center
-            %br/
-            3901 Rainbow Boulevard
-            %br/
-            Kansas City, KS 66160
-            %br/
-            913-588-5000&nbsp;&nbsp;|&nbsp;&nbsp;913-588-7963 TDD
-        #footerjayhawk.span-4
-          %a{:href => "#top"}
-            %img{:src => "http://www.kumc.edu/Images/icons/uparrow.gif", :alt => "Go to the top of the page", :border => "0"}/
-            &nbsp;top
-        #footertagline.span-10.last{:style => "margin-top: 15px;"}
-          %img{:alt => "Educating Healthcare Professionals Since 1905", :src => "http://www.kumc.edu/Images/icons/tagline.png"}/
-    #breadcrumbarea
-      #breadcrumb.container
-        %ul
-          %li{:style => "display: none;"}
-    #bottomarea
-      #bottom.container
-        %ul.links
-          %li
-            %a{:accesskey => "1", :href => "http://www.kumc.edu/"} KUMC Home
-          %li
-            %a{:href => "http://www.kumc.edu/Pulse/aboutkumc.html"} About KUMC
-          %li
-            %a{:href => "http://www2.kumc.edu/webevent/scripts/webevent.plx?cmd=listday&amp;calID=960"} Calendar
-          %li
-            %a{:href => "http://www.kumc.edu/evc/"} EVC
-          %li
-            %a{:href => "http://www.kumc.edu/guides/jobguide.html"} Jobs 
-          %li
-            %a{:href => "http://library.kumc.edu/"} Library
-          %li
-            %a{:href => "http://www.kumc.edu/Pulse/howtocontact.html"} Maps &amp; Directions
-          %li
-            %a{:href => "http://www.kumc.edu/news/publish/index.shtml"} News
-          %li
-            %a{:href => "http://www.kumc.edu/research.html"} Research
-          %li
-            %a{:href => "http://www.kumc.edu/studentcenter/index.html"} Student Services
-          %li
-            %a{:href => "http://www2.kumc.edu/ir/"} Technology        
-        %ul.links
-          %li
-            %a{:title => "The University of Kansas Medical Center's Equal Opportunity Statement", :href => "http://www.kumc.edu/Pulse/eo_statement.html"} An EO&#47;AA&#47;Title IX Institution
-          %li  
-            %a{:title => "The University of Kansas Medical Center's Privacy Statement", :href => "http://www.kumc.edu/Pulse/privacy.html"} Privacy Statement
-          %li
-            %a{:title => "Help using this web site and general KUMC campus assistance", :href => "http://www.kumc.edu/Pulse/help.html"} Help
-        %ul.links
-          %li &copy;2009 The University of Kansas Medical Center
+  %footer
+    #footer-sub
+      .wrapper-for-content
+        .row
+          .sub-left
+            .contactdetails
+              University of Kansas
+              %br/
+              Medical Center
+              %br/
+              3901 Rainbow Boulevard
+              %br/
+              Kansas City, KS 66160
+              %br/
+              913-588-5000 | 913-588-7963 TDD
+          .sub-right.last
+            %img{:alt => "Educating Healthcare Professionals since 1905", :src => "https://www.kumc.edu/images/icons/tagline.png"}/
+    #footer-bottom.clearfix
+      .wrapper-for-content
+        .row
+          .footer-left
+            %img{:alt => "KU Medical Center", :src => "https://www.kumc.edu/images/logos/kumclogo_mobile.png"}/
+          .footer-right
+        .row
+          .col_12.footer-center.last
+            %p
+              %img#ku_footer_jayhawk{:alt => "Jayhawk", :height => "50", :src => "https://www.kumc.edu/prebuilt/images/ku_jayhawk.png", :width => "56"}/
+            %ul.navigate
+              %li
+                %a{:href => "http://www.kumc.edu/about-us.html", :title => "About Us"} About Us
+              %li
+                %a{:href => "http://www.kumc.edu/events-calendar.html", :title => "Events Calendar"} Events Calendar
+              %li
+                %a{:href => "http://www.kumc.edu/communications.html", :title => "Communications"} Communications
+              %li.last
+                %a{:href => "http://www.kumc.edu/social-media.html", :title => "Social Media"} Social Media
+        .row
+          .col_12.footer-center.last
+            %ul.navigate
+              %li
+                %a{:href => "http://ioa.ku.edu/"} An EO/AA/Title IX Institution
+              %li
+                %a{:href => "http://www.kumc.edu/privacy-statement.html"} Privacy Statement
+              %li
+                %a{:href => "http://www.kumc.edu/about-this-site.html"} About this Site
+              %li.last
+                %a{:href => "http://www.kumc.edu/help.html"} Help
+            %p
+              \&copy;
+              %script{:language => "JavaScript", :type => "text/javascript"}
+                var d=new Date();
+                yr=d.getFullYear();
+                if (yr!=1863)
+                document.write(yr);
+              The University of Kansas Medical Center
+              %br/
+              %span.small.legal
+                The University of Kansas Medical Center prohibits discrimination on the basis of race, color, ethnicity, religion, sex, national origin, age, ancestry, disability, status as a veteran, sexual orientation, marital status, parental status, gender identity, gender expression and genetic information in the University's programs and activities. The following person has been designated to handle inquiries regarding the non-discrimination policies: Executive Director of the Office of Institutional Opportunity and Access,
+                = succeed "," do
+                  %a{:href => "mailto:ioa@ku.edu"} IOA@ku.edu
+                1054 Wescoe, 3901 Rainbow Blvd,. K.C., KS 66160, 913-588-5048.
