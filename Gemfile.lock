@@ -79,6 +79,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
+    daemon_controller (1.1.4)
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
@@ -153,6 +154,10 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
+    passenger (4.0.8)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     pg (0.15.1)
     polyglot (0.3.3)
     rack (1.4.5)
@@ -287,6 +292,7 @@ DEPENDENCIES
   omniauth
   omniauth-cas
   paperclip
+  passenger
   pg
   rack-jsonp-middleware
   rails (~> 3.2.6)
@@ -304,7 +310,7 @@ DEPENDENCIES
   simplecov
   solr-ruby
   sort_alphabetical
-  sword2ruby (>= 0.0.6)!
+  sword2ruby!
   thin
   will_paginate
   yaml_db
