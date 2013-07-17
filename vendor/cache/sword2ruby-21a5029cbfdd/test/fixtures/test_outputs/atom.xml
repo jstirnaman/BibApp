@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:ns1="http://purl.org/dc/terms/">
+  <id>atomtestid</id>
+  <author>
+    <name>Mark</name>
+  </author>
+  <author>
+    <name>Richard</name>
+  </author>
+  <ns1:title>dctesttitle</ns1:title>
+</entry>
