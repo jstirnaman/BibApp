@@ -1,4 +1,14 @@
-/* @import "http://www.kumc.edu/css/template2009/kupresentation.css"; */
+/*Override from style-kumc.css*/
+* {
+        -webkit-box-sizing: inherit; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: inherit;    /* Firefox, other Gecko */
+        box-sizing: inherit;         /* Opera/IE 8+ */
+}
+
+.span-1 {
+  max-width: 80;
+  width: auto; 
+}
 
 /* -----------------------------
  * overridden elements
@@ -23,14 +33,6 @@ ol li {
 body {
   background: url('https://www.kumc.edu/images/x/kumc-hemenway.jpg') no-repeat center 30px;
 }
-/**/
-* {
-  -moz-box-sizing: inherit;
-}
-
-/*ul, ol {
-margin: 0 1.5em 1.5em 1.5em;*/ /* Copied from blueprint/screen.css because it gets overridden by KUMC styles. */
-/*}*/
 
 #memberships ul.children {
  margin-left: 1.5em;
@@ -41,12 +43,7 @@ margin: 0 1.5em 1.5em 1.5em;*/ /* Copied from blueprint/screen.css because it ge
   margin: inherit;
   padding: inherit;
 }
-/*
-#wrapper #header {
-  margin-bottom: inherit;
-  padding-top: inherit;
-}
-*/
+
 .container {
   width: inherit;
   background-color: inherit;
@@ -56,22 +53,6 @@ margin: 0 1.5em 1.5em 1.5em;*/ /* Copied from blueprint/screen.css because it ge
 h2 {
   border-bottom: inherit;
 }
-/*
-h3.heading, h3.heading a, div.box_heading {
-font-family: Georgia, Times, "Times New Roman", serif!important;
-font-size: 18px!important;
-font-weight: bold;
-display: block;
-float: left;
-width: 100%;
-height: 34px;
-padding: 7px 0 0 11px;
-margin-bottom: 1em;
-line-height: 18px;
-color: #fff;
-background-color: #666666;
-border-bottom: #DAD6CB 1px solid;
-}
 
 /* -----------------------------
  * overridden ids
@@ -79,25 +60,21 @@ border-bottom: #DAD6CB 1px solid;
 */
 #alpha-nav.pagination {
   margin-left: 0;
+  margin-right: 2em;
 }
 
 .pagination li {
 	margin: 1em 0 0 0;
 }
+/*
+#content.container fieldset form {padding:1.5em;}
 
-#works .pagination {
-padding: 1em 0em;
-text-align: center;
-border: none;
-}
 
-#works .pagination div {
-padding: 1em 0em;
-border-top: 1px dotted black; 
-border-bottom: 1px dotted black;
-text-align: center;
-}
+#footer {padding-top: 0; margin-top: 0;}
 
+
+#local-pages {margin:0 1.5em 1.5em}
+*/
 #navigation #current a {
   padding-bottom: 0.5em;
   font-weight: bold;
@@ -156,6 +133,13 @@ line-height: 1.75em;
  * overridden classes
  ------------------------------- 
 
+.container {background-color: transparent;}
+
+.even {background-color: #f8f8f8;}
+
+.links {font-size: 100%;
+  margin-top: 0px;
+}
 */
 .pagination a {
   padding: 2px 5px 2px 5px;
@@ -170,6 +154,16 @@ line-height: 1.75em;
 	text-decoration: none;
 }
 
+/* Override KU Presentation 
+#content div.right {
+  float: right;
+  text-align: left;
+}
+
+#content div.right ul, #content div.right ul li {
+	list-style-type: none;
+}
+*/
 /* Style for displaying Deposit License Agreement, etc. in nice scrollable div */
 .scrollarea {
     width: 550px;
@@ -178,6 +172,11 @@ line-height: 1.75em;
 }
 
 p.metadata {font-size: 0.9em;}
+
+.person-image { text-align: center; }
+
+#people img.person-image { height: 100px; }
+#coauthors img.person-image { height: 55px; }
 
 .person-image-metadata {visibility:hidden;}
 
@@ -240,6 +239,7 @@ div.facet_heading {
   padding-top: inherit;
 }
 
+
 /* Make Blueprint responsive and mobile-friendly.*/
 /* Source: https://gist.github.com/adamjohnson/3495007 As of: 07-17-2013 */
 
@@ -278,3 +278,4 @@ img, object, embed {max-width: 100%;}
         /* You may or may not want to set a fixed width to .container. EG: */
         /* .container { width: 480px; margin: 0 auto; } */
 }
+
