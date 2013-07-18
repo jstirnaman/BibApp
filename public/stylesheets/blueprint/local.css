@@ -22,27 +22,32 @@ ol li {
 body {
   background: url('https://www.kumc.edu/images/x/kumc-hemenway.jpg') no-repeat center 30px;
 }
+/**/
+* {
+  -moz-box-sizing: inherit;
+}
 
 #footer-bottom p img {
   float: inherit;
   margin: inherit;
   padding: inherit;
 }
-
+/*
 #wrapper #header {
   margin-bottom: inherit;
   padding-top: inherit;
 }
-
+*/
 .container {
   width: inherit;
   background-color: inherit;
 }
 
-h2.unit-name {
+
+h2 {
   border-bottom: inherit;
 }
-
+/*
 h3.heading, h3.heading a, div.box_heading {
 font-family: Georgia, Times, "Times New Roman", serif!important;
 font-size: 18px!important;
@@ -62,15 +67,15 @@ border-bottom: #DAD6CB 1px solid;
 /* -----------------------------
  * overridden ids
  ------------------------------- 
-
+*/
 #alpha-nav.pagination {
-	margin-bottom:inherit;
+  margin-left: 0;
 }
 
 .pagination li {
 	margin: 1em 0 0 0;
 }
-
+/*
 #content.container fieldset form {padding:1.5em;}
 
 
@@ -78,7 +83,7 @@ border-bottom: #DAD6CB 1px solid;
 
 
 #local-pages {margin:0 1.5em 1.5em}
-
+*/
 #navigation #current a {
   padding-bottom: 0.5em;
   font-weight: bold;
@@ -92,17 +97,32 @@ border-bottom: #DAD6CB 1px solid;
 #results ol.facet_filters li {
 	list-style-type: none;	
 }
-*/
+
+#topnav {
+    height: 95px;    
+/*    text-align: center; */
+}
+
+#toptabnav {
+    margin: 15px 0 0;
+}
+
+#toptabnav ul {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
 #toptabnav ul li {
 	font-size: inherit;
 }
-
+/*
 #toptabnav #tagline {
 	font-size: 1em;
 	margin-left: 0px;
 	text-align: center;
 	}
-/*
+*/
 ol#works li, div#works ol li.work {margin: 1em 0 0 1em;}
 
 div#content div#facets ol, div#content div#facets ol li {
@@ -126,7 +146,7 @@ line-height: 1.75em;
 .links {font-size: 100%;
   margin-top: 0px;
 }
-
+*/
 .pagination a {
   padding: 2px 5px 2px 5px;
   margin: 2px;
@@ -139,7 +159,7 @@ line-height: 1.75em;
 	color: #000000;
 	text-decoration: none;
 }
-*/
+
 /* Override KU Presentation 
 #content div.right {
   float: right;
@@ -163,18 +183,18 @@ p.metadata {font-size: 0.9em;}
 
 .person-last-name {line-height:1.5em;}
 
-/** Replicate the KU rightnavheading *
+/** Replicate the KU rightnavheading **/
 div.span-6 h3.heading, div.span-7 h3.heading, div.box_heading {
   	color: #A5AAAB;
     background: url("https://www.kumc.edu/Images/template2009/widgets/rightnavheaderbg.gif") no-repeat scroll left top transparent;
     border-bottom: 1px dotted #CCCCCC;
-    height: 28px;
+    height: 36px;
     padding: 7px 0 0 11px;
   	font-weight: bold;
 }
 
 div.span-6 h3.heading a, div.span-7 h3.heading a {color: #A5AAAB; font-weight: bold;}
-div.box_heading {background-color: #ffffff;}
+div.box_heading {background-color: #ffffff; height: inherit;}
 div.left_box {
 	background-color: #f8f8f8;
     background-image: none;
@@ -193,7 +213,7 @@ div.left_box div.box_heading {
     width: 100%;
 	}
 
-*/
+
 /* -----------------------------
  * KUMC-custom styles go here
  * kumc_...
@@ -208,3 +228,14 @@ div.left_box div.box_heading {
 	padding-bottom: 0px;
 }
 */
+dt, dl, dd {
+  padding: 3px;
+}
+
+dd {
+  line-height: 2em;
+}
+
+div.facet_heading {
+  padding-top: inherit;
+}
