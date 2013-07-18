@@ -84,15 +84,20 @@ border-bottom: #DAD6CB 1px solid;
 .pagination li {
 	margin: 1em 0 0 0;
 }
-/*
-#content.container fieldset form {padding:1.5em;}
 
+#works .pagination {
+padding: 1em 0em;
+text-align: center;
+border: none;
+}
 
-#footer {padding-top: 0; margin-top: 0;}
+#works .pagination div {
+padding: 1em 0em;
+border-top: 1px dotted black; 
+border-bottom: 1px dotted black;
+text-align: center;
+}
 
-
-#local-pages {margin:0 1.5em 1.5em}
-*/
 #navigation #current a {
   padding-bottom: 0.5em;
   font-weight: bold;
@@ -142,19 +147,15 @@ ol#publications {
 list-style: none;
 line-height: 1.75em;
 }
-*/
+
+#people {
+  padding-right: 2em;
+}
 
 /* -----------------------------
  * overridden classes
  ------------------------------- 
 
-.container {background-color: transparent;}
-
-.even {background-color: #f8f8f8;}
-
-.links {font-size: 100%;
-  margin-top: 0px;
-}
 */
 .pagination a {
   padding: 2px 5px 2px 5px;
@@ -169,16 +170,6 @@ line-height: 1.75em;
 	text-decoration: none;
 }
 
-/* Override KU Presentation 
-#content div.right {
-  float: right;
-  text-align: left;
-}
-
-#content div.right ul, #content div.right ul li {
-	list-style-type: none;
-}
-*/
 /* Style for displaying Deposit License Agreement, etc. in nice scrollable div */
 .scrollarea {
     width: 550px;
