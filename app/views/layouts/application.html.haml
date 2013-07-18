@@ -78,12 +78,12 @@
               #topnav{:class => "span-24 last"}
                 .span-16
                   = render 'shared/header_nav'
-                  .span-7.prepend-15.last
+                  .span-22.prepend-15.last
                     = form_tag search_path, :method => :get, :class => "header-search-form" do
                       #search-box
                         #{text_field_tag(:q, nil, :size => 21)}
                         #{ submit_tag t('app.search')}
-                        %span.advanced-search-link #{link_to t('app.advanced'), advanced_search_path}
+                      %span.advanced-search-link #{link_to t('app.advanced'), advanced_search_path}
                 .span-6.last
                   = render 'shared/header_global_nav'
             
