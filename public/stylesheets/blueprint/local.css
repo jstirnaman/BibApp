@@ -14,6 +14,7 @@ h2 {
   border: none;
 }
 
+
 ol li {
 	list-style-type: none;
 	margin: 0;
@@ -25,6 +26,14 @@ body {
 /**/
 * {
   -moz-box-sizing: inherit;
+}
+
+/*ul, ol {
+margin: 0 1.5em 1.5em 1.5em;*/ /* Copied from blueprint/screen.css because it gets overridden by KUMC styles. */
+/*}*/
+
+#memberships ul.children {
+ margin-left: 1.5em;
 }
 
 #footer-bottom p img {
