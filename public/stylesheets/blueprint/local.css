@@ -182,6 +182,10 @@ p.metadata {font-size: 0.9em;}
 
 .person-last-name {line-height:1.5em;}
 
+.person-coauthor-tiny { margin: 0 .5em; }
+
+.person-last-name-tiny { width: 100%; }
+
 /** Replicate the KU rightnavheading **/
 div.span-6 h3.heading, div.span-7 h3.heading, div.box_heading {
   	color: #A5AAAB;
