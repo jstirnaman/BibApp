@@ -49,10 +49,10 @@
           #topnav.row
             .col_12.last
               %p.topleft
-                %a{:href => "http://www.kumc.edu/"} University of Kansas Medical Center
+                #{link_to t('personalize.university_full_name'), $UNIVERSITY_URL }
               %ul#top_main_nav.inline-list
                 %li
-                  %a{:href => "http://library.kumc.edu/", :title => "Dykes Library"} Dykes Library
+                  #{link_to t('personalize.library_name'), $LIBRARY_URL }
       .container
         .wrapper-for-content
           #header-container.row
@@ -60,11 +60,11 @@
               .col_12.last
                 .col_2
                   .logo-img
-                    %a{:href => "http://www.kumc.edu/"}
-                      %img{:alt => "KU Medical Center", :src => "https://www.kumc.edu/images/x/logo.png"}/
+                    %a{:href => $UNIVERSITY_URL}
+                      %img{:alt => t('personalize.university_full_name'), :src => "https://www.kumc.edu/images/x/logo.png"}/
                 .col_6
                   %h2.unit-name
-                    %a{:href => "http://experts.kumc.edu/"} Meet Our Experts
+                    #{link_to t('personalize.application_name'), $APPLICATION_URL } 
                   %p.unit-description
                     = render 'shared/tagline_and_locales'
                   #crumbtrail

@@ -5,6 +5,6 @@
       = text_field_tag(:q, params[:q], :size => 15)
       = submit_tag t('app.go')
 
-.span-17.last
+.span-15.last
   %h2 #{link_to(h(@group.name), group_path(@group)).html_safe}
   = render "shared/local_nav", :object => "group"
