@@ -124,6 +124,9 @@ gem 'googlecharts'
 #For deployment, but can be ignored if not using capistrano
 #gem 'capistrano'
 
+# Notify admin of exceptions. Middleware as of Rails 3.
+gem 'exception_notification'
+
 #Performance analysis without New Relic
 gem 'request-log-analyzer'
 
