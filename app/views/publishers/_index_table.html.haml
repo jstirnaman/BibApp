@@ -2,7 +2,7 @@
   %tr
     %th.span-16 #{t '.publisher_name'}
     %th.span-4= t('.recent_year')
-    %th.span-4.last #{Publication.model_name.human_pl}
+    %th.span-4.text-right #{Publication.model_name.human_pl}
   - most_recent_years = most_recent_year_hash(@current_objects)
   - publication_counts = publication_count_hash(@current_objects)
   - @current_objects.each do |publisher|
@@ -13,5 +13,5 @@
           = render 'shared/sherpa_icon', :color => color
         #{link_to name_or_unknown(publisher.name), publisher_path(publisher)}
       %td.prepend-1 #{most_recent_years[publisher.id] || ''}
-      %td.append-2.last.text-right #{publication_counts[publisher.id] || '0'}
+      %td.text-right #{publication_counts[publisher.id] || '0'}
       
