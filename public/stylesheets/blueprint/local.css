@@ -22,7 +22,7 @@ h2 {
  * overridden ids
  ------------------------------- 
 */
-#bibapp-main h2, #bibapp-main h3 {
+#bibapp-main h2 #bibapp-main h3 {
   margin-top: 0px;
 }
 
@@ -106,6 +106,10 @@ ol#groups, ol#publications, ol#publishers {
   border-width: 1px;
 }
 
+#facets {
+  margin-top: 2em;
+}
+
 /* -----------------------------
  * overridden classes
  ------------------------------- 
@@ -114,10 +118,6 @@ ol#groups, ol#publications, ol#publishers {
 .container {
   width: inherit;
   background-color: inherit;
-}
-
-div.search-within {
-  padding-bottom: 1em;
 }
 
 .pagination li {

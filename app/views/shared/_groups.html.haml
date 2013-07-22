@@ -1,13 +1,12 @@
 -#
 -# Render Group facets from Solr data
 -#
-.span-6.last
-  %h3.heading= link_to Group.model_name.human_pl, groups_path
-  %ol#groups
-    -# if there's a count specified, only show the first few
-    - groups = (count ? @facets[:groups_data].first(count) : @facets[:groups_data])
-    - groups.each do |g|
-    - name, id = Group.parse_solr_data(g.name)
-      %li
-        = link_to name, group_path(id)
-        (#{g.value})
+%h3.heading= link_to Group.model_name.human_pl, groups_path
+%ol#groups
+  -# if there's a count specified, only show the first few
+  - groups = (count ? @facets[:groups_data].first(count) : @facets[:groups_data])
+  - groups.each do |g|
+  - name, id = Group.parse_solr_data(g.name)
+    %li
+      = link_to name, group_path(id)
+      (#{g.value})
