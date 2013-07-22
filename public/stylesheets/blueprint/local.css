@@ -22,6 +22,9 @@ h2 {
  * overridden ids
  ------------------------------- 
 */
+#bibapp-main h2, #bibapp-main h3 {
+  margin-top: 0px;
+}
 
 #memberships ul.children {
  margin-left: 1.5em;
@@ -111,6 +114,10 @@ ol#groups, ol#publications, ol#publishers {
 .container {
   width: inherit;
   background-color: inherit;
+}
+
+div.search-within {
+  padding-bottom: 1em;
 }
 
 .pagination li {
