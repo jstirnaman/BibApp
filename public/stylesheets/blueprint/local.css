@@ -43,6 +43,10 @@ h2 {
   margin-right: 2em;
 }
 
+#navigation {
+  padding-left: 3em;
+}
+
 #navigation #current a {
   padding-bottom: 0.5em;
   font-weight: bold;
@@ -85,9 +89,9 @@ div#content div#facets ol, div#content div#facets ol li {
     list-style-type: none;
   }
 
-ol#publications {
-list-style: none;
-line-height: 1.75em;
+ol#groups, ol#publications, ol#publishers {
+  list-style: none;
+  line-height: 1.25em;
 }
 
 #people {
@@ -147,6 +151,10 @@ p.metadata {font-size: 0.9em;}
 .person-coauthor-tiny { margin: 0 .5em; }
 
 .person-last-name-tiny { width: 100%; }
+
+div.screen-format {
+  padding: 0;
+}
 
 /* -----------------------------
  * KUMC-custom styles go here
