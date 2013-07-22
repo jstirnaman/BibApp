@@ -7,4 +7,4 @@
     %tr{:class => cycle("even", "odd")}
       %td= link_to group.name, group
       %td= parent_link(group)
-      %td= group.memberships.length
+      %td.text-right= group.memberships.length
