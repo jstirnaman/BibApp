@@ -96,6 +96,7 @@ ol#groups, ol#publications, ol#publishers {
 
 #results .pagination {
   border-width: 0px;
+  margin-bottom: 0.5em;
 }
 
 #results .pagination div.pagination {
