@@ -1,10 +1,10 @@
 - bibapp_cache(:controller => 'publications', :action => 'index', :page => params[:page], :action_suffix => "index-table") do
   %table#publications
     %tr
-      %th #{Publication.human_attribute_name(:issn_isbn)}
-      %th #{t 'common.publications.publication_name'}
-      %th #{Publisher.model_name.human}
-      %th #{Work.model_name.human_pl}
+      %th.span-4 #{Publication.human_attribute_name(:issn_isbn)}
+      %th.span-6 #{t 'common.publications.publication_name'}
+      %th.span-4 #{Publisher.model_name.human}
+      %th.span-2.text-right #{Work.model_name.human_pl}
     - work_counts = work_count_hash(@current_objects)
     - all_publisher_data = publisher_data_hash(@current_objects)
     - @current_objects.each do |publication|
@@ -22,4 +22,4 @@
               = render 'shared/sherpa_icon', :color => color
             - publisher_name = publisher_data[:name].self_or_blank_default('Unknown')
             #{link_to name_or_unknown(publisher_name), publisher_path(publisher_data[:id])}
-          %td #{work_counts[publication.id] || '0'}
+          %td.text-right #{work_counts[publication.id] || '0'}
