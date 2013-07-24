@@ -1,0 +1,42 @@
+#Omniauth-CAS
+#Required
+#
+#OmniAuth CAS requires at least one of the following two configuration options:
+#
+#url - Defines the URL of your CAS server (i.e. http://example.org:8080)
+#host - Defines the host of your CAS server. Optional if using url
+#login_url - Defines the URL used to prompt users for their login information. Defaults to /login If no host is >
+#
+#Optional
+#
+#Other configuration options:
+#
+#port - The port to use for your configured CAS host. Optional if using url
+#ssl - TRUE to connect to your CAS server over SSL. Optional if using url
+#service_validate_url - The URL to use to validate a user. Defaults to '/serviceValidate'
+#logout_url - The URL to use to logout a user. Defaults to '/logout'
+#uid_key - The user data attribute to use as your user's unique identifier. Defaults to 'user' (which usually co>
+#ca_path - Optional when ssl is true. Sets path of a CA certification directory. See Net::HTTP for more details
+#disable_ssl_verification - Optional when ssl is true. Disables verification.
+#Migrating from OmniAuth 0.3
+#Given the following OmniAuth 0.3 configuration:
+##provider :CAS, cas_server: 'https://cas.example.com/cas/'
+#Your new settings should look similar to this:
+##provider :cas,
+#         host:      'cas.example.com',
+#         login_url: '/cas/login',
+#         service_validate_url: '/cas/serviceValidate'
+#If you encounter problems wih SSL certificates you may want to set the ca_path parameter or activate disable_ss>
+
+cas:
+  host: 'cas.kumc.edu'
+  login_url: '/cas/login'
+  service_validate_url: '/cas/serviceValidate'
+  disable_ssl_verification: true
+# saml:
+    # assertion_consumer_service_url: "http://localhost:3000/auth/saml"
+    # issuer:                         "http://localhost:3000/auth/saml"
+    # idp_sso_target_url:             "https://cas.kumc.edu/cas/TransferService"
+    # idp_cert_fingerprint:           ""
+    # name_identifier_format:         "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+
