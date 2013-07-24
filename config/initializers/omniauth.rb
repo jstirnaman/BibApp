@@ -42,6 +42,9 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       end
     end
   end
+if Rails.env.production?
+  OmniAuth.config.full_host = $APPLICATION_URL
+end
 #Bibapp::Application.config.oauth_config =
 #    if File.exists?(File.join(Rails.root, 'config', 'oauth.yml'))
 #      YAML.load_file(File.join(Rails.root, 'config', 'oauth.yml'))

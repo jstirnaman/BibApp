@@ -14,12 +14,12 @@ Bibapp::Application.configure do
   config.action_controller.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache', Rails.env)
 
 # Notify administrator of exceptions
-config.middleware.use ExceptionNotification::Rack,
-  :email => {
-    :email_prefix => "[BibApp Exception] ",
-    :sender_address => %{"notifier" <experts-no-reply@kumc.edu>},
-    :exception_recipients => %w{jstirnaman@kumc.edu, eteasdale@kumc.edu}
-  }
+#config.middleware.use ExceptionNotification::Rack,
+#  :email => {
+#    :email_prefix => "[BibApp Exception] ",
+#    :sender_address => %{"notifier" <experts-no-reply@kumc.edu>},
+#    :exception_recipients => %w{jstirnaman@kumc.edu, eteasdale@kumc.edu}
+#  }
 
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"
@@ -32,6 +32,6 @@ config.middleware.use ExceptionNotification::Rack,
   }
 
 # Uncomment if you need to see something running in production but with more logging
-#  config.log_level = :debug
+  config.log_level = :debug
 
 end
