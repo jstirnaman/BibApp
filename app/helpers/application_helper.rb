@@ -52,7 +52,8 @@ module ApplicationHelper
     end
 
     work.authors.each do |au| # Authors
-      coin += "&rft.au=#{au[:name]}"
+      rau = "&rft.au=#{ (au[:name].encode("UTF-8"))  }"
+      coin += URI.escape(rau)
     end
 
     coin

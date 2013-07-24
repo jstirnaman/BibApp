@@ -11,6 +11,8 @@ xml.item do
   xml.link work_url(:only_path => false, :id => work['id'].split("-")[1])
 
   xml.guid work_url(:only_path => false, :id => work['id'].split("-")[1])
-
-  xml.author h(author_name)
+  # Output names directly without Builder trying to escape them (and failing).
+  # Ruby 1.9 throws exceptions if the string looks like ASCII and Builder
+  # tries to wrap it in UTF-8.
+  xml.author { xml << author_name }
 end
