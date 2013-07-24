@@ -8,7 +8,7 @@ class SearchController < ApplicationController
       format.html # Do HTML
       format.json
       format.yaml
-      format.xml
+      format.xml {render :layout => false}
       format.rdf
       format.rss
     end
