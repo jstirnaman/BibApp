@@ -27,7 +27,7 @@ class WorksController < ApplicationController
 
     response_for :index do |format|
       format.html
-      format.xml
+      format.xml {render :layout => false}
       format.yaml
       format.json
       format.rdf
