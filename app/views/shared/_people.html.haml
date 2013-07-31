@@ -11,11 +11,11 @@
       %li.inline
         .person.span-3
           .person-image-wrapper
-            = link_to(image_tag(fields[:image_url], :size => "75x100", :alt => fields[:last_name], :title => fields[:last_name], :class => 'person-image'), person_path(fields[:id]))
+            = link_to(image_tag(fields[:image_url], :size => "75x100", :alt => fields[:last_name].force_encoding('utf-8'), :title => fields[:last_name].force_encoding('utf-8'), :class => 'person-image'), person_path(fields[:id]))
           .person-image-metadata
             %strong= fields[:value]
           .person-last-name.left
-            %strong= link_to fields[:last_name], person_path(fields[:id])
+            %strong= link_to fields[:last_name].force_encoding('utf-8'), person_path(fields[:id])
   -#KUMC.JTS Add link to Browse all experts on a group page and the homepage
   #browse-all-people{:class => "span-10 prepend-3", :style => "text-align: right;"}
     - if controller.controller_name =="groups"

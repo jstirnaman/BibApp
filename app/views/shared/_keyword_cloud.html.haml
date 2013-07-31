@@ -7,7 +7,7 @@
     %ul
       - keywords.each do |kw|
         %li{:class => "tag#{kw.count}"}
-          = link_to h(kw.name), search_path(:fq => keyword_filter(kw, @current_object))
+          = link_to (kw.name.force_encoding('utf-8')), search_path(:fq => keyword_filter(kw, @current_object))
 
     #timeline-form.text-center
       = form_tag self.send("timeline_#{current_object.class.to_s.downcase}_keywords_path", current_object), :method => :get do
