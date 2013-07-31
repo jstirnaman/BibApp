@@ -1,3 +1,6 @@
+# encoding utf-8
+# coding utf-8
+
 #this helper is for views in the shared folder
 #since we don't know from whence they are called this is included into all views by ApplicationController -
 #nevertheless, I want the separation from the methods in ApplicationHelper - these are really specific to
@@ -24,7 +27,7 @@ module SharedHelper
     return '' if name_string_data.blank?
     links = name_string_data.first(5).collect do |datum|
       name, id = NameString.parse_solr_data(datum)
-      link_to(h("#{name.gsub(",", ", ")}"), name_string_path(id), {:class => "name_string"})
+      link_to(("#{name.force_encoding('utf-8').gsub(",", ", ")}"), name_string_path(id), {:class => "name_string"})
     end
     if name_string_data.size > 5
       links << link_to(t('common.shared.more'), work_path(work_id))
@@ -43,7 +46,7 @@ module SharedHelper
   def link_to_work_pub_common(pub_data, klass, path_helper_name)
     return t('app.unknown') if pub_data.blank?
     name, id = klass.parse_solr_data(pub_data)
-    link_to("#{name_or_unknown(name)}", self.send(path_helper_name, id), {:class => "source"})
+    link_to("#{name_or_unknown(name).force_encoding('UTF-8')}", self.send(path_helper_name, id), {:class => "source"})
   end
 
   def add_filter(params, facet, value, count, label = nil)
@@ -55,10 +58,10 @@ module SharedHelper
       filter[:fq] = []
     end
 
-    filter[:fq] << "#{facet}:\"#{value}\""
+    filter[:fq] << "#{facet}:\"#{value.force_encoding('utf-8')}\""
     filter[:fq].uniq!
 
-    link_to "#{label} (#{count})", params.merge(filter)
+    link_to "#{label.force_encoding('utf-8')} (#{count})", params.merge(filter)
   end
 
   def remove_filter(params, facet)
@@ -70,7 +73,7 @@ module SharedHelper
 
       #Split filter into field name and display value (they are separated by a colon)
       field_name, display_value = facet.split(':')
-      link_to "#{display_value}", params.merge(filter)
+      link_to "#{display_value.force_encoding('utf-8')}", params.merge(filter)
     end
   end
 
