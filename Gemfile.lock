@@ -95,6 +95,9 @@ GEM
       mail (~> 2.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    exception_notification (4.0.0)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     factory_girl (4.2.0)
       activesupport (>= 3.0.0)
     fastercsv (1.5.5)
@@ -278,6 +281,7 @@ DEPENDENCIES
   delayed_job_active_record
   dynamic_form
   email_spec
+  exception_notification
   factory_girl
   fastercsv
   googlecharts
