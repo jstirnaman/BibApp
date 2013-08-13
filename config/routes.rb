@@ -1,8 +1,7 @@
 Bibapp::Application.routes.draw do
 
   def make_routes
-    #Setting locale scope is causing problem with authentication redirects
-    #scope "(:locale)", :locale => /en|de/ do
+    scope "(:locale)", :locale => /en|de/ do
     resources :works do
       collection do
         get :orphans
@@ -173,6 +172,11 @@ Bibapp::Application.routes.draw do
           :as => 'delete_saved'
     match 'sessions/add_many_to_saved', :to => 'user_sessions#add_many_to_saved',
           :as => 'add_many_to_saved'
+  end
+  
+  # Exclude authentication routes from internationalization;
+  # we don't want locale parameter interfering with external authentication redirects.
+  
     ####
     # Authentication routes
     ####
@@ -181,7 +185,8 @@ Bibapp::Application.routes.draw do
     match 'login', :to => 'user_sessions#new', :as => 'login'
     match 'logout', :to => 'user_sessions#destroy', :as => 'logout'
     match 'activate/:activation_code', :to => 'users#activate', :as => 'activate'
-
+  
+  scope "(:locale)", :locale => /en|de/ do
     ####
     # DEFAULT ROUTES
     ####
@@ -208,11 +213,11 @@ Bibapp::Application.routes.draw do
         get :add_upload_box
       end
     end
-
+  end
     # Default homepage to works index action
-    #match '/:locale' => 'works#index' 
+    match '/:locale' => 'works#index' 
     root :to => 'works#index'
-
+  scope "(:locale)", :locale => /en|de/ do
     match 'citations', :to => 'works#index'
 
     resource :user_session
@@ -241,7 +246,7 @@ Bibapp::Application.routes.draw do
     match 'pages/about'
     match 'pages/faq'
   end
-  #end
+  end
 make_routes
 
 #mount Tolk::Engine => '/tolk', :as => 'tolk'
