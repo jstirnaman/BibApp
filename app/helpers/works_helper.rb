@@ -1,9 +1,12 @@
+# encoding utf-8
+# coding utf-8
+
 module WorksHelper
   def link_to_work_authors(work, limit= nil)
     if !work.name_strings.author.empty?
       authors = Array.new
       work.name_strings.author.each do |a|
-        authors << "#{link_to a.name.gsub(",", ", "), name_string_path(a)}"
+        authors << "#{link_to a.name.force_encoding('utf-8').gsub(",", ", "), name_string_path(a)}"
       end
       if limit
         if authors.size > 5
@@ -85,7 +88,7 @@ module WorksHelper
   #takes an array of work name strings and gives back the html for links to the names
   def work_name_strings_to_links(work_name_strings)
     work_name_strings.collect { |wns| wns.name_string }.collect do |ns|
-      link_to(h(ns.name.gsub(',', ', ')), name_string_path(ns))
+      link_to((ns.name.force_encoding('utf-8').gsub(',', ', ')), name_string_path(ns))
     end.join('; ').html_safe
   end
 

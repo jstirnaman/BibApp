@@ -9,5 +9,5 @@
     - name, id = Publication.parse_solr_data(p.name)
     - next if name == t('app.unknown')
     %li
-      =link_to name, publication_path(id)
+      =link_to name.force_encoding('utf-8'), publication_path(id)
       (#{p.value})
