@@ -3,7 +3,7 @@ source "http://gems.github.com"
 
 #Rails itself
 
-gem "rails", "~> 3.2.6"
+gem "rails", "~> 3.2.12"
 
 
 #Use jquery for javascript - in Rails 3.0 this involves running a generator too
@@ -64,6 +64,7 @@ gem 'lisbn'
 #delayed jobs
 gem 'delayed_job'
 gem 'delayed_job_active_record'
+gem 'daemons'
 
 #data structures
 gem 'acts_as_list'

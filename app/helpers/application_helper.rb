@@ -1,3 +1,6 @@
+# encoding utf-8
+# coding utf-8
+
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
 
@@ -52,7 +55,8 @@ module ApplicationHelper
     end
 
     work.authors.each do |au| # Authors
-      coin += "&rft.au=#{au[:name]}"
+      rau = "&rft.au=#{ (au[:name].encode("UTF-8"))  }"
+      coin += URI.escape(rau)
     end
 
     coin

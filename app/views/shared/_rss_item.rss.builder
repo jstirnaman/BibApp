@@ -1,16 +1,20 @@
+# encoding: utf-8
+
 #require work and author name to be passed
 xml.item do
-  xml.title work['title']
+  xml.title work['title'].force_encoding("UTF-8")
 
   xml.description {
     xml.cdata!(work['type'])
     xml.cdata!(render(subclass_partial_for(work) + ".html.haml", :work => work))
-    xml.cdata!(work['abstract']) if work['abstract']
+    xml.cdata!(work['abstract'].force_encoding("UTF-8")) if work['abstract']
   }
 
   xml.link work_url(:only_path => false, :id => work['id'].split("-")[1])
 
   xml.guid work_url(:only_path => false, :id => work['id'].split("-")[1])
-
-  xml.author h(author_name)
+  # Output names directly without Builder trying to escape them (and failing).
+  # Ruby 1.9 throws exceptions if the string looks like ASCII and Builder
+  # tries to wrap it in UTF-8.
+  xml.author { xml << author_name.force_encoding('UTF-8') }
 end

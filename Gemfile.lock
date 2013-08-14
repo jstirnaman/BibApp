@@ -276,6 +276,7 @@ DEPENDENCIES
   binding_of_caller
   cmess
   cucumber-rails
+  daemons
   database_cleaner
   delayed_job
   delayed_job_active_record
@@ -299,7 +300,7 @@ DEPENDENCIES
   passenger
   pg
   rack-jsonp-middleware
-  rails (~> 3.2.6)
+  rails (~> 3.2.12)
   rails-i18n
   rake
   request-log-analyzer

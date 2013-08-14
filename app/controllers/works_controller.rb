@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'will_paginate/array'
 require 'set'
 class WorksController < ApplicationController

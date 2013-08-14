@@ -13,7 +13,7 @@ Bibapp::Application.configure do
   config.action_controller.perform_caching = true
   config.action_controller.cache_store = :file_store, File.join(Rails.root, 'tmp', 'cache', Rails.env)
 
-# Notify administrator of exceptions
+# Notify administrator(s) of exceptions. Multiple recipients can be specified as a comma-delimited list.
 config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[BibApp Exception] ",
