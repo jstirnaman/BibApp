@@ -33,21 +33,23 @@ class BaseImporter < CitationImporter
 
     #return immediately, if this parsed citation is not supported by importer
     if !self.class.import_formats.include?(parsed_citation.citation_type)
-      logger.warning("\nThis parsed citation is not supported by importer! Skipping.\n")
+      logger.warn("\nThis parsed citation is not supported by importer! Skipping.\n")
       return false
     end
 
     #loop through parsed citation's keys & values
     parsed_citation.properties.each do |key, values|
       # Map the key (using our attribute mapping)
+      logger.debug("\nMapping key " + key.to_s + " = " + values.inspect)
       r_key = self.attribute_mapping[key]
 
       # skip to next key if the mapping didn't work or no value translation necessary
       next unless r_key and self.value_translators[r_key]
 
+       logger.debug("\nMapping complete. Translating values...")
       # Perform any translation of value(s) (using our value translators)
       r_val = self.value_translators[key].call(values)
-
+       
       #if the value is a Hash (i.e. responds to "keys")
       if r_val.respond_to?(:keys)
         #Save each value separately in our final hash
@@ -104,7 +106,6 @@ class BaseImporter < CitationImporter
   def cleanup_hash(hash)
     #Final cleanup of our Hash values
     hash.each do |key, value|
-
       #First, flatten any arrays within arrays, etc.
       if value and value.respond_to?(:flatten)
         value = value.flatten
@@ -254,6 +255,9 @@ class BaseImporter < CitationImporter
   #duplicates removed. I don't think that the order matters, but we might as well try to retain it anyway.
   #Note that we need the to_s because the names are mb_chars and get compared as objects (I think)
   def make_names_unique(hash)
+    if !hash.include? :work_name_strings
+      raise "\nNo :work_name_strings collection in this parsed citation: \n" + hash.inspect
+    end
     seen = Hash.new
     unique_work_name_strings = []
     hash[:work_name_strings].each do |sub_hash|
