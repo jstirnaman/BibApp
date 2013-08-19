@@ -62,7 +62,7 @@ h2 {
 
 #people img.person-image { height: 100px; }
 
-#coauthors img.person-image { height: 55px; }
+#coauthors .person-coauthor-tiny img.person-image { height: 55px; }
 
 #results ol.facet_filters li {
 	list-style-type: none;	
