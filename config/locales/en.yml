@@ -1035,7 +1035,7 @@ en:
       advanced_search: "Try our advanced search options."
       different_keywords: "Try different keywords."
       double_check: "Double check your spelling."
-      error: "Sorry, your search for &ldquo;&{query}&rdquo; came up empty."
+      error: "Sorry, your search for \"%{query}\" came up empty."
       suggestions: Suggestions
     spelling_suggestions:
       did_you_mean: "Did you mean"
