@@ -13,4 +13,4 @@
         .person-image-metadata
           %strong #{ p.value}
         .person-last-name.left
-          %strong #{link_to truncate(last_name, :length => 12), person_path(id)}
+          %strong #{link_to truncate(last_name.force_encoding('utf-8'), :length => 12), person_path(id)}
