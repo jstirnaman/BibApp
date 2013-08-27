@@ -10,6 +10,7 @@ gem "rails", "~> 3.2.12"
 #once we get to 3.1 all that should be necessary is adding some includes
 #to the application.js file in assets
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 gem 'rake'
 

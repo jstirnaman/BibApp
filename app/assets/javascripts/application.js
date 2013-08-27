@@ -1,6 +1,11 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+// Add jQuery to the asset pipeline
+//= require jquery
+//= require jquery_ujs
+//= require jquery.ui.all
+
 //Alias jQuery
 //TODO after all the prototype is out we can undo this
 var $jq = jQuery;
