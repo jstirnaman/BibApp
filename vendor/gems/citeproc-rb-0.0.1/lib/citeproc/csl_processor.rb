@@ -344,7 +344,7 @@ module Citeproc
     # TODO: Very poor perfomance (forces 2-time evaluation of all rules) and
     # incorrect treatment of conditions - evaluates ALL for variable resolution.
     def eval_group_variable(group)
-      group.elements.flatten.each do |element|
+      group.elements.each do |element|
         if element.kind_of? VariableText
           var = element.variable
           return true if eval_variable(var)
