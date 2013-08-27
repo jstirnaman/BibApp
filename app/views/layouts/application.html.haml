@@ -6,7 +6,7 @@
     %meta{:name => 'keywords', :content => 'University of Kansas Medical Center'}/
     %meta{:name => 'description', :content => $APPLICATION_TAGLINE}/
     %meta{:content => "IE=Edge", "http-equiv" => "X-UA-Compatible"}/
-   
+    = stylesheet_link_tag "application", :media => "screen" 
     = stylesheet_link_tag "blueprint/screen", :media => "screen"    
     = stylesheet_link_tag "blueprint/print",  :media => "print"
     = stylesheet_link_tag "specific/shared/_header", :media => "screen"
@@ -24,7 +24,7 @@
     -# KUMC favicon
     %link{:href => "http://www.kumc.edu/prebuilt/favicon.ico", :rel => "shortcut icon"}/
       
-    = javascript_include_tag :defaults
+    = javascript_include_tag :application
     = javascript_include_tag 'gbsclasses'
     = javascript_include_tag 'jsperanto/jquery.jsperanto'
     = javascript_include_tag 'locale'

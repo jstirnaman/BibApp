@@ -17,7 +17,10 @@ module Bibapp
   class Application < Rails::Application
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
-
+    
+    # Enable Asset Pipeline. Should be enabled by default, but just to make sure:
+    config.assets.enabled = true
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

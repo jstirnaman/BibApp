@@ -14,7 +14,7 @@
   #timeline-chart.span-7.prepend-1.last-1
     %h3 #{t('keywords.timeline.chart_header')}
     #chart-img
-      %img.left{:src => "/images/ajax-loader.gif", :title => t('.chart_loading')}
+      =image_tag('ajax-loader.gif', :title => t('.chart_loading'), :class => 'left')
 
   = js_data_div('year-tags', @years)
   = js_data_div('chart-urls', @chart_urls)
