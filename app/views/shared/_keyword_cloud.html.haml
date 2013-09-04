@@ -14,4 +14,4 @@
         = submit_tag t('shared.keyword_cloud.submit'), :onclick=>"go_dim()"
 
   #darkBackgroundLayer.darkenBackground{:name=>"darkBackgroundLayer", :style=>"display:none;"}
-  %img#spinner.highZ{:src=>"/images/ajax-loader.gif", :style=>"display:none;"}
+    =image_tag('ajax-loader.gif', :title => t('.chart_loading'), :style => "display:none;", :id => "spinner", :class => "highZ")
