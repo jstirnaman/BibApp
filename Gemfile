@@ -60,7 +60,9 @@ gem 'aasm'
 
 #lisbn - Helps validate ISBNs - as far as I can tell this is able to replace previously used ISBN_tools with minor
 #modifications
-gem 'lisbn'
+# Forked lisbn so that I can update to a later version of Nori. Savone 2.0 requires Nori 2.3.
+# I just need a happy medium.
+gem 'lisbn', :git => 'git://github.com/jstirnaman/lisbn.git', :branch => 'master'
 
 #delayed jobs
 gem 'delayed_job'
@@ -115,7 +117,7 @@ gem 'sort_alphabetical'
 gem 'loofah-activerecord'
 
 # Interact with SOAP web services. Used for person lookup service to replace LDAP lookups.
-gem 'savon'
+gem 'savon', '2.0'
 
 # Provide Javascript JSONP data responses.
 gem 'rack-jsonp-middleware'
