@@ -64,7 +64,7 @@ class AuthorWebservice
         #res[key] = val[0]
         # map university-specific values
         if config.has_value? key.to_s
-          k = config[key.to_s].to_sym
+          k = config.key(key.to_s).to_sym
           res[k] = val[0]
           res[k] = NameCase.new(val[0]).nc! if [:sn, :givenname, :middlename, :generationqualifier, :displayname].include?(k)
           res[k] = val[0].titleize if [:title, :ou, :postaladdress].include?(k)
