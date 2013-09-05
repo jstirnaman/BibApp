@@ -95,11 +95,7 @@ class PeopleController < ApplicationController
       # Replaced LDAP lookup with KUMC's local directory webservice search.
         begin
           @ldap_results = AuthorWebservice.instance.search(params[:q])
-        rescue AuthorWebserviceConfigError
-          @fail_message = 'Configuration error in AuthorWebservice'
-        rescue AuthorWebserviceConnectionError
-          @fail_message = 'Connection error in AuthorWebservice'
-        rescue AuthorWebserviceError => e
+        rescue StandardError => e
           @fail_message = e.message
         end
         if @ldap_results.nil?
