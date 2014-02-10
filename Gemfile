@@ -3,7 +3,7 @@ source "http://gems.github.com"
 
 #Rails itself
 
-gem "rails", "~> 3.2.12"
+gem "rails", "~> 3.2.16"
 
 
 #Use jquery for javascript - in Rails 3.0 this involves running a generator too

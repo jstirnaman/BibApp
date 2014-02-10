@@ -1,1 +1,0 @@
-# uninstall hook code here
