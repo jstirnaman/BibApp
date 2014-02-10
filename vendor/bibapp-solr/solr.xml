@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<solr persistent="true">
+  <cores adminPath="/admin/cores">
+    <core name="production-core1" instanceDir="cores-data/production/core1/"/>
+    <core name="production-core2" instanceDir="cores-data/production/core2/"/>
+    <core name="development-core1" instanceDir="cores-data/development/core2/"/>
+    <core name="development-core2" instanceDir="cores-data/development/core1/"/>
+    <core name="test-core1" instanceDir="cores-data/test/core1/"/>
+    <core name="test-core2" instanceDir="cores-data/test/core2/"/>
+  </cores>
+</solr>
+

@@ -8,7 +8,6 @@ tmp/
 public.old/
 .svn
 log/
-vendor/bibapp-solr/solr.xml
 vendor/bibapp-solr/data/
 vendor/bibapp-solr/cores-data/production/core1/data/
 vendor/bibapp-solr/cores-data/production/core2/data/
