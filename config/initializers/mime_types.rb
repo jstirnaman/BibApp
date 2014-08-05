@@ -15,3 +15,6 @@ Mime::Type.register_alias "application/rss+xml", :rss
 
 #### Register  as XML MIME Type, so we can provide RESTful Google Promotions for Google Custom Search ####
 Mime::Type.register_alias "text/xml", :googlepromotions
+
+#### Register ORCID-XML as XML MIME Type, so we can provide RESTful ORCID-XML ####
+Mime::Type.register_alias "application/orcid+xml", :orcid

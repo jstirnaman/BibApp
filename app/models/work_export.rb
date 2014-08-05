@@ -65,7 +65,14 @@ class WorkExport
 
 
   def load_formatter
-    @formatter = Citeproc::XhtmlFormatter.new
+    case @formatter
+      when 'xhtml'
+        @formatter = Citeproc::XhtmlFormatter.new
+      when 'text'
+        @formatter = Citeproc::BaseFormatter.new
+      else
+        @formatter
+    end
   end
 
 

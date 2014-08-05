@@ -144,6 +144,19 @@ module ApplicationHelper
     content_tag(:div, h(data.to_json), :id => id, :class => 'hidden')
   end
 
+  # Take the xml builder and a block
+  # Generate boilerplate then yield to the block
+  def orcid_document_on(xml_builder)
+    xml_builder.instruct!
+    xml_builder.tag!( "orcid-message", 
+                      {'xmlns'=>"http://www.orcid.org/ns/orcid",
+                       'xmlns:xsi'=>"http://www.w3.org/2001/XMLSchema-instance",
+                       'xsi:schemaLocation'=>"https://raw.github.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/orcid-message-1.1.xsd"
+                      } ) do
+      yield
+    end
+  end
+  
   #Take the xml builder and a block.
   #Generate boilerplate then yield to the block
   def rdf_document_on(xml_builder)

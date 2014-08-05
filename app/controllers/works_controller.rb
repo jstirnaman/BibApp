@@ -25,6 +25,7 @@ class WorksController < ApplicationController
       format.html #loads show.html.haml (HTML needs to be first, so I.E. views it by default)
       format.mets #loads show.mets.haml
       format.rdf
+      format.orcid
     end
 
     response_for :index do |format|
