@@ -36,7 +36,6 @@ class WorkExport
     @input_filter.parse(@input, { :content_type => @input_content_type })
   end
 
-
   def load_csl
     @style = parser_from_csl_file(@csl_file).style
   end
@@ -58,11 +57,9 @@ class WorkExport
     end
   end
 
-
   def load_processor
     @processor = Citeproc::CslProcessor.new
   end
-
 
   def load_formatter
     case @formatter
@@ -75,11 +72,9 @@ class WorkExport
     end
   end
 
-
   def do_format
     nodes = @processor.process_bibliography(@input_filter, @style, @locale)
     results = @formatter.format(nodes)
-
     return results
   end
 

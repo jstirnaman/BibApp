@@ -46,6 +46,14 @@ export = WorkExport.new
 export.formatter = 'text'
 apa = export.drive_csl('apa', work).strip
 bibtex = export.drive_csl('bibtex', work).strip
+
+def to_orcid_type(work)
+  orcid_types = {
+    "JournalArticle" => "journal-article"
+  }
+  orcid_types[work.type]
+end
+
 xml.tag!('orcid-work') do
   xml.tag!('work-title', h(work.title_primary))
   xml.tag!('journal-title', (work.publication.name)) if work.publication_id.present?
@@ -58,7 +66,7 @@ xml.tag!('orcid-work') do
     xml.tag!('work-citation-type', "bibtex")
     xml.citation(h(bibtex))
   end  
-  xml.tag!('work-type', "journal-article")
+  xml.tag!('work-type', to_orcid_type(work))
   xml.tag!('publication-date') do
     xml.year(h(work.year)) if work.year.present?
     xml.month(h(work.publication_date_month)) if work.publication_date_month.present?

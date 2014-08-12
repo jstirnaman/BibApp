@@ -13,28 +13,24 @@
 #
 
 module Bibapp
-  class BibappInputFilter < Citeproc::InputFilter
-    
+  class BibappInputFilter < Citeproc::InputFilter    
     
     # Loads the citations from +source+, based on the content_type passed in the +params+.
     def load_citations(source, params)
       io = source.to_yaml
       content_type = params[:content_type]
-
       results = YAML.load(io)
       results = [results].flatten
       results.each do |row|
         citation = load_citation_from_hash(row)
         @citations[row.id] = citation
       end if results
-    end
-    
-    
+    end    
     
     # Loads an individual citation from the +hash+ object
     def load_citation_from_hash(row)
       citation = SimpleCitation.new
-      citation.type = row.class.name
+      citation.type = resolve_type[row.type]
       citation.title = row.title_primary
       citation.container_title = row.publication.blank? ? nil : row.publication.name
       citation.collection_title = row.title_tertiary
@@ -48,8 +44,6 @@ module Bibapp
       citation
     end
     
-    
-
     def extract_contributor(role, sort_key = nil)
       contributors = @current_citation.contributors(role, sort_key)
       contributors.each do |contrib|
@@ -100,7 +94,6 @@ module Bibapp
         "webpage"
 =end
       }
-      return @current_citation.type = csl_types[@current_citation].class.name
     end
     
     def extract_date(variable)
@@ -121,8 +114,7 @@ module Bibapp
         date = date + "-01-01" if date.length == 4
         Date.parse(date)
       end
-    end
-    
+    end    
 
     # Very simple check on the value of the locator (or, in specific cases, of other document
     # variables) to determine whether 
@@ -147,12 +139,16 @@ module Bibapp
       end
       return locator_type,  singular
     end
-
-
-    
+  
     def extract_variable(variable)
       case variable
-    
+      ## the content type
+      when 'type'
+        @current_citation.type
+      
+      when 'genre'
+        @current_citation.type
+            
       ## the primary title for the cited item
       when 'author'
         @current_citation.csl_authors
@@ -281,8 +277,7 @@ module Bibapp
       ##
       when "ISBN"
         @current_citation.isbn10
-        
-        
+                
       else
         extract_date(variable)
       end
