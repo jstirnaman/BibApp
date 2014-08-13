@@ -30,57 +30,13 @@ xml.tag!("orcid-profile") do
 		end
 	end
 	xml.tag!("orcid-activities") do
+	  # @TODO: Citation exporters are very slow.
+    export = WorkExport.new
+    export.formatter = 'text'
 		xml.tag!("orcid-works", 'visibility' => "public") do
 			person.works.each do |w|
-				xml << render(:partial => "shared/package", :locals => {:work => w}) 
+				xml << render(:partial => "shared/package", :locals => {:work => w, :export => export}) 
 			end      
 		end
 	end
 end
-
-
-# ORCID Message 1.1 for Works:
-# <message-version>1.1</message-version>
-#   <orcid-profile>
-#     <orcid-activities>
-#       <orcid-works visibility="public">
-#           <orcid-work>
-#             <work-title>
-#     <title>API Test Title</title>
-#     <subtitle>My Subtitle</subtitle>
-#     <translated-title language-code="fr">API essai Titre</translated-title>
-#   </work-title>
-#   <journal-title>Journal Title</journal-title>
-#     <work-contributors>
-#     <contributor>
-#       <credit-name>LastName, FirstName</credit-name>
-#       <contributor-attributes>
-#         <contributor-sequence>first</contributor-sequence>
-#         <contributor-role>author</contributor-role>
-#       </contributor-attributes>
-#     </contributor>
-#   </work-contributors>
-#   <language-code>en</language-code>
-#   <short-description>My Abstract</short-description>
-#     <publication-date>
-#     <year>2010</year>
-#     <month>11</month>
-#   </publication-date>
-#     <work-external-identifiers>
-#     <work-external-identifier>
-#       <work-external-identifier-type>other-id</work-external-identifier-type>
-#       <work-external-identifier-id>1234</work-external-identifier-id>
-#     </work-external-identifier>
-#   </work-external-identifiers>
-#   <url>www.orcid.org</url>
-#     <work-citation>
-#     <work-citation-type>formatted-apa</work-citation-type>
-#     <citation>My correctly formatted citation</citation>
-#   </work-citation>
-#             <work-type>journal-article [one of http://support.orcid.org/knowledgebase/articles/118795]</work-type>
-#           </orcid-work>
-#         </orcid-works>
-#     </orcid-activities>
-#   </orcid-profile>
-# </orcid-message>
-

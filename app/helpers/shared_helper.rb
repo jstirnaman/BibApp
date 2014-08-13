@@ -190,7 +190,13 @@ module SharedHelper
 	  end
 	  template ? template.extract(uri)["id"] : nil
   end
-  
+
+	def to_orcid_type(work)
+		orcid_types = {
+			"JournalArticle" => "journal-article"
+		}
+		orcid_types[work.type]
+	end  
   ## WORKS_HELPER METHODS.
 
 end
