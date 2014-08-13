@@ -1,6 +1,25 @@
 xml.tag!("message-version", "1.1")
 xml.tag!("orcid-profile") do
 	xml.tag!("orcid-bio") do
+	  xml.tag!("personal-details") do
+	  	xml.tag!("given-names", @person.first_name)
+		  xml.tag!("family-name", @person.last_name)
+		  xml.tag!("other-names") do		    
+ 		    pen_names = @person.pen_names.map do |pen_name| 
+		      NameString.find(pen_name.name_string_id).name
+		    end
+		    pen_names.uniq.each do |ns|
+ 		        xml.tag!("other-name", ns)
+		    end
+		  end 
+	  end
+### Example for adding keywords
+# 	  xml.tag!("keywords") do
+# 	    @person.works.map{|w| w.keywords.map{|k| k.name}}.flatten.uniq.each do |keyword|
+# 	      xml.tag!("keyword", keyword)
+# 	    end
+# 	  end
+###
 		xml.tag!("external-identifiers") do
 			xml.tag!("external-identifier") do
 				xml.tag!("external-id-orcid", $ORCID_CLIENT_ID)
