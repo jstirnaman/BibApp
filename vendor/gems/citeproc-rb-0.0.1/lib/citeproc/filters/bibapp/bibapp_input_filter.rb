@@ -59,7 +59,8 @@ module Bibapp
         "BookWhole" => "book",
         "ConferenceProceeding" => "paper-conference",
         "JournalArticle" => "article",
-        "Report" => "report"
+        "Report" => "report",
+        "Thesis" => "thesis"
 =begin        "article-magazine",
         "article-newspaper", 
         "article-journal", 
