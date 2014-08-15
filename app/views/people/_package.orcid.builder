@@ -13,6 +13,9 @@ xml.tag!("orcid-profile") do
 		    end
 		  end 
 	  end
+	  xml.tag!("contact-details") do
+	    xml.email({"primary" => "true"}, @person.email)
+	  end
 ### Example for adding keywords
 # 	  xml.tag!("keywords") do
 # 	    @person.works.map{|w| w.keywords.map{|k| k.name}}.flatten.uniq.each do |keyword|
@@ -22,7 +25,7 @@ xml.tag!("orcid-profile") do
 ###
 		xml.tag!("external-identifiers") do
 			xml.tag!("external-identifier") do
-				xml.tag!("external-id-orcid", $ORCID_CLIENT_ID)
+				# xml.tag!("external-id-orcid", $ORCID_CLIENT_ID)
 				xml.tag!("external-id-common-name", "#{t('personalize.university_full_name')} (#{t('personalize.university_short_name')}) #{t('personalize.application_name')}")
 				xml.tag!("external-id-reference", @person.id)
 				xml.tag!("external-id-url", person_url(@person))

@@ -183,12 +183,19 @@ module SharedHelper
   end
   
   def looks_like_pmid(link)
-	  uri = URI.parse(link)
-	  case uri.host
-	    when "www.ncbi.nlm.nih.gov"
-	    template = Addressable::Template.new("http://www.ncbi.nlm.nih.gov/{db}/{id}")
-	  end
-	  template ? template.extract(uri)["id"] : nil
+    begin
+			uri = URI.parse(link)
+		rescue
+		  nil
+		if uri
+			case uri.host
+				when "www.ncbi.nlm.nih.gov"
+				template = Addressable::Template.new("http://www.ncbi.nlm.nih.gov/{db}/{id}")
+			end
+			# template && template.extract(uri) ? template.extract(uri)["id"] : nil
+			template ? template.extract(uri)["id"] : nil
+		end
+		end
   end
 
 	def to_orcid_type(work)

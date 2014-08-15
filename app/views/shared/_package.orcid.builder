@@ -1,6 +1,9 @@
 # Based on ORCID Message 1.1 for Works
 xml.tag!('orcid-work') do
-  xml.tag!('work-title', h(work.title_primary))
+  xml.tag!('work-title') do
+    xml.title(h(work.title_primary))
+    xml.subtitle(h(work.title_secondary)) if work.title_secondary.present?
+  end
   xml.tag!('journal-title', (work.publication.name)) if work.publication_id.present?
   xml.tag!('short-description', h(work.abstract)) if work.abstract.present?
 #   xml.tag!('work-citation') do
@@ -15,7 +18,10 @@ xml.tag!('orcid-work') do
   xml.tag!('work-type', to_orcid_type(work))
   xml.tag!('publication-date') do
     xml.year(h(work.year)) if work.year.present?
-    xml.month(h(work.publication_date_month)) if work.publication_date_month.present?
+		if work.publication_date_month.present?
+				pubmonth = Date.strptime(work.publication_date_month.to_s, '%m').strftime('%m')
+				xml.month(h(pubmonth))
+		end
   end
   xml.tag!('work-contributors') do
 		if work.authors.present?
