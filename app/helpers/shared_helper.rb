@@ -186,15 +186,20 @@ module SharedHelper
     begin
 			uri = URI.parse(link)
 		rescue
-		  nil
-		if uri
-			case uri.host
-				when "www.ncbi.nlm.nih.gov"
-				template = Addressable::Template.new("http://www.ncbi.nlm.nih.gov/{db}/{id}")
-			end
-			# template && template.extract(uri) ? template.extract(uri)["id"] : nil
-			template ? template.extract(uri)["id"] : nil
+		  return nil
 		end
+    if uri.host == "www.ncbi.nlm.nih.gov"
+			template = Addressable::Template.new("http://www.ncbi.nlm.nih.gov/{db}/{id}")
+			if template.extract(uri) && template.extract(uri)["id"]
+			  template.extract(uri)["id"]
+			else
+			  template = Addressable::Template.new("http://www.ncbi.nlm.nih.gov/{db}/term?{id}")
+			  if template.extract(uri) && template.extract(uri)["db"] = "pubmed"
+			    template.extract(uri)["id"]
+			  end
+			end
+		else
+		  return nil
 		end
   end
 

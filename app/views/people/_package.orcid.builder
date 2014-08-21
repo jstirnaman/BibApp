@@ -36,7 +36,7 @@ xml.tag!("orcid-profile") do
 	  # @TODO: Citation exporters are very slow.
     export = WorkExport.new
     export.formatter = 'text'
-		xml.tag!("orcid-works", 'visibility' => "public") do
+		xml.tag!("orcid-works") do
 			person.works.each do |w|
 				xml << render(:partial => "shared/package", :locals => {:work => w, :export => export}) 
 			end      

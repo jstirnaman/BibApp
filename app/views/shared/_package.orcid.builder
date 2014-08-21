@@ -1,11 +1,14 @@
 # Based on ORCID Message 1.1 for Works
-xml.tag!('orcid-work') do
+xml.tag!('orcid-work', 'visibility' => "public") do
   xml.tag!('work-title') do
     xml.title(h(work.title_primary))
     xml.subtitle(h(work.title_secondary)) if work.title_secondary.present?
   end
   xml.tag!('journal-title', (work.publication.name)) if work.publication_id.present?
-  xml.tag!('short-description', h(work.abstract)) if work.abstract.present?
+  if work.abstract.present?
+    abstract = work.abstract.gsub(/[\r\n]/,' ')
+    xml.tag!('short-description', h(abstract))
+  end
 #   xml.tag!('work-citation') do
 #     xml.tag!('work-citation-type', "formatted-apa")
 #     xml.citation(h(apa)) unless apa.nil?
