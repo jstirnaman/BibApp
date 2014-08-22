@@ -19,22 +19,14 @@ xml.tag!('orcid-work', 'visibility' => "public") do
     xml.citation(h(bibtex)) unless bibtex.nil?
   end  
   xml.tag!('work-type', to_orcid_type(work))
-  xml.tag!('publication-date') do
-    xml.year(h(work.year)) if work.year.present?
-		if work.publication_date_month.present?
-				pubmonth = Date.strptime(work.publication_date_month.to_s, '%m').strftime('%m')
-				xml.month(h(pubmonth))
-		end
-  end
-  xml.tag!('work-contributors') do
-		if work.authors.present?
-		  work.authors.each_with_index do |a, i|
-  		  xml.contributor do
-  		    xml.tag!('credit-name', a[:name])
-  		    xml.tag!('contributor-sequence', i == 0? "first" : "additional")
-  		    xml.tag!('contributor-role', "author")
-  		  end
-			end
+  if work.year.present?
+    # year required to use publication-date
+		xml.tag!('publication-date') do
+			xml.year(h(work.year))
+			# month and day optional
+			if work.publication_date_month.present?
+			  xml.month(h(Date.strptime(work.publication_date_month.to_s, '%m').strftime('%m')))
+      end
 		end
 	end
 	if work.links.present?
@@ -52,7 +44,20 @@ xml.tag!('orcid-work', 'visibility' => "public") do
 	        end
 	      end
 	    end
-	  end
+	end  
+  xml.tag!('work-contributors') do
+		if work.authors.present?
+		  work.authors.each_with_index do |a, i|
+  		  xml.contributor do
+  		    xml.tag!('credit-name', a[:name])
+  		    xml.tag!('contributor-attributes') do
+						xml.tag!('contributor-sequence', i == 0? "first" : "additional")
+						xml.tag!('contributor-role', "author")
+  		    end
+  		  end
+			end
+		end
+	end
 	end
 	xml.tag!('language-code', "en")
 end

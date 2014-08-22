@@ -205,7 +205,22 @@ module SharedHelper
 
 	def to_orcid_type(work)
 		orcid_types = {
-			"JournalArticle" => "journal-article"
+			"JournalArticle" => "journal-article",
+			"BookSection" => "book-chapter",
+			"BookWhole" => "book",
+			"ConferencePaper" => "conference-paper",
+			"ConferencePoster" => "conference-poster",
+			"ConferenceProceeding" => "conference-paper",
+			"DissertationThesis" => "dissertation",
+			"Generic" => "other",
+			"Grant" => "other",
+			"JournalWhole" => "journal-issue",
+			"Monograph" => "book",
+			"PresentationLecture" => "lecture-speech",
+			"RecordingMovingImage" => "other",
+			"RecordingSound" => "other",
+			"Report" => "report",
+			"WebPage" => "website"
 		}
 		orcid_types[work.type]
 	end  
