@@ -172,8 +172,8 @@ $EXPORT_ABSTRACTS_AND_KEYWORDS = true
 # The standard GA tracking code script will be displayed at the
 # bottom of every page.
 $DISPLAY_GOOGLE_ANALYTICS = false
-$GOOGLE_ANALYTICS_ID = ""
+$GOOGLE_ANALYTICS_ID = "UA-3160476-7"
 
 # ORCID Client ID
 # If you have registered your BibApp as an ORCID Client, set the value here.
-$ORCID_CLIENT_ID = ""
+$ORCID_CLIENT_ID = "0000-0002-8848-1560"
