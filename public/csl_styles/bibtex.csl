@@ -19,8 +19,7 @@
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <macro name="zotero2bibtexType">
-      <text variable="genre"/> 
-<!-- Testing type/genre this way isn't working. Not sure why.
+      <text variable="genre"/>
     <choose>
       <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
         <text value="book"/>
@@ -47,7 +46,6 @@
         <text value="misc"/>
       </else>
     </choose>
- -->
   </macro>
   <macro name="citeKey">
     <group delimiter="_">
