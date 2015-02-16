@@ -1,4 +1,4 @@
-xml.tag!("message-version", "1.1")
+xml.tag!("message-version", "1.2")
 xml.tag!("orcid-profile") do
 	xml.tag!("orcid-bio") do
 	  xml.tag!("personal-details") do

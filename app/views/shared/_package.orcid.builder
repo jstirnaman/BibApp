@@ -1,4 +1,4 @@
-# Based on ORCID Message 1.1 for Works
+# Based on ORCID Message 1.2 for Works
 xml.tag!('orcid-work', 'visibility' => "public") do
   xml.tag!('work-title') do
     xml.title(h(work.title_primary))
@@ -15,9 +15,11 @@ xml.tag!('orcid-work', 'visibility' => "public") do
 #   end
   xml.tag!('work-citation') do
     xml.tag!('work-citation-type', "bibtex")
-    bibtex = export.drive_csl('bibtex', work).strip
+    ce = WorkExport.new
+    ce.formatter = "text"
+    bibtex = ce.drive_csl('bibtex', work).strip
     xml.citation(h(bibtex)) unless bibtex.nil?
-  end  
+  end
   xml.tag!('work-type', to_orcid_type(work))
   if work.year.present?
     # year required to use publication-date
@@ -29,8 +31,12 @@ xml.tag!('orcid-work', 'visibility' => "public") do
       end
 		end
 	end
-	if work.links.present?
-	  xml.tag!('work-external-identifiers') do
+	xml.tag!('work-external-identifiers') do
+    xml.tag!('work-external-identifier') do
+      xml.tag!('work-external-identifier-type', "uri")
+      xml.tag!('work-external-identifier-id', work_url(work))
+    end
+    if work.links.present?
 	    split_potential_links(work).each do |link|
 	      if doi = looks_like_doi(link)
 	        xml.tag!('work-external-identifier') do
@@ -44,7 +50,7 @@ xml.tag!('orcid-work', 'visibility' => "public") do
 	        end
 	      end
 	    end
-	end  
+	end
   xml.tag!('work-contributors') do
 		if work.authors.present?
 		  work.authors.each_with_index do |a, i|
