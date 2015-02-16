@@ -14,19 +14,22 @@
 
 module Bibapp
   class BibappInputFilter < Citeproc::InputFilter    
-    
+
     # Loads the citations from +source+, based on the content_type passed in the +params+.
     def load_citations(source, params)
-      io = source.to_yaml
-      content_type = params[:content_type]
-      results = YAML.load(io)
+      if params[:content_type] == "yaml"
+        source = source.to_yaml
+        results = YAML.load(source)
+      else
+        results = source
+      end
       results = [results].flatten
       results.each do |row|
         citation = load_citation_from_hash(row)
         @citations[row.id] = citation
       end if results
-    end    
-    
+    end
+
     # Loads an individual citation from the +hash+ object
     def load_citation_from_hash(row)
       citation = SimpleCitation.new
@@ -59,6 +62,7 @@ module Bibapp
         "BookWhole" => "book",
         "ConferenceProceeding" => "paper-conference",
         "JournalArticle" => "article",
+        "PresentationLecture" => "speech",
         "Report" => "report",
         "Thesis" => "thesis"
 =begin        "article-magazine",

@@ -33,7 +33,7 @@ class WorkExport
 
   def load_citations
     @input_filter = Bibapp::BibappInputFilter.new
-    @input_filter.parse(@input, { :content_type => @input_content_type })
+    @input_filter.load_citations(@input, { :content_type => @input_content_type })
   end
 
   def load_csl
