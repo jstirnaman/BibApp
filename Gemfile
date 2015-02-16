@@ -18,10 +18,11 @@ gem 'rake'
 gem "haml"
 
 #Make resourceful - used by some controllers
-
 #backports may be needed by a 1.8 ruby to make make_resourceful work
-
 gem 'make_resourceful'
+
+# uri requests
+gem "httparty"
 
 #file attachment - to replace attachment_fu
 #TODO Can remove version requirement after 1.9 migration
@@ -34,7 +35,8 @@ gem "htmlentities"
 gem "namecase"
 
 #RubyZip - used to create Zip file to send via SWORD
-gem "rubyzip"
+#gem "rubyzip"
+gem "rubyzip", "~> 0.9.9"
 
 #Sword2Ruby - used for SWORD interaction
 gem "sword2ruby", :git => 'git://github.com/BibApp/sword2ruby.git'
@@ -100,6 +102,7 @@ gem 'omniauth'
 # OmniAuth 1.0 CAS strategy
 gem 'omniauth-cas'
 
+gem 'omniauth-orcid', :path => '/Users/jstirnaman/dev/omniauth-orcid' #:git => 'https://github.com/jstirnaman/omniauth-orcid.git'
 
 #batch loading of authors
 gem 'fastercsv'
