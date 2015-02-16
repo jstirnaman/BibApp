@@ -18,28 +18,31 @@
     <updated>2013-08-29T04:18:55+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
+  <macro name="workType">
+    <text variable="type"/>
+  </macro>
+  <!--
   <macro name="zotero2bibtexType">
-      <text variable="genre"/>
     <choose>
-      <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
+      <if worktype="bill book graphic legal_case legislation motion_picture report song" match="any">
         <text value="book"/>
       </if>
-      <else-if type="chapter paper-conference" match="any">
+      <else-if worktype="chapter paper-conference" match="any">
         <text value="inbook"/>
       </else-if>
-      <else-if type="article article-journal article-magazine article-newspaper" match="any">
+      <else-if worktype="article article-journal article-magazine article-newspaper" match="any">
         <text value="article"/>
       </else-if>
-      <else-if type="thesis" match="any">
+      <else-if worktype="thesis" match="any">
         <text value="phdthesis"/>
       </else-if>
-      <else-if type="manuscript" match="any">
+      <else-if worktype="manuscript" match="any">
         <text value="unpublished"/>
       </else-if>
-      <else-if type="paper-conference" match="any">
+      <else-if worktype="paper-conference" match="any">
         <text value="inproceedings"/>
       </else-if>
-      <else-if type="report" match="any">
+      <else-if worktype="report" match="any">
         <text value="techreport"/>
       </else-if>
       <else>
@@ -47,6 +50,7 @@
       </else>
     </choose>
   </macro>
+-->
   <macro name="citeKey">
     <group delimiter="_">
       <text macro="author-short" text-case="lowercase"/>
@@ -143,7 +147,7 @@
       <key variable="issued"/>
     </sort>
     <layout>
-      <text macro="zotero2bibtexType" prefix=" @"/>
+      <text macro="workType" prefix=" @"/>
       <group prefix="{" suffix="}" delimiter=", ">
         <text macro="citeKey"/>
         <text variable="publisher-place" prefix=" place={" suffix="}"/>
