@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
 
   # Require a user be logged in to create / update / destroy
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :batch_csv_show, :batch_csv_create]
-  
+
   make_resourceful do
     build :index, :new, :create, :show, :edit, :update, :destroy
 

@@ -225,6 +225,7 @@ Bibapp::Application.routes.draw do
     resources :authentications
     #match 'auth/:provider' => redirect {|params, req| "/auth/#{params[:provider]}?locale=''"}
     match 'auth/:provider/callback' => 'authentications#create'
+    match 'auth/:provider/setup' => 'authentications#omniauth_setup'
     match 'auth/failure' => 'user_sessions#new'
     match 'admin/index' => "admin#index"
     match 'admin/duplicates' => "admin#duplicates"
