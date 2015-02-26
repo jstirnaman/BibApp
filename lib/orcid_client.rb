@@ -96,17 +96,18 @@ def search(q)
   self.class.get("/search/orcid-bio?q=#{q}")
 end
 
-def validate(xmldocs, version)
-	version ||= ORCID_VERSION
-	schema_file = "orcid-message-#{version}.xsd"
+def validate(xmldocs, version = ORCID_VERSION)
+  orcid_schema_path = "https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/"
+  schema_file = self.class.get(orcid_schema_path + "orcid-message-#{version}.xsd").body
+  schema_file = schema_file.gsub(/\>\s*\n\s*\</,'><').strip()
 	result = {}
-	xsd = Nokogiri::XML::Schema(File.read(schema_file))
+	xsd = Nokogiri::XML::Schema(schema_file)
 	xmldocs = xmldocs.class == Array ? xmldocs : [xmldocs]
 	xmldoc = nil
 	xmldocs.each do |xml|
 	  case URI.parse(xml)
 	    when URI::HTTP
-        xmldoc = Nokogiri::XML(self.class(xml).body)
+        xmldoc = Nokogiri::XML(self.class.get(xml).body)
 		  when URI::Generic
 				xmldoc = Nokogiri::XML(File.read(xml))
     end
