@@ -186,6 +186,27 @@ div.screen-format {
 	padding-bottom: 0px;
 }
 */
+a.button_oauth_orcid {
+	cursor: pointer;
+	color: #999;
+  }
+
+a.button_oauth_orcid:hover{
+	color: #338caf;
+}
+
+div[class^="button_oauth"] {
+  padding: 10px 0px 10px 20px;
+}
+div.button_oauth_orcid{
+  background: url("http://orcid.org/sites/default/files/images/orcid_16x16.png") no-repeat 0px 6px ;
+}
+.orcid_display_logo {
+	display: block;
+	margin: 0 .5em 0 0;
+	padding: 0;
+	float: left;
+}
 dt, dl, dd {
   padding: 3px;
 }
@@ -214,10 +235,8 @@ img, object, embed {max-width: 100%;}
         .container {width:95%; margin: 0 10px;}
         .column, .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10, .span-11, .span-12, .span-13, .span-14, .span-15, .span-16, .span-17, .span-18, .span-19, .span-20, .span-21, .span-22, .span-23, .span-24 {width: 100%;}
         .append-1, .append-2, .append-3, .append-4, .append-5, .append-6, .append-7, .append-8, .append-9, .append-11, .append-12, .append-13, .append-14, .append-15, .append-16, .append-17, .append-18, .append-19, .append-20, .append-21, .append-22, .append-23 {padding-right:0;}
-        .prepend-1, .prepend-2, .prepend-3, .prepend-4, .prepend-5, .prepend-6, .prepend-7, .prepend-8, .prepend-9, .prepend-10, .prepend-11, .prepend-12, .prepend-13, .prepend-14, .prepend-15, .prepend-16, .prepend-17, .prepend-18, .prepend-19, .prepend-20, .prepend-21, .prepend-22, .prepend-23 {padding-left:0;}
-        .pull-1, .pull-2, .pull-3, .pull-4, .pull-5, .pull-6, .pull-7, .pull-8, .pull-9, .pull-10, .pull-11, .pull-12, .pull-13, .pull-14, .pull-15, .pull-16, .pull-17, .pull-18, .pull-19, .pull-20, .pull-21, .pull-22, .pull-23, .pull-24 {margin-left:0;}
-        .push-1, .push-2, .push-3, .push-4, .push-5, .push-6, .push-7, .push-8, .push-9, .push-10, .push-11, .push-12, .push-13, .push-14, .push-15, .push-16, .push-17, .push-18, .push-19, .push-20, .push-21, .push-22, .push-23, .push-24 {margin:0;}
-        .colborder { padding-right: 0;margin-right: 0;}
+}
+	r { padding-right: 0;margin-right: 0;}
 }
 
 /* Tablet Layout: 760px. Inherits styles from: Default Layout. */
