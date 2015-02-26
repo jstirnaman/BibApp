@@ -1078,10 +1078,15 @@ en:
       upload: "Upload File"
   user_sessions:
     federated_login_form:
-      button_oauth: "Sign in with KUMC %{name}"
+      button_oauth: "Sign in with "
+      button_oauth_cas: "Sign in with KUMC %{name}"
+      button_oauth_orcid: "Create or Connect your ORCID iD"
       button_open_id: "Sign in With %{name} OpenID"
+      description_cas: "Library staff, sign in to manage data. Only Dykes Library Staff can make changes to data and profile information."
+      description_orcid: "KUMC faculty and researchers, this one-time process connects your Experts and ORCID profiles and uploads your works data to ORCID. Edit or delete works using ORCID's edit and bulk edit features."
       generic: Generic
-      header: "Login using KUMC credentials"
+      header_cas: "Login using KUMC credentials"
+      header_orcid: "Migrate your works data to ORCID"
     local_login_form:
       cookies: "(requires browser cookies be enabled)"
       forgot_password: "Forgot Password"
@@ -1090,8 +1095,8 @@ en:
       sign_up: "Sign Up"
       submit: "Log in"
     new:
-      notice_line1: "Not a librarian? Currently, only Dykes Library Staff can make changes to data and profile information."
-      notice_line2: "to request a correction or update. Thank you."
+      notice_line1: ""
+      notice_line2: ""
     show_options_form:
       send_to: "Send to" 
   users:

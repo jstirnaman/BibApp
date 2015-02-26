@@ -33,8 +33,15 @@ en:
       sysadmin_name: "Dykes Library"
       sysadmin_email: "dspace@kumc.edu"
     university_full_address: "3901 Rainbow Blvd Kansas City, KS 66160 | Phone: 913.588.716"
+    university_city: "Kansas City"
+    university_region: "KS"
+    university_country: "US"
     university_full_name: "University of Kansas Medical Center"
     university_short_name: "KUMC"
+    # Disambiguated identifier for your organization.
+    university_unique_id: ""
+    # Source of unique_id, the disambiguated identifier, ex. "Ringgold", "ISIN"
+    university_unique_id_authority: "Ringgold"
     #for work_archive_status 1 = not ready, rights unknown, 2 = ready for archiving, 3 = repository record created, url known
     work_archive_status:
       1: "Not Ready, rights unknown"
