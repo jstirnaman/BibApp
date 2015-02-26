@@ -9,16 +9,24 @@ xml.tag!('orcid-work', 'visibility' => "public") do
     abstract = work.abstract.gsub(/[\r\n]/,' ')
     xml.tag!('short-description', h(abstract))
   end
-#   xml.tag!('work-citation') do
-#     xml.tag!('work-citation-type', "formatted-apa")
-#     xml.citation(h(apa)) unless apa.nil?
-#   end
-  xml.tag!('work-citation') do
-    xml.tag!('work-citation-type', "bibtex")
-    ce = WorkExport.new
-    ce.formatter = "text"
-    bibtex = ce.drive_csl('bibtex', work).strip
-    xml.citation(h(bibtex)) unless bibtex.nil?
+  ce = WorkExport.new
+  ce.formatter = 'text'
+  # Can't get multiple citations to validate.
+  # Prefer Bibtex.
+  # apa = h(ce.drive_csl('apa', work).strip)
+  apa = nil
+  bibtex = h(ce.drive_csl('bibtex', work).strip)
+  unless apa.nil?
+    xml.tag!('work-citation') do
+      xml.tag!('work-citation-type', 'formatted-apa')
+      xml.citation(apa, work)
+    end
+  end
+  unless bibtex.nil?
+    xml.tag!('work-citation') do
+      xml.tag!('work-citation-type', 'bibtex')
+      xml.citation(bibtex, work)
+    end
   end
   xml.tag!('work-type', to_orcid_type(work))
   if work.year.present?
@@ -50,7 +58,8 @@ xml.tag!('orcid-work', 'visibility' => "public") do
 	        end
 	      end
 	    end
-	end
+	  end
+  end
   xml.tag!('work-contributors') do
 		if work.authors.present?
 		  work.authors.each_with_index do |a, i|
@@ -63,7 +72,6 @@ xml.tag!('orcid-work', 'visibility' => "public") do
   		  end
 			end
 		end
-	end
 	end
 	xml.tag!('language-code', "en")
 end
