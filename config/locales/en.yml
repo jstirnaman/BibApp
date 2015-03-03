@@ -1082,8 +1082,8 @@ en:
       button_oauth_cas: "Sign in with KUMC %{name}"
       button_oauth_orcid: "Create or Connect your ORCID iD"
       button_open_id: "Sign in With %{name} OpenID"
-      description_cas: "Library staff, sign in to manage data. Only Dykes Library Staff can make changes to data and profile information."
-      description_orcid: "KUMC faculty and researchers, this one-time process connects your Experts and ORCID profiles and uploads your works data to ORCID. Edit or delete works using ORCID's edit and bulk edit features."
+      description_cas: "Library staff, login to manage data. Only Library Staff may edit Experts' data and profile information."
+      description_orcid: "KUMC faculty and researchers, connect your Experts and ORCID profiles to upload all verified works to ORCID. This is a one-time process. When completed, you may edit or delete works using ORCID's edit and bulk edit features. Contact us to learn more about ORCID."
       generic: Generic
       header_cas: "Login using KUMC credentials"
       header_orcid: "Migrate your works data to ORCID"

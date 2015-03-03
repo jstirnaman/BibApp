@@ -1,8 +1,8 @@
 %p
   - if Bibapp::Application.config.oauth_config
     - if Bibapp::Application.config.oauth_config
-      - Bibapp::Application.config.oauth_config.keys.each do |k|
-        %h3 #{t('.header_' + k)}:
+      - Bibapp::Application.config.oauth_config.keys.sort!{|a,b| b <=> a}.each do |k|
+        %h3 #{t('.header_' + k)}
         %div{:class => "button_oauth_#{k}"}
           = link_to t('.button_oauth_' + k, :name => k.upcase), "auth/#{k}?origin=#{params['return_to']}", class: "button_oauth_#{k}"
         %p #{t('.description_' + k)}
