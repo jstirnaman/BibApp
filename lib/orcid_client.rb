@@ -51,7 +51,7 @@ def as_member(token)
   end
 end
 
-# Get records from the Identity Management report
+# Get records from a Identity Management report
 #  -- accounts added to ORCID since the last digest.
 def local_orcids
   # CSV table of row objects
@@ -59,25 +59,58 @@ def local_orcids
   rows = CSV.table('/Users/jstirnaman/dev/orcid/orcid.csv')
 end
 
-# GET orcid_id
-# Returns the fields set as "Public" in the bio portion of the ORCID Record for the scholar represented by the specified orcid_id. 
-# When used with an access token and the Member API, limited-access data is also returned.
-# (NOTE: The same results are returned for orcid_id/orcid-bio.)
+### Scopes
+  def bio_read_scope
+    '/orcid-bio/read-limited'
+  end
+
+  def works_create_scope
+    '/orcid-works/create'
+  end
+
+  def affiliations_create_scope
+    '/affiliations/create'
+  end
+
+  def external_id_create_scope
+    '/orcid-bio/external-identifiers/create'
+  end
+
+### GET
 def bio(orcid_id)
   self.class.get("/#{orcid_id}/orcid-bio",
            @options)
 end
 
-# GET orcid_id/orcid-works
-# Returns "works" research activities set as "Public"
-# and belonging to orcid_id.
-# Limited-access "works" are also returned if as_member
-# is called with an access token.
 def works(orcid_id, options)
   self.class.get("/#{orcid_id}/orcid-works")
 end
 
-# POST orcid_id/orcid-works
+### APPEND
+def post_external_id(orcid_id, options)
+  o = @options
+  o[:headers].merge!({"Content-Type" => "application/orcid+xml"})
+  o[:base_uri] = ORCID_SB_MEMBER + ORCID_API_VERSION
+  options  = o.merge(options)
+  req = self.class::Request.new(Net::HTTP::Post, "#{orcid_id}/orcid-bio/external-identifiers", options)
+  res = req.perform
+  if res.code >= 300
+    res.inspect
+  end
+end
+
+def post_affiliations(orcid_id, options)
+  o = @options
+  o[:headers].merge!({"Content-Type" => "application/orcid+xml"})
+  o[:base_uri] = ORCID_SB_MEMBER + ORCID_API_VERSION
+  options  = o.merge(options)
+  req = self.class::Request.new(Net::HTTP::Post, "#{orcid_id}/affiliations", options)
+  res = req.perform
+  if res.code >= 300
+    res.inspect
+  end
+end
+
 def post_works(orcid_id, options)
   o = @options
   o[:headers].merge!({"Content-Type" => "application/orcid+xml"})
