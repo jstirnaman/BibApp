@@ -10,24 +10,15 @@ class AuthenticationsController < ApplicationController
       @orcid.as_member(omniauth.credentials.token)
       if session[:person].nil?
         session[:person] = authenticate_by_orcid
+      else
+        @person = Person.find(session[:person]['id'])
       end
       if session[:person] && request.env['omniauth.auth']['info']['scope'] == @orcid.bio_read_scope
-        redirect_to("/auth/orcid?scope=#{@orcid.works_create_scope}")
+        redirect_to("/auth/orcid?scope=#{@orcid.works_create_scope}%20#{@orcid.affiliations_create_scope}%20#{@orcid.external_id_create_scope}")
       end
-      if session[:person] && request.env['omniauth.auth']['info']['scope'] == @orcid.works_create_scope
-        session[:omniauth] = request.env['omniauth.auth']
-        post_to_orcid(:works)
-        redirect_to("/auth/orcid?scope=#{@orcid.affiliations_create_scope}")
+      if session[:person] && request.env['omniauth.auth']['info']['scope'] =~ /#{@orcid.works_create_scope} | #{@orcid.affiliations_create_scope} | #{@orcid.external_id_create_scope}/
+        redirect_to("/people/#{@person.id}")
       end
-      if session[:person] && request.env['omniauth.auth']['info']['scope'] == @orcid.affiliations_create_scope
-        post_to_orcid(:affiliations)
-        redirect_to("/auth/orcid?scope=#{@orcid.external_id_create_scope}")
-      end
-      if session[:person] && request.env['omniauth.auth']['info']['scope'] == @orcid.external_id_create_scope
-        post_to_orcid(:external_id)
-        redirect_to("https://sandbox.orcid.org/" + session[:omniauth].uid)
-      end
-      session.destroy
      else
        authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
        if authentication
@@ -42,14 +33,10 @@ class AuthenticationsController < ApplicationController
 
   def authenticate_by_orcid
     orcid = (session[:omniauth]).uid
-    person = Person.find_by_im(orcid)
-    if person.nil?
-      person = orcid_match_by_email(session[:omniauth])
-    end
-    person
+    @person = Person.find_by_im(orcid) || match_email_to_orcid(session[:omniauth])
   end
 
-  def orcid_match_by_email(omniauth)
+  def match_email_to_orcid(omniauth)
           # Match person by email address
           bio = Nokogiri::XML(@orcid.bio(orcid).body)
           email_props = bio.css('email')
@@ -68,29 +55,6 @@ class AuthenticationsController < ApplicationController
      person
   end
 
-  def orcid_person
-    omniauth = session[:omniauth] || return
-    @person = Person.find_by_im(omniauth.uid)
-    orcid_person = render_to_string( 'people/show.orcid.builder', :layout => false, :locals => {:format => 'orcid'} )
-    orcid_person = orcid_person.gsub(/\>\s*\n\s*\</,'><').strip()
-  end
-
-  def post_to_orcid(type)
-    omniauth = session[:omniauth] || return
-    body = orcid_person
-    unless body.nil?
-      orcid_request = case type
-        when :affiliations
-          @orcid.post_affiliations(omniauth.uid, options = {:body => body} )
-        when :external_id
-          @orcid.post_external_id(omniauth.uid, options = {:body => body} )
-        when :works
-          @orcid.post_works(omniauth.uid, options = {:body => body} )
-      end
-      logger.debug(orcid_request.inspect)
-      orcid_request
-    end
-  end
 
   def authenticate_by_cas   # Lookup and add user's email to omniauth variable to satisfy User model
       casemail = session[:omniauth]['extra']['user'] + '@' + Bibapp::Application.config.oauth_config['cas']['host'][/[a-z,0-9]*\.(.*)/, 1] 
