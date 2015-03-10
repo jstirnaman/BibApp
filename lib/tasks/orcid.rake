@@ -66,7 +66,7 @@ end
 def create_file(file, person_orcid)
   File.open(file, "w") do |f|
     STDOUT.puts "Fetching #{person_orcid}"
-    f << HTTParty.get($APPLICATION_URL + '/people/' + person_orcid).body #.gsub(/\>\s*\n\s*\</,'><').strip()
+    f << HTTParty.get($APPLICATION_URL + '/people/' + person_orcid).body
   end
 rescue Exception => e
   raise e
