@@ -1,17 +1,20 @@
 
 require 'author_webservice'
-
 require 'bibapp_ldap'
+require 'orcid_client'
 
 class PeopleController < ApplicationController
   include GoogleChartsHelper
   include KeywordCloudHelper
+  include Orcid
   # Make set_keywords, the keyword exclusion methods, available to people templates.
   # Had to do this specifically to make them available to Google Promotions builder template.
   add_template_helper KeywordCloudHelper
 
   # Require a user be logged in to create / update / destroy
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :batch_csv_show, :batch_csv_create]
+  
+  caches_page :show, :if => Proc.new { |c| c.request.format.orcid? }
 
   make_resourceful do
     build :index, :new, :create, :show, :edit, :update, :destroy
@@ -143,7 +146,11 @@ class PeopleController < ApplicationController
       end
       @top_level_groups.uniq!
     end
-  
+
+    after :show do
+      perform_orcid
+    end
+
     before :destroy do
       permit "admin"
       person = Person.find(params[:id])
@@ -155,21 +162,24 @@ class PeopleController < ApplicationController
     before :edit do
       @title = t('common.people.edit_title', :name => @person.display_name)
     end
+
   end
 
   def show
     before :show
     unless current_user and current_user.has_role?('admin')
-    if @person.person_active == "false"
-      @status = 410 
-      @error_message = 'We have data for ' + @person.id.to_s + '-' + @person.display_name + ', but this person is no longer at KUMC.'
-      set_default_flash :error, @error_message
-      raise @status
+      if @person.person_active == "false"
+        @status = 410 
+        @error_message = 'We have data for ' + @person.id.to_s + '-' + @person.display_name + ', but this person is no longer at KUMC.'
+        set_default_flash :error, @error_message
+        raise @status
+      end
     end
-    end
-    response_for :show 
+    response_for :show
   rescue
-      response_for :show_fails
+    response_for :show_fails
+  else
+    after :show if request.format.html?
   end
 
   def create
@@ -301,5 +311,54 @@ class PeopleController < ApplicationController
     render 'batch_csv_show'
   end
 
+  def perform_orcid
+    flash[:notice] = "Attempting to send data to ORCiD.org. You will be redirected to your profile at #{orcid_person_url}"
+    if session[:omniauth] && session[:omniauth]['provider'] == 'orcid'
+     omniauth = session[:omniauth]
+     @orcid ||= Orcid::OrcidApi.new
+     @orcid.as_member(omniauth.credentials.token)
+     if omniauth['info']['scope'] =~ /#{@orcid.works_create_scope} | #{@orcid.affiliations_create_scope} | #{@orcid.external_id_create_scope}/
+       person_to_orcid(@person)
+     end
+    end
+  end
+
+  private
+  def person_to_orcid(person)
+    profile = orcid_profile(person.id)
+    if profile != ""
+        post_to_orcid(:works, profile)
+        post_to_orcid(:affiliations, profile)
+        post_to_orcid(:external_id, profile)
+        redirect_to orcid_person_url
+    else
+      flash.now[:notice] = "Unable to send data to ORCiD.org because ORCiD data was missing."
+    end
+  end
+
+  def orcid_profile(person_id)
+   File.open(Rails.root.to_s + "/public/orcid/#{person_id}.orcid", 'r') do |f|
+     (f.read).gsub(/\>\s*\n\s*\</,'><').strip()
+   end
+  end
+
+  def orcid_person_url
+    "https://sandbox.orcid.org/" + session[:omniauth].uid
+  end
+
+  def post_to_orcid(type, body)
+    omniauth = session[:omniauth] || return
+    unless body.nil?
+      orcid_request = case type
+        when :affiliations
+          @orcid.post_affiliations(omniauth.uid, options = {:body => body} )
+        when :external_id
+          @orcid.post_external_id(omniauth.uid, options = {:body => body} )
+        when :works
+          @orcid.post_works(omniauth.uid, options = {:body => body} )
+      end
+      orcid_request
+    end
+  end
 
 end

@@ -36,6 +36,9 @@ ORCID_API_VERSION = '/v1.2/'
 
 parser Orcid::OrcidParser
 
+def orcid_version(version = ORCID_VERSION)
+  version
+end
 # Defaults to Public API
 base_uri ORCID_SB_PUBLIC + ORCID_API_VERSION
 @options = {}
@@ -131,8 +134,8 @@ end
 
 def validate(xmldocs, version = ORCID_VERSION)
   orcid_schema_path = "https://raw.githubusercontent.com/ORCID/ORCID-Source/master/orcid-model/src/main/resources/"
-  schema_file = self.class.get(orcid_schema_path + "orcid-message-#{version}.xsd").body
-  schema_file = schema_file.gsub(/\>\s*\n\s*\</,'><').strip()
+  orcid_schema_url = orcid_schema_path + "orcid-message-#{version}.xsd"
+  schema_file = cache_schema(orcid_schema_url)
 	result = {}
 	xsd = Nokogiri::XML::Schema(schema_file)
 	xmldocs = xmldocs.class == Array ? xmldocs : [xmldocs]
@@ -152,5 +155,19 @@ def validate(xmldocs, version = ORCID_VERSION)
 	result
 end
 
+def cache_schema(url)
+  if Rails
+    Rails.cache.fetch(url, expires_in: 24.hours) do
+      response = self.class.get(orcid_schema_url)
+      schema_file = response.body.gsub(/\>\s*\n\s*\</,'><').strip()
+      if schema_file.success?
+        schema_file
+      else
+        raise response.message
+      end
+    end
   end
+end
+
+end
 end
