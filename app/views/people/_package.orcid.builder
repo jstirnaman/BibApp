@@ -4,14 +4,14 @@ xml.tag!("orcid-profile") do
 	  xml.tag!("personal-details") do
 	  	xml.tag!("given-names", @person.first_name)
 		  xml.tag!("family-name", @person.last_name)
-		  xml.tag!("other-names", "visibility"=>"public") do
- 		    pen_names = @person.pen_names.map do |pen_name|
-		      NameString.find(pen_name.name_string_id).name
-		    end
-		    pen_names.uniq.each do |ns|
- 		        xml.tag!("other-name", ns)
-		    end
-		  end
+#		  xml.tag!("other-names", "visibility"=>"public") do
+# 		    pen_names = @person.pen_names.map do |pen_name|
+#		      NameString.find(pen_name.name_string_id).name
+#		    end
+#		    pen_names.uniq.each do |ns|
+# 		        xml.tag!("other-name", ns)
+#		    end
+#		  end
 	  end
 	  xml.tag!("contact-details") do
 	    xml.email({"primary" => "true"}, @person.email)
@@ -25,7 +25,6 @@ xml.tag!("orcid-profile") do
 ###
 		xml.tag!("external-identifiers", "visibility"=>"public") do
 			xml.tag!("external-identifier") do
-				# xml.tag!("external-id-orcid", $ORCID_CLIENT_ID)
 				xml.tag!("external-id-common-name", "#{t('personalize.university_full_name')} (#{t('personalize.university_short_name')}) #{t('personalize.application_name')}")
 				xml.tag!("external-id-reference", @person.id)
 				xml.tag!("external-id-url", person_url(@person))
