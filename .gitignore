@@ -21,5 +21,6 @@ coverage/
 .idea/
 public/attachments/
 public/groups/
+public/orcid/
 public/people/
 public/tolk/
