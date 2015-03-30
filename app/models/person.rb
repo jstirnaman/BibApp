@@ -31,6 +31,7 @@ class Person < ActiveRecord::Base
   #### Validators ####
 
   validates_presence_of :uid
+  validates :orcid, length: { in: 16..20 }, allow_nil: true
 
   #### Sanitize HTML ####
   html_fragment :research_focus, :scrub => :escape
