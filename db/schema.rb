@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023171020) do
+ActiveRecord::Schema.define(:version => 20150327173831) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "asset_id"
@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(:version => 20121023171020) do
     t.string   "display_name"
     t.text     "postal_address"
     t.integer  "user_id"
+    t.string   "orcid"
   end
 
   add_index "people", ["machine_name"], :name => "person_machine_name"
