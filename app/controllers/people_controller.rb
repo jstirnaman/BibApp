@@ -169,10 +169,9 @@ class PeopleController < ApplicationController
     before :show
     unless current_user and current_user.has_role?('admin')
       if @person.person_active == "false"
-        @status = 410 
+        response.status = 410 
         @error_message = 'We have data for ' + @person.id.to_s + '-' + @person.display_name + ', but this person is no longer at KUMC.'
         set_default_flash :error, @error_message
-        raise @status
       end
     end
     response_for :show
@@ -313,11 +312,13 @@ class PeopleController < ApplicationController
 
   def perform_orcid
     if session[:omniauth] && session[:omniauth]['provider'] == 'orcid'
-      omniauth = session[:omniauth]
-      @orcid_client ||= Orcid::OrcidApi.new
-      @orcid_client.as_member(omniauth.credentials.token)
-      if omniauth['info']['scope'] =~ /#{@orcid_client.works_create_scope} | #{@orcid_client.affiliations_create_scope} | #{@orcid_client.external_id_create_scope}/
-        person_to_orcid(@person)
+      if session[:omniauth]['uid'] == @person.orcid
+        omniauth = session[:omniauth]
+        @orcid_client ||= Orcid::OrcidApi.new
+        @orcid_client.as_member(omniauth.credentials.token)
+        if omniauth['info']['scope'] =~ /#{@orcid_client.works_create_scope} | #{@orcid_client.affiliations_create_scope} | #{@orcid_client.external_id_create_scope}/
+          person_to_orcid(@person)
+        end
       end
     end
   end
@@ -326,18 +327,23 @@ class PeopleController < ApplicationController
   def person_to_orcid(person)
     profile = orcid_profile(person.id)
     if profile != ""
-        post_to_orcid(:works, profile)
-        post_to_orcid(:affiliations, profile)
-        post_to_orcid(:external_id, profile)
-        redirect_to orcid_person_url
+      post_to_orcid(:works, profile)
+      post_to_orcid(:affiliations, profile)
+      post_to_orcid(:external_id, profile)
+      redirect_to orcid_person_url
     else
-      flash.now[:notice] = "Unable to send data to ORCiD.org because ORCiD data was missing."
+      response.status = 404
+      @error_message = "We are unable to send data to ORCID.org because ORCID data was missing."
+      set_default_flash :error, @error_message
     end
   end
 
   def orcid_profile(person_id)
-   File.open(Rails.root.to_s + "/public/orcid/#{person_id}.orcid", 'r') do |f|
-     (f.read).gsub(/\>\s*\n\s*\</,'><').strip()
+   profile = Rails.root.to_s + "/public/orcid/#{person_id}.orcid"
+   if File.exists?(profile)
+     File.open(profile, 'r') do |f|
+       (f.read).gsub(/\>\s*\n\s*\</,'><').strip()
+     end
    end
   end
 
