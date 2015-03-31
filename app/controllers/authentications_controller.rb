@@ -28,8 +28,7 @@ class AuthenticationsController < ApplicationController
   end
 
   def authenticate_person_by_orcid(omniauth)
-    @orcid_client ||= Orcid::OrcidApi.new
-    @orcid_client.as_member(omniauth.credentials.token)
+    @orcid_client ||= Orcid::OrcidApi.new(as_member: true, token: omniauth.credentials.token)
     if session[:person]
       Person.find(session[:person]['id'])
     else

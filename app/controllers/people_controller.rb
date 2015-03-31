@@ -314,8 +314,7 @@ class PeopleController < ApplicationController
     if session[:omniauth] && session[:omniauth]['provider'] == 'orcid'
       if session[:omniauth]['uid'] == @person.orcid
         omniauth = session[:omniauth]
-        @orcid_client ||= Orcid::OrcidApi.new
-        @orcid_client.as_member(omniauth.credentials.token)
+        @orcid_client ||= Orcid::OrcidApi.new(as_member: true, token: omniauth.credentials.token)
         if omniauth['info']['scope'] =~ /#{@orcid_client.works_create_scope} | #{@orcid_client.affiliations_create_scope} | #{@orcid_client.external_id_create_scope}/
           person_to_orcid(@person)
         end
