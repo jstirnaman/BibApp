@@ -96,7 +96,7 @@ class PeopleController < ApplicationController
 
     before :new do
       if params[:q]
-      # Replaced LDAP lookup with KUMC's local directory webservice search.
+      # Replaced LDAP lookup with KUMC local directory webservice search.
         begin
           @ldap_results = AuthorWebservice.instance.search(params[:q])
         rescue StandardError => e
@@ -312,14 +312,13 @@ class PeopleController < ApplicationController
   end
 
   def perform_orcid
-    flash[:notice] = "Attempting to send data to ORCiD.org. You will be redirected to your profile at #{orcid_person_url}"
     if session[:omniauth] && session[:omniauth]['provider'] == 'orcid'
-     omniauth = session[:omniauth]
-     @orcid ||= Orcid::OrcidApi.new
-     @orcid.as_member(omniauth.credentials.token)
-     if omniauth['info']['scope'] =~ /#{@orcid.works_create_scope} | #{@orcid.affiliations_create_scope} | #{@orcid.external_id_create_scope}/
-       person_to_orcid(@person)
-     end
+      omniauth = session[:omniauth]
+      @orcid_client ||= Orcid::OrcidApi.new
+      @orcid_client.as_member(omniauth.credentials.token)
+      if omniauth['info']['scope'] =~ /#{@orcid_client.works_create_scope} | #{@orcid_client.affiliations_create_scope} | #{@orcid_client.external_id_create_scope}/
+        person_to_orcid(@person)
+      end
     end
   end
 
@@ -351,11 +350,11 @@ class PeopleController < ApplicationController
     unless body.nil?
       orcid_request = case type
         when :affiliations
-          @orcid.post_affiliations(omniauth.uid, options = {:body => body} )
+          @orcid_client.post_affiliations(omniauth.uid, options = {:body => body} )
         when :external_id
-          @orcid.post_external_id(omniauth.uid, options = {:body => body} )
+          @orcid_client.post_external_id(omniauth.uid, options = {:body => body} )
         when :works
-          @orcid.post_works(omniauth.uid, options = {:body => body} )
+          @orcid_client.post_works(omniauth.uid, options = {:body => body} )
       end
       orcid_request
     end

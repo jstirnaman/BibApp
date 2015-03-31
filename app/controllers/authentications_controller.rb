@@ -38,10 +38,6 @@ class AuthenticationsController < ApplicationController
     end
   end
 
-  def orcid_person(orcid)
-    Person.find_by_orcid(orcid) || person_from_orcid_email(orcid)
-  end
-
   def authenticate_by_cas   # Lookup and add user's email to omniauth variable to satisfy User model
       casemail = session[:omniauth]['extra']['user'] + '@' + Bibapp::Application.config.oauth_config['cas']['host'][/[a-z,0-9]*\.(.*)/, 1] 
       casuser = User.find_by_sql ["SELECT email FROM users WHERE email LIKE ? LIMIT 1", casemail]
@@ -100,10 +96,8 @@ class AuthenticationsController < ApplicationController
    redirect_to request.env['omniauth.origin'] || root_url
   end
 
-  def orcid_email_verified(orcid)
-    bio = Nokogiri::XML(@orcid_client.bio(orcid).body)
-    email = bio.css('email')
-    email.xpath('./@verified').text() == "true" ? email.text() : nil
+  def orcid_person(orcid)
+    Person.find_by_orcid(orcid) || person_from_orcid_email(orcid)
   end
 
   def person_from_orcid_email(orcid)
@@ -113,6 +107,12 @@ class AuthenticationsController < ApplicationController
       person.update_attributes(:orcid => orcid)
       person.save!
     end
+  end
+
+  def orcid_email_verified(orcid)
+    bio = Nokogiri::XML(@orcid_client.bio(orcid).body)
+    email = bio.css('email')
+    email.xpath('./@verified').text() == "true" ? email.text() : nil
   end
 
   def redirect_after_orcid_auth
