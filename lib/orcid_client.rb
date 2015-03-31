@@ -18,11 +18,15 @@ module Orcid
   class OrcidApi
     include HTTParty
 
-    # ORCID Public Sandbox API base URI
-    ORCID_SB_PUBLIC = 'https://pub.sandbox.orcid.org'
+    ORCID_SANDBOX = {
+      :public => "https://pub.sandbox.orcid.org",
+      :member => "https://api.sandbox.orcid.org"
+    }
 
-    #ORCID Member Sandbox API base URI
-    ORCID_SB_MEMBER = 'https://api.sandbox.orcid.org'
+    ORCID_PRODUCTION = {
+      :public => "https://pub.orcid.org",
+      :member => "https://api.orcid.org"
+    }
 
     # ORCID API Version
     ORCID_VERSION = '1.2'
@@ -31,18 +35,36 @@ module Orcid
 
     parser Orcid::OrcidParser
 
+    attr_accessor :env
+    attr_reader :as_member, :token
+
+    def initialize(options = {})
+      @env = options[:env] || :production
+      @as_member = options[:as_member]
+      @token = options[:token]
+      public_base_uri
+      memberize(@token) if @as_member
+    end
+
     def orcid_version(version = ORCID_VERSION)
       version
     end
-    # Defaults to Public API
-    base_uri ORCID_SB_PUBLIC + ORCID_API_VERSION
-    @options = {}
 
-    def member_base_uri
-      self.class.base_uri ORCID_SB_MEMBER + ORCID_API_VERSION
+    def uris
+      env == :production ? ORCID_PRODUCTION : ORCID_SANDBOX
     end
 
-    def as_member(token)
+    @options = {}
+
+    def public_base_uri
+      self.class.base_uri uris[:public] + ORCID_API_VERSION
+    end
+
+    def member_base_uri
+      self.class.base_uri uris[:member] + ORCID_API_VERSION
+    end
+
+    def memberize(token)
       if token
         @options = {:headers => {"Authorization" => "Bearer " + token}}
         member_base_uri
@@ -78,35 +100,23 @@ module Orcid
 
     ### APPEND
     def post_external_id(orcid_id, options)
-      o = @options
-      o[:headers].merge!({"Content-Type" => "application/orcid+xml"})
-      o[:base_uri] = ORCID_SB_MEMBER + ORCID_API_VERSION
-      options  = o.merge(options)
-      req = self.class::Request.new(Net::HTTP::Post, "#{orcid_id}/orcid-bio/external-identifiers", options)
-      res = req.perform
-      if res.code >= 300
-        res.inspect
-      end
+      do_post(orcid_id, "/orcid-bio/external-identifiers", options)
     end
 
     def post_affiliations(orcid_id, options)
-      o = @options
-      o[:headers].merge!({"Content-Type" => "application/orcid+xml"})
-      o[:base_uri] = ORCID_SB_MEMBER + ORCID_API_VERSION
-      options  = o.merge(options)
-      req = self.class::Request.new(Net::HTTP::Post, "#{orcid_id}/affiliations", options)
-      res = req.perform
-      if res.code >= 300
-        res.inspect
-      end
+      do_post(orcid_id, "/affiliations", options)
     end
 
     def post_works(orcid_id, options)
+      do_post(orcid_id, "/orcid-works", options)
+    end
+
+    def do_post(orcid_id, action, options)
       o = @options
       o[:headers].merge!({"Content-Type" => "application/orcid+xml"})
-      o[:base_uri] = ORCID_SB_MEMBER + ORCID_API_VERSION
+      o[:base_uri] = uris[:member] + ORCID_API_VERSION
       options  = o.merge(options)
-      req = self.class::Request.new(Net::HTTP::Post, "#{orcid_id}/orcid-works", options)
+      req = self.class::Request.new(Net::HTTP::Post, "#{orcid_id}/" + action, options)
       res = req.perform
       if res.code >= 300
         res.inspect
