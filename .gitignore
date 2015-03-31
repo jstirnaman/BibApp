@@ -4,6 +4,8 @@ config/smtp.yml
 config/solr.yml
 config/sword.yml
 config/personalize.rb
+config/oauth.yml
+config/directory_service.yml
 tmp/
 public.old/
 .svn
