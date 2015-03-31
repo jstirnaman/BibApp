@@ -339,12 +339,15 @@ class PeopleController < ApplicationController
   end
 
   def orcid_profile(person_id)
-   profile = Rails.root.to_s + "/public/orcid/#{person_id}.orcid"
-   if File.exists?(profile)
-     File.open(profile, 'r') do |f|
+   cached_profile = Rails.root.to_s + "/public/orcid/#{person_id}.orcid"
+   if File.exists?(cached_profile)
+     File.open(cached_profile, 'r') do |f|
        (f.read).gsub(/\>\s*\n\s*\</,'><').strip()
      end
+   else
+     render_to_string(:action => "show", :formats => [:orcid])
    end
+   
   end
 
   def orcid_person_url
