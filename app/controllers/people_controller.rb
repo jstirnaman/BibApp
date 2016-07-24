@@ -271,7 +271,7 @@ class PeopleController < ApplicationController
     end
     chd.chop!
     chl.chop!
-    @chart_url = "http://chart.apis.google.com/chart?cht=p&chco=346090&chs=350x100&#{chd}&#{chl}"
+    @chart_url = "https://chart.googleapis.com/chart?cht=p&chco=346090&chs=350x100&#{chd}&#{chl}"
 
     render :update do |page|
       page.replace_html "loading_reftype_chart", "<img src='#{@chart_url}' alt='work-type chart' style='margin-left: -50px;margin-bottom:20px;' />"
